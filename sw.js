@@ -13,6 +13,49 @@ const STATIC_CACHE = 'ordinal-static';
 const CODE_CACHE = 'ordinal-code';
 const NAV_CACHE = 'ordinal-nav';
 
+// ===== BUGS #3072 备份落盘通道：把文件放进这本账，用一条普通 http 地址交出去 =====
+// 旧路只有一条 blob: ＋ <a download>：Chromium 系正常；但 Via 这类直接骑在系统 WebView 上的壳，
+// 下载 blob 要先把字节经 JavaBridge（@JavascriptInterface 那条线程）抱回 Java 侧——文件一大
+//（整包备份动辄几十上百 MB）那一趟直接把壳崩掉：屏上 toast「Exception Happended
+// Thread[JavaBridge,5,main]」→ 应用闪退（vivo X300 · Via 实测；Via 仓库 #1087「无法保存 blob:
+// 大型文件」同族）。这条路把字节写进 Cache API（磁盘账本，不过桥），下载走一条带
+// Content-Disposition: attachment 的普通地址＝壳的自带下载器最熟的那条路。
+const SAVE_CACHE = 'ordinal-save';
+const SAVE_MARK = '/__save/';
+const SAVE_TTL = 30 * 60 * 1000;   // 没被取走的暂存按这一限清（正常在下载那一下当场取走即删）
+
+function saveDisposition(name) {
+  const n = String(name || 'download');
+  const ascii = n.replace(/[^\x20-\x7e]+/g, '_').replace(/["\\]/g, '_') || 'download';
+  return 'attachment; filename="' + ascii + '"; filename*=UTF-8\'\'' + encodeURIComponent(n);
+}
+
+async function saveSweep(keepUrl) {
+  try {
+    const cache = await caches.open(SAVE_CACHE);
+    const reqs = await cache.keys();
+    const now = Date.now();
+    for (const rq of reqs) {
+      if (rq.url.indexOf(SAVE_MARK) < 0) continue;
+      if (keepUrl && rq.url.split('?')[0] === keepUrl) continue;
+      let old = 0;
+      try { old = Number(new URL(rq.url).searchParams.get('t')) || 0; } catch (e) {}
+      if (!keepUrl && now - old < SAVE_TTL) continue;
+      try { await cache.delete(rq); } catch (e) {}
+    }
+  } catch (e) {}
+}
+
+async function saveServe(url) {
+  const key = url.origin + url.pathname;   // 去查询串（页在地址上带了 ?t= 时间戳与文件名）
+  try {
+    const cache = await caches.open(SAVE_CACHE);
+    const res = await cache.match(key);
+    if (res) { try { await cache.delete(key); } catch (e) {} return res; }
+  } catch (e) {}
+  return new Response('gone', { status: 404 });
+}
+
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -61,6 +104,7 @@ self.addEventListener('activate', (event) => {
     const keys = await caches.keys();
     await Promise.all(keys.filter((k) => /^ordinal-v\d+-/.test(k)).map((k) => caches.delete(k)));
     await sweepCode();
+    await saveSweep();   // BUGS #3072：上次会话没被取走的备份暂存清掉
   })());
   self.clients.claim();
 });
@@ -124,6 +168,13 @@ self.addEventListener('fetch', (event) => {
   // ⚠ 当年是反馈表那条 POST 把它逼出来的（FEATURES #2127）；2026-10-27 反馈改成纯说明页、站内不再
   //   发任何请求，这一行**照旧留着**——它守的是「SW 不吞写请求」这件事本身，不是那张表。
   if (event.request.method !== 'GET') return;
+
+  // BUGS #3072 备份落盘通道：先于「页面导航」那条判据——<a download> 那一发请求的 mode 就是
+  // 'navigate'，落进 navWithBundle 会被当成导航页、整条通道作废。只认自己名下的地址，其余照旧。
+  if (url.pathname.indexOf(SAVE_MARK) >= 0) {
+    event.respondWith(saveServe(url));
+    return;
+  }
 
   // 页面导航：#545 起走「成套判定」——拿到最新那一页还不够，还得它引的那两件也在缓存里才肯交给屏上。
   // 单独把新页放出去＝把「有顶栏没内容」的空壳送上门（那一屏的来由见 html/head.html 里 #545 那段）。
@@ -454,6 +505,25 @@ self.addEventListener('message', (e) => {
     }
   };
   try { e.waitUntil(run()); } catch (x) { run(); }
+});
+
+// ===== BUGS #3072：页面把一份文件交进来，放进 SAVE_CACHE 那本账，回执里给一条可点击的普通地址 =====
+// 字节住 Cache API（磁盘），不复制、不转 base64、不过 JavaBridge；地址只活一次——下载那一下取走即删。
+// 页面侧的取数口在 js/utils.js 的 _swSaveStage（offerSaveBlob 弹卡那一刻就先搬，用户按键时多半已备好）。
+self.addEventListener('message', (e) => {
+  const d = e.data || {};
+  if (d.type !== 'SAVE_BLOB' || !d.blob || !d.token) return;
+  const base = new URL('./', self.registration.scope).href;
+  const url = base.replace(/\/$/, '') + SAVE_MARK.slice(0, -1) + '/' + d.token + '?t=' + Date.now();
+  const reply = (ok) => { try { if (e.source && e.source.postMessage) e.source.postMessage({ type: 'SAVE_READY', token: d.token, url: ok ? url : '' }); } catch (x) {} };
+  e.waitUntil((async () => {
+    const cache = await caches.open(SAVE_CACHE);
+    await cache.put(url.split('?')[0], new Response(d.blob, {
+      headers: { 'Content-Type': d.mime || 'application/octet-stream', 'Content-Disposition': saveDisposition(d.name), 'Cache-Control': 'no-store' }
+    }));
+    saveSweep(url.split('?')[0]);   // 顺手清掉别人家没取走的（不 await，别拖慢回执）
+    reply(true);
+  })().catch(() => reply(false)));
 });
 
 // 后台弹窗点击（mochi 移植）：聚焦已有窗口 / 开新窗口，并 postMessage 通知页面端跳转。

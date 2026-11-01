@@ -14,8 +14,8 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v22.6.7.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v22.6.7.js"></script>
+  <link rel="stylesheet" href="dist/app.v22.9.4.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v22.9.4.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +251,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v22.6.7.css','dist/app.v22.6.7.js'];
+      var BOOT_FILES = ['dist/app.v22.9.4.css','dist/app.v22.9.4.js'];
 
 
 
@@ -1097,6 +1097,8 @@
            
           <div class="fb-head" id="agRepHead"></div>
            
+          <div class="fb-notice" id="agRepNotice"></div>
+           
           <div class="fb-rules" id="agRepRules"></div>
            
           <div class="fb-sec">
@@ -1165,7 +1167,7 @@
       <div class="chats-list" id="chatsList"></div>
        
       <div class="solo-peek" id="soloPeek" hidden></div>
-      <div class="chats-empty" id="chatsEmpty" hidden><p class="es-en">NO CHATS YET</p><p class="chats-empty-title">还没有会话</p><p class="chats-empty-hint">先添加一位 TA，就能开始聊了；建群也行</p><button type="button" class="chats-empty-add" id="chatsEmptyAdd">添加第一位 TA</button></div>
+      <div class="chats-empty" id="chatsEmpty" hidden><p class="es-en">NO CHATS YET</p><p class="chats-empty-title">还没有会话</p><p class="chats-empty-hint">先添加一位 TA，就能开始聊了；建群也行</p><button type="button" class="chats-empty-add" id="chatsEmptyAdd">添加第一位 TA</button><button type="button" class="chats-empty-guide" id="chatsEmptyGuide">第一次用？看一遍新手引导</button></div>
        
     </section>
 
@@ -1181,8 +1183,10 @@
       <div class="tune-main" id="soloTuneMain">
         <div class="tune-tabs" id="soloTuneTabs" role="tablist">
           <button type="button" class="tune-tab on" data-solo-sec="bg" role="tab">背景</button>
-          <button type="button" class="tune-tab" data-solo-sec="shape" role="tab">圆角与高度</button>
+          <button type="button" class="tune-tab" data-solo-sec="tone" role="tab">底板</button>
+          <button type="button" class="tune-tab" data-solo-sec="shape" role="tab">形状</button>
           <button type="button" class="tune-tab" data-solo-sec="head" role="tab">框头</button>
+          <button type="button" class="tune-tab" data-solo-sec="text" role="tab">内文</button>
           <button type="button" class="tune-tab" data-solo-sec="plan" role="tab">一套</button>
         </div>
         <div class="tune-scope" id="soloTuneScope"></div>
@@ -2136,41 +2140,8 @@
         </div>
 
          
-        <div class="setting-card sp-card" data-tab="desk">
-          <div class="sp-card-hd">
-            <div class="sp-card-tx"><span class="sp-card-ti">单人框 · 自由美化</span><small class="sp-card-sum" id="sumSoloTune"></small></div>
-            <button type="button" class="soft-btn sp-card-btn" id="soloTuneEntry">边看边调</button>
-          </div>
-          <div class="contact-chip-row" id="spWhoRow" style="margin:4px 0 10px"></div>
-          <div class="sp-preview-wrap" id="spPreviewWrap"><div class="solo-peek sp-preview" id="soloPeekPreview"></div></div>
-          <p class="data-note" id="spPreviewNote" style="margin-top:0"></p>
-          <div id="spInlineCtl">
-            <div class="ap-sec" data-solo-body="bg">
-              <div class="ap-row"><span>背景</span><div class="contact-chip-row" style="margin:0" id="spBgRow"><button type="button" class="contact-chip" data-v="plain">素色</button><button type="button" class="contact-chip" data-v="chat">透这一位的聊天背景图</button></div></div>
-              <div class="ap-row" id="spToneWrap"><span>底板深浅</span><div class="contact-chip-row" style="margin:0" id="spToneRow"><button type="button" class="contact-chip" data-v="light">更浅</button><button type="button" class="contact-chip" data-v="std">标准</button><button type="button" class="contact-chip" data-v="deep">更深</button></div></div>
-              <div id="spImgWrap" hidden>
-                <label class="ap-knob"><span>面板浓度</span><input type="range" id="spFace" min="35" max="95" step="1" value="62" aria-label="面板浓度"><output id="spFaceOut">62%</output></label>
-                <label class="ap-knob"><span>磨砂强度</span><input type="range" id="spBlur" min="0" max="24" step="1" value="0" aria-label="磨砂强度"><output id="spBlurOut">0px</output></label>
-              </div>
-              <p class="data-note">素色只动底板深浅；选「透聊天背景图」才出现浓度与磨砂——浓度是压在图上的<b>白纱</b>（最低 35%，保住字），磨砂糊的是<b>图本体</b>、不糊字。图直接复用这一位已设的聊天背景，不另传。</p>
-            </div>
-            <div class="ap-sec" data-solo-body="shape">
-              <div class="ap-row"><span>圆角</span><div class="contact-chip-row" style="margin:0" id="spRadiusRow"><button type="button" class="contact-chip" data-v="auto">跟随卡片</button><button type="button" class="contact-chip" data-v="sharp">更利落</button><button type="button" class="contact-chip" data-v="round">更圆</button></div></div>
-              <label class="ap-knob"><span>半框高度</span><input type="range" id="spH" min="40" max="70" step="1" value="52" aria-label="半框高度"><output id="spHOut">52%</output></label>
-              <p class="data-note">「跟随卡片」＝卡片里那档内嵌圆角（出厂 14px），不跟全站「利落／柔和」那档走。高度出厂 52%＝现在那一档；70% 时在会话页把托盘「收起」就能看全。内部照旧自滚、永远停最新。</p>
-            </div>
-            <div class="ap-sec" data-solo-body="head">
-              <div class="ap-row"><span>框头显示</span><span style="font-size:11px;color:var(--muted)">关掉哪一项就少哪一项</span></div>
-              <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>头像</span><input type="checkbox" id="spAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-              <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>名字与副题</span><input type="checkbox" id="spName" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-              <div class="ap-row" style="flex-direction:row;align-items:center;justify-content:space-between"><span>进入聊天 ›</span><input type="checkbox" id="spGo" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-              <p class="data-note">三项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
-            </div>
-            <div class="ap-sec" data-solo-body="plan">
-              <div class="ap-row"><span>一套套上</span><div class="contact-chip-row" style="margin:0" id="spPresetRow"><button type="button" class="contact-chip" data-v="now">现状</button><button type="button" class="contact-chip" data-v="silver">素银</button><button type="button" class="contact-chip" data-v="clean">极简</button></div></div>
-              <p class="data-note">每套只是把这九格<b>已有值</b>一次写好，套完仍能单改；改的是<b>这一位</b>，不动别人。现状＝出厂那档。</p>
-            </div>
-          </div>
+        <div class="setting-card" data-tab="desk">
+          <button type="button" class="mate-jump" id="soloFramePageBtn"><span class="fold-tx"><span class="fold-ti">单人框美化</span><small class="fold-sum" id="sumSoloTune"></small></span><i class="fold-ar">›</i></button>
         </div>
 
         <div class="setting-card fold" data-tab="desk" data-fold="light">
@@ -2747,7 +2718,8 @@
             <div class="check-row"><label class="check-item"><input type="checkbox" id="rnOn"><span>允许「已读不回」<span style="display:block;font-size:11px;color:var(--muted)">关掉＝这一枚不抽了。它和下面「话没挤过来」各管各的：只关一枚，仍可能被另一枚拦下。</span></span></label></div>
             <label id="rnProbLab">已读不回概率（%）<input type="text" id="rnProb" min="0" max="100" inputmode="numeric"></label>
             <p class="data-note">每一轮回复前抽一次；填 0＝从此不出现「对方已读不回」。</p>
-            <div class="check-row"><label class="check-item"><input type="checkbox" id="rnByState"><span>按 TA 此刻在做什么浮动「已读不回」<span style="display:block;font-size:11px;color:var(--muted)">空闲 ×0.5 · 忙碌 ×1.8 · 忙着 ×2.2 · 休息 ×1.4 · 睡着 ×3 · 读不到 ×1，再乘「在做什么」那一族（×0.4–1.5）。填 0 乘多少还是 0。</span></span></label></div>
+             
+            <div class="check-row"><label class="check-item"><input type="checkbox" id="rnByState"><span>按 TA 此刻在做什么浮动「已读不回」<span style="display:block;font-size:11px;color:var(--muted)">空闲 ×0.5 · 忙碌 ×1.8 · 忙着 ×2.2 · 休息 ×1.4 · 睡着 ×3 · 读不到 ×1，再乘「在做什么」那一族（×0.4–1.5）。「忙碌」「忙着」说的是手占着，不是不想理你——忙着回你、忙着贴贴的那几族会把概率往下压，摊开见「功能说明」。填 0 乘多少还是 0。</span></span></label></div>
             <div class="check-row"><label class="check-item"><input type="checkbox" id="strayOn"><span>允许「话没挤过来」<span style="display:block;font-size:11px;color:var(--muted)">关掉＝这一枚不抽了。它和「已读不回」各管各的：只关一枚，仍可能被另一枚拦下。</span></span></label></div>
             <label id="strayProbLab">话没挤过来的概率（%）<input type="text" id="strayProb" min="0" max="100" inputmode="numeric"></label>
             <p class="data-note">命中那一轮只落一行「有句话没挤过两个世界」，不发气泡；填 0＝从不。两枚都开着时先抽它，再抽「已读不回」。</p>
@@ -3111,7 +3083,15 @@
             <div class="rh-tr" role="row"><span>睡着</span><span>×3</span><span>60%</span></div>
             <div class="rh-tr" role="row"><span>读不到 / 未知</span><span>×1</span><span>20%</span></div>
           </div>
-          <p class="rh-note">第三列是范围，因为同一档里还分「在做什么」：贴贴 ×0.4、装忙 ×0.5、想你 ×0.55，会少拖；真有事 ×1.3、在外面（空闲时）×1.35、赶时间 ×1.5，会多拖。单看档位是睡着最高，但「忙着·赶时间」是 2.2×1.5＝66%，比睡着的 60% 还高一点。</p>
+          <p class="rh-note">第三列是范围：同一档里还分「在做什么」那一族，族只在本档内做微调，不替档位定基调。下面按档摊开。</p>
+
+           
+          <p><b>「忙碌」「忙着」说的是手占着，不是不想理你。</b>「忙碌」这一档里只有约四分之一是「真有事」，另有一成多是在外「跑腿」；剩下四成多是<b>贴贴、装忙、发呆</b>——人正黏在你旁边，你一开口就应，所以那几族把概率往下压（贴贴 ×0.4、装忙 ×0.5）。档位那一行只回答「这会儿方不方便」，不回概率实际落在哪，要看它当时在干什么。</p>
+          <p class="rh-note">「忙着」是另一档：手忙、赶时间、应酬，两只手都是真占着，这一档里没有「黏着你」的族——它才是唯一一档「不方便」就是不方便。反过来，空闲那一档也不全是好消息：在外面、弄点小事会把概率往上抬。</p>
+          <div class="rh-table" id="rhFamTable" role="table" aria-label="按「在做什么」那一族的倍率"></div>
+           
+          <p class="rh-note">同一族在这两件事上可以反向：<b>贴贴</b>会让他更早主动开口（间隔 ×0.6）、也更不可能已读不回（×0.4）；<b>装忙</b>正相反——隔得更久才来找你（×1.5），可你一叫他立刻回（不回 ×0.5）。「多久开口」与「会不会不理你」问的不是同一件事，所以不跟着同一头走。</p>
+          <p class="rh-note">族倍率区间是 ×0.40–1.50；睡着与未知不分族（这两档只有上面档位那一行）。单看档位是睡着最高，但「忙着·赶时间」是 2.2×1.5＝66%，比睡着的 60% 还高一点。</p>
           <p class="rh-warn">所以「填 20」不等于每轮 20%：只有读不到状态时才是 20%；睡着时是 60%。</p>
         </section>
 
@@ -3161,6 +3141,62 @@
         <div class="rh-foot mono">言字卡 · REPLY RHYTHM</div>
       </div>
     </section>
+     
+    <section class="view" id="onboardView">
+      <div class="rh-page">
+        <div class="rh-head">
+          <span class="rh-en mono">WELCOME · 第一次用</span>
+          <h2>欢迎来到言字卡</h2>
+          <p class="rh-lead">这是你和 TA 的私人聊天，全部数据只存在这台设备上。开始只有三步——做完前两步就能聊起来了。</p>
+           
+          <p class="rh-lead-sub">有功能不清楚、找不到的：到「更多」页顶部的【使用大全】里查——全站功能都收在那册目录里，每项写着它是干什么的、入口在哪。</p>
+        </div>
+
+        <section class="rh-card">
+          <h3>第一步 · 添加联系人</h3>
+          <p>先给 TA 起个名字。点下面这行会回到聊天页并打开「添加联系人」的面板；想多聊几位，以后随时能再加。</p>
+          <button type="button" class="rh-entry" data-ob-act="contact"><span class="rh-entry-ico">1</span><span class="rh-entry-tx"><b>去添加联系人</b><small>聊天页右上角 ＋ → 添加联系人</small></span><span class="rh-entry-go">›</span></button>
+        </section>
+
+        <section class="rh-card">
+          <h3>第二步 · 在字卡库添加字卡</h3>
+          <p>TA 说的每一句话都从「字卡」里抽出来。去「字卡库 → 主字卡」放几张 TA 会说的话；可以先放几张公用的，之后再专属给某位 TA。</p>
+          <p class="rh-note">添加了字卡，就可以在聊天里发送消息了——联系人会用字卡回复你。一张都没有时 TA 没话可说，屏上会提示你先去加卡。</p>
+          <button type="button" class="rh-entry" data-ob-act="cards"><span class="rh-entry-ico">2</span><span class="rh-entry-tx"><b>去字卡库</b><small>底部导航「字卡库」也能进</small></span><span class="rh-entry-go">›</span></button>
+        </section>
+
+        <section class="rh-card">
+          <h3>第三步 · 按自己的习惯调设置（可以先不调）</h3>
+          <p>回复速度、已读不回、话没挤过来这些都在「TA 的设置 → 回复节奏」。<b>默认设置就是作者自己的使用习惯</b>——用得习惯就先不调，哪一条用着不顺手了再回去改。</p>
+          <button type="button" class="rh-entry" data-ob-act="speed"><span class="rh-entry-ico">3</span><span class="rh-entry-tx"><b>去回复节奏设置</b><small>调数值；每个数怎么算的，下面先讲清</small></span><span class="rh-entry-go">›</span></button>
+        </section>
+
+        <section class="rh-card">
+          <h3>「已读不回」会按 TA 此刻在做什么浮动</h3>
+          <p>你填的那个「已读不回概率」只是基准，真正生效的是相乘：<b>你填的数 × 档位倍率 ×「在做什么」倍率</b>。表里第三列按「你填 20」举例（20 就是出厂值）。</p>
+          <div class="rh-table" id="obFamTable" role="table" aria-label="按 TA 此刻在做什么的倍率"></div>
+          <p class="rh-note">档位回答「这会儿方不方便」，同一档里的族回答「具体在干什么」：忙碌档里的「贴贴 ×0.4」「装忙 ×0.5」反而把概率往下压——手上有事不等于不想理你。睡着与未知不分族，只有档位那一行。这张表的名单与倍率全部现读，和引擎里用的是同一份。</p>
+        </section>
+
+        <section class="rh-card">
+          <h3>两枚开关各管各的</h3>
+          <p><b>允许「已读不回」</b>＝这一枚的总闸。关掉＝这一枚不抽了。它和「话没挤过来」各管各的：只关一枚，仍可能被另一枚拦下。</p>
+          <p class="rh-warn">「话没挤过来」命中时，聊天里落一行居中小字「有句话没挤过两个世界」；「已读不回」命中时是「对方已读不回」。都只有小字、没有气泡——那一轮就是没有正文，下一轮会重新抽。</p>
+        </section>
+
+        <section class="rh-card">
+          <h3>两种情况同时触发时</h3>
+          <p>两枚各抽各的，有极小的概率赶上「你连发了十几条消息，对面一条正文都没回」。这时候多发几条，就会看到【话没挤过来】或【已读不回】的小字——<b>是设计，不是出 bug 了</b>。</p>
+          <p class="rh-note">想每轮都有正文：把两枚总闸都关掉（或两个概率都填 0）。更细的算法与「为什么连发十几条不会变成十几次抽签」，在「回复节奏 · 功能说明」那一页。</p>
+          <button type="button" class="rh-entry" data-ob-act="explain"><span class="rh-entry-ico">释</span><span class="rh-entry-tx"><b>看完整说明</b><small>回复节奏 · 功能说明，随时可查</small></span><span class="rh-entry-go">›</span></button>
+        </section>
+
+        <button type="button" class="ob-done" data-ob-act="done">开始使用</button>
+         
+        <p class="rh-note ob-tailnote">这一页只会自动弹出一次；想再看，到「更多」里的【新手引导】，或会话页空态里那枚「新手引导」。</p>
+        <div class="rh-foot mono">言字卡 · WELCOME</div>
+      </div>
+    </section>
  
 <section class="view" id="updateView">
   <div class="upd-page">
@@ -3190,19 +3226,13 @@
   </div>
 </div>
  
-<section class="view" id="featureIntroView">
-  <div class="fin-page">
-    <div class="fin-head">
-      <p class="fin-lead">这里把站上所有功能说一遍：每一项是什么、在哪里找得到，一共 <span id="finCount">48 项</span>。要改开关请去各功能自己那一页。</p>
-    </div>
-    <div class="fin-body" id="finBody"></div>
-  </div>
-</section>
- 
 <section class="view" id="feedbackView">
   <div class="fb-page">
      
     <div class="fb-head" id="fbHead"></div>
+
+     
+    <div class="fb-notice" id="fbNotice"></div>
 
      
     <div class="fb-rules" id="fbRules"></div>
@@ -3212,6 +3242,11 @@
       <div class="fb-lb">带上这段一起发</div>
       <p class="fb-mt" id="fbMetaOut"></p>
       <button type="button" class="fb-copy" id="fbCopy">复制这段机器信息</button>
+       
+      <div class="fb-jumps">
+        <button type="button" class="set-entry-row" id="fbGoDiag"><span class="set-entry-tx"><strong>诊断信息</strong><small>更全的总报告（设备 · 存储 · 性能 · 错误），在「设置 → 数据」里</small></span><i class="set-entry-arrow" aria-hidden="true">›</i></button>
+        <button type="button" class="set-entry-row" id="fbGoScreen"><span class="set-entry-tx"><strong>屏幕信息</strong><small>视口 · 键盘 · 安全区：报屏幕问题时抄这一页</small></span><i class="set-entry-arrow" aria-hidden="true">›</i></button>
+      </div>
     </div>
 
     <p class="fb-foot">这一页只说明怎么报修：不发消息、不上传任何内容。</p>
@@ -4593,6 +4628,93 @@
         <p class="data-note">气泡那本最上面几行是<b>系统自带</b>（液态玻璃那三款），副行写着「内置」：点一下就换上、不占你 32 份的配额、删不掉，也不进备份——它们跟着版本走。想照着改：点完去「气泡 CSS」页，编辑器里就是它那段原文，改完再存一份就是自己的。</p>
         <p class="data-note">更细的开关都在原处：气泡 CSS 页写／改这一位的样式与那五枚卡片开关；「全站字体」页传字体文件、写字体 CSS；背景的压暗、焦点、放大与铺法在 TA 的设置 → 外观 →「聊天背景」那张卡里。</p>
         <p class="data-note"><b>随机换装</b>是「自动换」那一档：只在<b>这一位 TA 回你话</b>时攒热度，攒够这一档的门槛才换；夜里（23:00–08:00）只攒不换，同一小时最多换一样，一天最多 1／2／4 次（很少／偶尔／常换）。池里勾了什么就从什么里抽，抽到的会写进这位 TA 的档案（与手点一份完全同一条路），所以重启、导出再导入都还在。关掉总闸＝只停自动换，库里与聊天里正在用的样式都不动。</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section class="view" id="soloFrameView">
+  <div class="sf-page">
+    <p class="sf-lead" id="sfLead">调的是会话页那块「单人框」的门面 · 按人各存一份，不动别人</p>
+
+    <div class="contact-chip-row sf-who" id="sfWhoRow"></div>
+
+    <div class="sf-prev-wrap" id="sfPreviewWrap">
+      <div class="solo-peek sf-prev" id="sfPreviewBox"></div>
+    </div>
+    <p class="sf-note" id="sfNote"></p>
+    <p class="sf-empty" id="sfEmpty" hidden>还没有单聊联系人：先在通讯录里加一位。群不占这一位。</p>
+
+    <div class="sf-tune-row">
+      <button type="button" class="ap-btn pri sf-tune-btn" id="sfTuneEntry">边看边调 · 回会话页看真框</button>
+    </div>
+
+    <div id="sfCtl">
+      <div class="sf-sec" data-solo-body="bg">
+        <div class="sf-hd"><span class="sf-t">背景</span></div>
+        <div class="ap-row"><span>来源</span><div class="contact-chip-row" id="sfBgRow"><button type="button" class="contact-chip" data-v="plain">素色</button><button type="button" class="contact-chip" data-v="chat">透这一位的聊天背景图</button><button type="button" class="contact-chip" data-v="img">单独一张图</button></div></div>
+        <div id="sfChatWrap" hidden><p class="sf-hint" id="sfChatHint"></p></div>
+        <div id="sfImgWrap" hidden>
+          <div class="sf-imgrow"><button type="button" class="sf-btn" id="sfImgPick">上传一张</button><button type="button" class="sf-btn" id="sfImgClear">去掉这张</button></div>
+          <div class="sf-thumb" id="sfImgThumb" hidden></div>
+          <input type="file" id="sfImgInput" accept="image/*" hidden>
+        </div>
+        <div id="sfFaceWrap" hidden>
+          <label class="ap-knob"><span>白纱浓度</span><input type="range" id="sfFace" min="0" max="95" step="1" value="62" aria-label="白纱浓度"><output id="sfFaceOut">62%</output></label>
+          <label class="ap-knob"><span>磨砂强度</span><input type="range" id="sfBlur" min="0" max="30" step="1" value="0" aria-label="磨砂强度"><output id="sfBlurOut">0px</output></label>
+        </div>
+        <p class="sf-hint">素色只动底板；选「透这一位的聊天背景图」＝复用 TA 设置里那张聊天背景，不另传；选「单独一张图」＝只给这块框传一张。浓度是压在图上的<b>白纱</b>（0＝原图、字可能看不清；出厂 0，觉得花就往右拖），磨砂糊的是<b>图本体</b>、不糊字。</p>
+      </div>
+
+      <div class="sf-sec" data-solo-body="tone">
+        <div class="sf-hd"><span class="sf-t">素色底板</span></div>
+        <div class="ap-row" id="sfToneRowWrap"><span>深浅</span><div class="contact-chip-row" id="sfToneRow"><button type="button" class="contact-chip" data-v="light">更浅</button><button type="button" class="contact-chip" data-v="std">标准</button><button type="button" class="contact-chip" data-v="deep">更深</button><button type="button" class="contact-chip" data-v="custom">自定义</button></div></div>
+        <div id="sfToneCust" hidden>
+          <div class="ap-color-row"><span>底色</span><input type="color" id="sfToneInk" class="ap-color" value="#111111" aria-label="单人框底板颜色"><button type="button" class="sf-x" id="sfToneInkRst" title="恢复默认墨色">×</button></div>
+          <label class="ap-knob"><span>墨浓度</span><input type="range" id="sfToneA" min="0" max="30" step="1" value="7" aria-label="底板墨浓度"><output id="sfToneAOut">7%</output></label>
+        </div>
+        <p class="sf-hint">三档读的是主题令牌（跟着全站「卡片通透」那档走）；「自定义」是这一块框自己的一种底色，与全站别处无关。浓度 0＝完全透、看不到底板。</p>
+      </div>
+
+      <div class="sf-sec" data-solo-body="shape">
+        <div class="sf-hd"><span class="sf-t">形状</span></div>
+        <div class="ap-row"><span>圆角</span><div class="contact-chip-row" id="sfRadiusRow"><button type="button" class="contact-chip" data-v="auto">跟随卡片</button><button type="button" class="contact-chip" data-v="sharp">更利落</button><button type="button" class="contact-chip" data-v="round">更圆</button><button type="button" class="contact-chip" data-v="custom">自定义</button></div></div>
+        <div id="sfRwrap" hidden><label class="ap-knob"><span>圆角大小</span><input type="range" id="sfR" min="0" max="28" step="1" value="14" aria-label="圆角大小"><output id="sfROut">14px</output></label></div>
+        <label class="ap-knob"><span>半框高度</span><input type="range" id="sfH" min="30" max="90" step="1" value="52" aria-label="半框高度"><output id="sfHOut">52%</output></label>
+        <div class="ap-row"><span>描边</span><input type="checkbox" id="sfEdge" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="单人框描边"></div>
+        <p class="sf-hint">「跟随卡片」＝全站卡片那档内嵌圆角（出厂 14px）；高度出厂 52%＝现在那一档，调到 70% 以上在会话页把托盘「收起」就能看全。内部照旧自滚、永远停最新。</p>
+      </div>
+
+      <div class="sf-sec" data-solo-body="head">
+        <div class="sf-hd"><span class="sf-t">框头</span><span class="sf-sub">关掉哪一项就少哪一项</span></div>
+        <div class="ap-row"><span>头像</span><input type="checkbox" id="sfAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头头像"></div>
+        <div class="ap-row"><span>名字</span><input type="checkbox" id="sfName" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头名字"></div>
+        <div class="ap-row"><span>副题（最近的聊天记录）</span><input type="checkbox" id="sfSub" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头副题"></div>
+        <div class="ap-row"><span>进入聊天 ›</span><input type="checkbox" id="sfGo" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头进入聊天"></div>
+        <p class="sf-hint">四项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
+      </div>
+
+      <div class="sf-sec" data-solo-body="text">
+        <div class="sf-hd"><span class="sf-t">内文</span></div>
+        <label class="ap-knob"><span>字号</span><input type="range" id="sfFont" min="11" max="17" step="0.5" value="13.5" aria-label="框内字号"><output id="sfFontOut">13.5px</output></label>
+        <p class="sf-hint">只管这块框里的气泡字（会话页聊天记录自己的字号在 TA 的设置 → 外观）。</p>
+      </div>
+
+      <div class="sf-sec" data-solo-body="plan">
+        <div class="sf-hd"><span class="sf-t">一套套上</span></div>
+        <div class="ap-row"><span>预设</span><div class="contact-chip-row" id="sfPresetRow"><button type="button" class="contact-chip" data-v="now">现状</button><button type="button" class="contact-chip" data-v="silver">素银</button><button type="button" class="contact-chip" data-v="clean">极简</button></div></div>
+        <button type="button" class="sf-btn sf-reset" id="sfReset">恢复这一位的出厂</button>
+        <p class="sf-hint">每套只是把十六格<b>已有值</b>一次写好，套完仍能单改；改的是<b>这一位</b>，不动别人。恢复出厂＝只把这一块框的十六格回位，不碰这位 TA 的气泡、背景与其它设置。</p>
+      </div>
+    </div>
+
+    <div class="setting-card fold" data-fold="soloFrameHelp">
+      <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">说明</span><span class="fold-sum">作用域 · 边看边调 · 存档</span></span><i class="fold-ar">›</i></button>
+      <div class="fold-bd">
+        <p class="data-note">这一页调的是<b>会话页那块「单人框」</b>（单人模式下首页露出的半框聊天预览）。它按联系人各存一份：上面那排胶囊切到谁，改的就是谁的门面。别人不会跟着变；单人模式那一位之外的联系人也能先调好，等哪天换到他就直接生效。</p>
+        <p class="data-note"><b>边看边调</b>只作用于当前单人模式那一位——会话页那块真框只有他，所以别的位在这里直接看缩小预览调就好。点「边看边调」会回会话页并升起托盘：消息在上、控件在下，改哪看哪；托盘里的控件与这一页是同一份，托盘关掉自动搬回来。</p>
+        <p class="data-note">所有值都跟备份走（重启、导出再导入都在）。「透这一位的聊天背景图」不复制图、只引用：那位 TA 换聊天背景时，这块框跟着换；清掉聊天背景时它自动回落素色（存档里的选择留着，补回图就回来）。「单独一张图」是这一块框自己的图，与聊天背景互不影响。</p>
+        <p class="data-note">为什么白纱能给到 0：照片很干净、字压得住时，0 就是原图；花图或深图字看不清时往右拖。这是「自由」的代价，得自己看一眼再定。</p>
       </div>
     </div>
   </div>
