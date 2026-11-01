@@ -14,8 +14,8 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v22.9.4.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v22.9.4.js"></script>
+  <link rel="stylesheet" href="dist/app.v23.3.5.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v23.3.5.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +251,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v22.9.4.css','dist/app.v22.9.4.js'];
+      var BOOT_FILES = ['dist/app.v23.3.5.css','dist/app.v23.3.5.js'];
 
 
 
@@ -2525,7 +2525,7 @@
               <div class="ap-row"><span>显示频率</span><div class="contact-chip-row" style="margin:0" id="apTimeFreq"><button type="button" class="contact-chip" data-v="each">每条都显示</button><button type="button" class="contact-chip" data-v="gap">按间隔</button></div></div>
               <div class="ap-row" id="apTimeGapRow" hidden><span>间隔</span><div class="contact-chip-row" style="margin:0" id="apTimeGap"><button type="button" class="contact-chip" data-v="1">1 分</button><button type="button" class="contact-chip" data-v="3">3 分</button><button type="button" class="contact-chip" data-v="5">5 分</button><button type="button" class="contact-chip" data-v="10">10 分</button><button type="button" class="contact-chip" data-v="30">30 分</button><button type="button" class="contact-chip" data-v="60">1 小时</button></div></div>
                
-              <div class="ap-row"><span>消息时间</span><div class="contact-chip-row" style="margin:0" data-ap-set="showTime"><button type="button" class="contact-chip" data-v="on">显示</button><button type="button" class="contact-chip" data-v="off">隐藏</button></div></div>
+              <div class="ap-row"><span>消息时间</span><div class="contact-chip-row" style="margin:0" data-ap-ta-set="showTime"><button type="button" class="contact-chip" data-v="">跟随全局</button><button type="button" class="contact-chip" data-v="on">显示</button><button type="button" class="contact-chip" data-v="off">隐藏</button></div></div>
               <p class="data-note">「头像下方」只对对方生效（我方消息没有头像，时间照旧在气泡下方）。「时间气泡」＝时间贴在气泡内侧、与气泡同一行垂直居中。「消息上方居中」与「时间分隔线」会在消息上方让出一行。位置微调用下面那两根杆。⚠「消息时间」停在「隐藏」时，这八种样式全都没有可见效果（改的就是那行字）——先调回「显示」。「显示频率」停在「按间隔」时同理：一段连续对话里只有头一条带着时间，想看八档的长相就先把频率调回「每条都显示」（或翻到隔了很久的那一条）。
             </div>
              
@@ -2659,8 +2659,20 @@
         </div>
          
          
+        <div class="setting-card fold" data-fold="aptashape">
+          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">气泡版式 · 只给这一位</span><span class="fold-sum" id="sumApTaShape"></span></span><i class="fold-ar">›</i></button>
+          <div class="fold-bd">
+            <div class="ap-row"><span>气泡形状</span><div class="contact-chip-row" style="margin:0" data-ap-ta-set="bubbleShape"><button type="button" class="contact-chip" data-v="">跟随全局</button><button type="button" class="contact-chip" data-v="round">圆角</button><button type="button" class="contact-chip" data-v="tail">带尾</button><button type="button" class="contact-chip" data-v="square">方角</button><button type="button" class="contact-chip" data-v="sharp">直角</button></div></div>
+            <div class="ap-row"><span>头像对齐</span><div class="contact-chip-row" style="margin:0" data-ap-ta-set="alignMode"><button type="button" class="contact-chip" data-v="">跟随全局</button><button type="button" class="contact-chip" data-v="bottom">底部对齐</button><button type="button" class="contact-chip" data-v="top">顶部对齐</button></div></div>
+            <div class="ap-row"><span>小头像</span><div class="contact-chip-row" style="margin:0" data-ap-ta-set="avatarShow"><button type="button" class="contact-chip" data-v="">跟随全局</button><button type="button" class="contact-chip" data-v="on">显示</button><button type="button" class="contact-chip" data-v="off">隐藏通栏</button></div></div>
+            <div class="ap-row"><span>日期签</span><div class="contact-chip-row" style="margin:0" data-ap-ta-set="dayPos"><button type="button" class="contact-chip" data-v="">跟随全局</button><button type="button" class="contact-chip" data-v="flow">消息流里</button><button type="button" class="contact-chip" data-v="head">钉在顶栏</button></div></div>
+            <div class="ap-row"><span>行距疏密</span><div class="contact-chip-row" style="margin:0" data-ap-ta-set="density"><button type="button" class="contact-chip" data-v="">跟随全局</button><button type="button" class="contact-chip" data-v="cozy">舒适</button><button type="button" class="contact-chip" data-v="compact">紧凑</button></div></div>
+            <p class="data-note">这五项默认都<b>跟随全局</b>——全站那一档在下面「所有人都一样 → 聊天版式」那张卡里改，那里改一次对所有 TA 生效；在这里单独挑一档＝只给<b>这一位</b>改，他人照旧跟全站走。想收回，点回「跟随全局」。「消息时间」的那一枚在上面那张时间卡里（它跟时间样式、显示频率是同一册）。</p>
+          </div>
+        </div>
+         
         <div class="setting-card ap-resetline">
-          <span class="ap-reset-tx">恢复本会话默认外观<small>只清这一位 TA 的气泡、文字、时间、背景与 CSS</small></span>
+          <span class="ap-reset-tx">恢复本会话默认外观<small>只清这一位 TA 的气泡版式、气泡、文字、时间、背景与 CSS</small></span>
           <button type="button" class="ap-btn sm" id="apResetAll">恢复</button>
         </div>
           </div> 
@@ -2673,7 +2685,9 @@
         <div class="setting-card fold" data-fold="chatap">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">聊天版式</span><span class="fold-sum" id="sumChatAp"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd"><div class="ap-row"><span>气泡形状</span><div class="contact-chip-row" style="margin:0" data-ap-set="bubbleShape"><button type="button" class="contact-chip" data-v="round">圆角</button><button type="button" class="contact-chip" data-v="tail">带尾</button><button type="button" class="contact-chip" data-v="square">方角</button><button type="button" class="contact-chip" data-v="sharp">直角</button></div></div><div class="ap-row"><span>头像对齐</span><div class="contact-chip-row" style="margin:0" data-ap-set="alignMode"><button type="button" class="contact-chip" data-v="bottom">底部对齐</button><button type="button" class="contact-chip" data-v="top">顶部对齐</button></div></div> 
-<div class="ap-row"><span>头像形状</span><div class="avatar-shape-row" data-shape-scope="chat" style="margin:0"><button type="button" class="shape-btn" data-shape="circle" aria-label="圆形" title="圆形"><i aria-hidden="true"></i></button><button type="button" class="shape-btn" data-shape="rounded" aria-label="圆角" title="圆角"><i aria-hidden="true"></i></button><button type="button" class="shape-btn" data-shape="square" aria-label="方形" title="方形"><i aria-hidden="true"></i></button></div></div><div class="ap-row"><span>小头像</span><div class="contact-chip-row" style="margin:0" data-ap-set="avatarShow"><button type="button" class="contact-chip" data-v="on">显示</button><button type="button" class="contact-chip" data-v="off">隐藏通栏</button></div></div><div class="ap-row"><span>日期签</span><div class="contact-chip-row" style="margin:0" data-ap-set="dayPos"><button type="button" class="contact-chip" data-v="flow">消息流里</button><button type="button" class="contact-chip" data-v="head">钉在顶栏</button></div></div><div class="ap-row"><span>行距疏密</span><div class="contact-chip-row" style="margin:0" data-ap-set="density"><button type="button" class="contact-chip" data-v="cozy">舒适</button><button type="button" class="contact-chip" data-v="compact">紧凑</button></div></div></div></div><div class="setting-card fold" data-fold="apdim"><button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">气泡尺寸 · 所有会话共用</span><span class="fold-sum" id="sumApDim"></span></span><i class="fold-ar">›</i></button><div class="fold-bd"><div class="ap-row"><span>全站字族</span><div class="contact-chip-row" style="margin:0" data-ap-set="fontFamily"><button type="button" class="contact-chip" data-v="system">系统</button><button type="button" class="contact-chip" data-v="serif">衬线</button><button type="button" class="contact-chip" data-v="round">圆体</button></div></div><div class="ap-sec"><div class="ap-sec-t">气泡尺寸</div><label class="ap-knob4"><span>圆角</span><input type="range" id="apBubRadius" min="0" max="40" step="1" value="20" aria-label="气泡圆角"><output id="apBubRadiusOut">跟随形状</output><span class="ap-color-reset" id="apBubRadiusRst" title="跟随气泡形状">×</span></label><label class="ap-knob"><span>留白</span><input type="range" id="apBubPad" min="4" max="24" step="1" value="10" aria-label="气泡留白"><output id="apBubPadOut">10px</output></label><label class="ap-knob"><span>不透明度</span><input type="range" id="apBubAlpha" min="30" max="100" step="1" value="100" aria-label="气泡不透明度"><output id="apBubAlphaOut">100%</output></label><p class="data-note">圆角拖过就整体覆盖四角，点 × 交回「气泡形状」那四档（mochi 同款连续圆角）；留白是气泡内边距，左右自动比上下多 4px；不透明度只掺底色，文字不跟着淡。</p></div><p class="data-note">「头像对齐」管头像贴气泡的上沿还是下沿；「小头像」隐藏后气泡通栏，点头像开面板也不可用；「日期签＝钉在顶栏」时往下滚会自动换成当天。上传过自定义字体文件时，「全站字族」以文件为准。</p><p class="data-note">「头像形状」＝会话列表（首页那几行）、聊天气泡旁、头像库的头像一起换形状：圆形／圆角／方形，点一下立即生效、重启仍在。朋友圈那一页的头像有自己一份，在朋友圈设置里改——两边各改各的，互不牵动。</p></div>
+<div class="ap-row"><span>头像形状</span><div class="avatar-shape-row" data-shape-scope="chat" style="margin:0"><button type="button" class="shape-btn" data-shape="circle" aria-label="圆形" title="圆形"><i aria-hidden="true"></i></button><button type="button" class="shape-btn" data-shape="rounded" aria-label="圆角" title="圆角"><i aria-hidden="true"></i></button><button type="button" class="shape-btn" data-shape="square" aria-label="方形" title="方形"><i aria-hidden="true"></i></button></div></div> 
+<div class="ap-row"><span>我的头像形状</span><div class="avatar-shape-row" data-shape-scope="mine" style="margin:0"><button type="button" class="shape-btn" data-shape="circle" aria-label="圆形" title="圆形"><i aria-hidden="true"></i></button><button type="button" class="shape-btn" data-shape="rounded" aria-label="圆角" title="圆角"><i aria-hidden="true"></i></button><button type="button" class="shape-btn" data-shape="square" aria-label="方形" title="方形"><i aria-hidden="true"></i></button></div></div><div class="ap-row"><span>小头像</span><div class="contact-chip-row" style="margin:0" data-ap-set="avatarShow"><button type="button" class="contact-chip" data-v="on">显示</button><button type="button" class="contact-chip" data-v="off">隐藏通栏</button></div></div><div class="ap-row"><span>日期签</span><div class="contact-chip-row" style="margin:0" data-ap-set="dayPos"><button type="button" class="contact-chip" data-v="flow">消息流里</button><button type="button" class="contact-chip" data-v="head">钉在顶栏</button></div></div><div class="ap-row"><span>行距疏密</span><div class="contact-chip-row" style="margin:0" data-ap-set="density"><button type="button" class="contact-chip" data-v="cozy">舒适</button><button type="button" class="contact-chip" data-v="compact">紧凑</button></div></div> 
+<div class="ap-row"><span>消息时间</span><div class="contact-chip-row" style="margin:0" data-ap-set="showTime"><button type="button" class="contact-chip" data-v="on">显示</button><button type="button" class="contact-chip" data-v="off">隐藏</button></div></div></div></div><div class="setting-card fold" data-fold="apdim"><button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">气泡尺寸 · 所有会话共用</span><span class="fold-sum" id="sumApDim"></span></span><i class="fold-ar">›</i></button><div class="fold-bd"><div class="ap-row"><span>全站字族</span><div class="contact-chip-row" style="margin:0" data-ap-set="fontFamily"><button type="button" class="contact-chip" data-v="system">系统</button><button type="button" class="contact-chip" data-v="serif">衬线</button><button type="button" class="contact-chip" data-v="round">圆体</button></div></div> <button type="button" class="mate-jump" id="mateFontPageBtn"><span class="fold-tx"><span class="fold-ti">全站字体</span><small class="fold-sum" id="sumMateFont">未设置</small></span><i class="fold-ar">›</i></button><div class="ap-sec"><div class="ap-sec-t">气泡尺寸</div><label class="ap-knob4"><span>圆角</span><input type="range" id="apBubRadius" min="0" max="40" step="1" value="20" aria-label="气泡圆角"><output id="apBubRadiusOut">跟随形状</output><span class="ap-color-reset" id="apBubRadiusRst" title="跟随气泡形状">×</span></label><label class="ap-knob"><span>留白</span><input type="range" id="apBubPad" min="4" max="24" step="1" value="10" aria-label="气泡留白"><output id="apBubPadOut">10px</output></label><label class="ap-knob"><span>不透明度</span><input type="range" id="apBubAlpha" min="30" max="100" step="1" value="100" aria-label="气泡不透明度"><output id="apBubAlphaOut">100%</output></label><p class="data-note">圆角拖过就整体覆盖四角，点 × 交回「气泡形状」那四档（mochi 同款连续圆角）；留白是气泡内边距，左右自动比上下多 4px；不透明度只掺底色，文字不跟着淡。</p></div><p class="data-note">「头像对齐」管头像贴气泡的上沿还是下沿；「小头像」隐藏后气泡通栏，点头像开面板也不可用；「日期签＝钉在顶栏」时往下滚会自动换成当天。上传过自定义字体文件时，「全站字族」以文件为准。</p><p class="data-note">「头像形状」＝会话列表（首页那几行）、TA 气泡旁、头像库的头像一起换形状：圆形／圆角／方形，点一下立即生效、重启仍在。「我的头像形状」只管**你自己气泡旁那枚小脸**，与上面那行各改各的。朋友圈那一页的头像也有自己一份，在朋友圈设置里改——三边各改各的，互不牵动。</p></div>
         </div>
 
         <div class="setting-card fold" data-fold="chatfx">
@@ -2908,6 +2922,7 @@
              
             <div class="mx-actrow"><button type="button" class="soft-btn" id="mateVoicePull">读取我的音色</button><span class="data-note" id="mateVoicePullNote"></span></div>
             <div class="contact-chip-row" id="mateVoiceChips" hidden></div>
+             
             <div style="display:flex;gap:8px;align-items:center"><button class="soft-btn" id="mateVoiceTest">试听这位 TA</button><span class="data-note" id="mateVoiceTestNote" style="flex:1;margin:0;align-self:center"></span></div>
              
             <div class="mx-actrow"><button type="button" class="soft-btn" id="mateMxCheck">检测为什么没声音</button><span class="data-note" id="mateMxCheckNote"></span></div>
@@ -3236,18 +3251,6 @@
 
      
     <div class="fb-rules" id="fbRules"></div>
-
-     
-    <div class="fb-sec">
-      <div class="fb-lb">带上这段一起发</div>
-      <p class="fb-mt" id="fbMetaOut"></p>
-      <button type="button" class="fb-copy" id="fbCopy">复制这段机器信息</button>
-       
-      <div class="fb-jumps">
-        <button type="button" class="set-entry-row" id="fbGoDiag"><span class="set-entry-tx"><strong>诊断信息</strong><small>更全的总报告（设备 · 存储 · 性能 · 错误），在「设置 → 数据」里</small></span><i class="set-entry-arrow" aria-hidden="true">›</i></button>
-        <button type="button" class="set-entry-row" id="fbGoScreen"><span class="set-entry-tx"><strong>屏幕信息</strong><small>视口 · 键盘 · 安全区：报屏幕问题时抄这一页</small></span><i class="set-entry-arrow" aria-hidden="true">›</i></button>
-      </div>
-    </div>
 
     <p class="fb-foot">这一页只说明怎么报修：不发消息、不上传任何内容。</p>
   </div>
@@ -4727,7 +4730,7 @@
     <div class="setting-card">
       <div class="setting-subhead">字体文件</div>
       <div class="ap-frow"><input type="file" id="customFontInput" accept=".ttf,.otf,.woff,.woff2" hidden><button type="button" class="ap-btn" id="customFontUpload">上传字体文件</button><span class="ap-status" id="customFontStatus">未加载</span><button type="button" class="ap-btn sm" id="customFontRemove">移除</button></div>
-      <p class="data-note">上传的字体文件<b>连字体本体一起</b>存进数据里＝重启、导出再导入都带着走；传上之后「TA 的设置 → 外观 → 气泡文字」里「气泡字体」那一档以文件为准。格式按<b>文件头</b>识别、不看扩展名——微信／文件管理里转过几手、改了名的字体也认得出；认不出的会当场说明原因，不会闷着不生效。一枚字体文件限 5MB（全站上传同一条上限）：中文字体常见 5~15MB，超了会当场挡下并说明原因——这份存档要整个读进内存，塞一枚过大的字体＝每次开机都慢一截、导出的文件也撑爆。</p>
+      <p class="data-note">上传的字体文件<b>连字体本体一起</b>存进数据里＝重启、导出再导入都带着走；传上之后「TA 的设置 → 外观 → 气泡文字」里「气泡字体」那一档以文件为准。格式按<b>文件头</b>识别、不看扩展名——微信／文件管理里转过几手、改了名的字体也认得出；认不出的会当场说明原因，不会闷着不生效。一枚字体文件限 <b>50MB</b>（2026-11-01 自 5MB 放宽＝BUGS #3089：旧 5MB 档基本只剩拉丁字库装得下，简体中文字体常见 8~20MB；同日按用户「再放宽一点」提到 50MB）：字体压不动、原样进档，过大的字体＝每次开机都慢一截、导出的文件也撑爆，再大建议先拆分字库再传。同一枚入口在「TA 的设置 → 外观 → 气泡尺寸 · 所有会话共用」那张卡里也有一枚（全站一份，两处通向同一页）。</p>
     </div>
 
     <div class="setting-card">
