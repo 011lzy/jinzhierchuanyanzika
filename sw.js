@@ -394,11 +394,16 @@ async function codeCacheFirst(request) {
 //   回 304、0 字节；一小时内重复命中连这一发也不发。SW 实例被回收后 _revAt 归零＝下次重新确认一次，
 //   无害（正是想要的：实例活着就别重复问）。
 const REV_TTL = 60 * 60 * 1000;
+// 图片按**天**复检（BUGS #3098 二批）：牌面图预热进缓存之后，图鉴一开就是 158 张 cache-first 命中，
+// 每张命中都触发一发 revLater＝每小时 158 发条件请求，弱网下纯白付往返（图这一族内容极少变，一天确认一次足够）。
+const REV_TTL_IMG = 24 * 60 * 60 * 1000;
 const _revAt = new Map();
 
 function revLater(request) {
   const k = request.url;
-  if (Date.now() - (_revAt.get(k) || 0) < REV_TTL) return;
+  let img = false;
+  try { img = /\.(webp|png|jpe?g|gif|svg)$/i.test(new URL(k).pathname); } catch (e) {}
+  if (Date.now() - (_revAt.get(k) || 0) < (img ? REV_TTL_IMG : REV_TTL)) return;
   _revAt.set(k, Date.now());
   fetch(request, { cache: 'no-cache' }).then((response) => {
     if (response.ok) {
