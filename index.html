@@ -14,8 +14,8 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v25.8.7.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v25.8.7.js"></script>
+  <link rel="stylesheet" href="dist/app.v26.0.5.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v26.0.5.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +251,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v25.8.7.css','dist/app.v25.8.7.js'];
+      var BOOT_FILES = ['dist/app.v26.0.5.css','dist/app.v26.0.5.js'];
 
 
 
@@ -1047,6 +1047,7 @@
             <div class="ag-row"><span class="ag-no">15</span><div class="ag-rowc"><h4>署名 · 设计与参考</h4>
             <div class="ag-ref">
               <div class="ag-ref-item"><div class="ag-ref-k">设计与制作</div><div class="ag-ref-v">小红书 @言序（1842523578）· 抖音 @言序（58334080131）。</div></div>
+              <div class="ag-ref-item"><div class="ag-ref-k">原创说明</div><div class="ag-ref-v">本站虽然看起来是个简易字卡，有些功能看起来像大众功能，但其实这个字卡里堆叠的机制非常多。标注了灵感与借鉴的地方是注明来源，核心功能和机制均为我自己的原创，大部分功能也是我灵感做的，心讯和时讯也都是完全原创的功能。做功能时基本不参考其他网站，玩过的网站有参考的，已注明灵感来源。</div></div>
               <div class="ag-ref-item"><div class="ag-ref-k">前作</div><div class="ag-ref-v">言字卡是作者自己两件前作的续作：7 月做的字卡「星言」、8 月做的字卡「mochi」。以下机制与前作相同（两作同为作者本人作品）：<ul class="ag-ref-list"><li><b class="ag-ref-n">聊天情绪字卡</b>：三级标签链（情绪 → 心意 → 交流意图）<span class="ag-ref-s">来自「星言」</span></li><li><b class="ag-ref-n">逻辑连接词</b>：<span class="ag-ref-s">来自「mochi」</span>，在「系统预设字卡」里有单独一档</li><li><b class="ag-ref-n">聊天内联系人单独撤回某几个字卡</b>：<span class="ag-ref-s">来自「mochi」</span></li><li><b class="ag-ref-n">世界感知里的世界感知时间</b>：<span class="ag-ref-s">来自「mochi」的「此间」与「星言」的联系人顶部栏</span></li><li><b class="ag-ref-n">朋友圈贴纸</b>：<span class="ag-ref-s">来自「mochi」，在动态配图上贴一张贴纸</span></li><li><b class="ag-ref-n">联系人收藏消息</b>：<span class="ag-ref-s">来自「mochi」，联系人按概率把你发出的消息、信件、朋友圈动态收进「TA 的收藏」</span></li><li><b class="ag-ref-n">问问TA</b>：<span class="ag-ref-s">来自「mochi」</span></li><li><b class="ag-ref-n">播放器的邀请听歌与控制歌单</b>：<span class="ag-ref-s">来自「星言」和「mochi」的音乐功能</span></li></ul></div>
                 <p class="ag-ref-note">注：以上是能明确对上的部分，可能还有没写全的；言字卡中仍有功能是在前作基础上的优化。</p>
               </div>
@@ -1129,7 +1130,7 @@
         <h2 class="qg-title">入站小测</h2>
         <p class="qg-sub">全部答对才能进入桌面。向下滑动逐题作答，答完一起提交；只需作答一次，之后不再询问。</p>
         <div class="qg-warn" id="quizGateWarn" hidden></div>
-        <div class="qg-prog" id="quizGateProg" hidden>已答 0 / 12 题</div>
+        <div class="qg-prog" id="quizGateProg" hidden>已答 0 / 16 题</div>
         <div class="qg-bar"><i id="quizGateBar"></i></div>
         <div id="quizGateQa" hidden></div>
         <div class="qg-done" id="quizGateDone" hidden>
@@ -1760,6 +1761,7 @@
       <div class="bx-page" id="bxPage">
          
         <div class="bx-head">
+          <button type="button" class="bx-head-back" id="bxHeadChat" aria-label="返回聊天"><span aria-hidden="true">‹</span> 聊天</button>
           <p class="bx-lead">本站是字卡传讯：聊天里的每一句都从本地字卡池随机抽，不经过任何 AI；接 AI 只是帮忙写卡，不接一切照常。</p>
           <button type="button" class="bx-head-go" id="bxHeadDesk">写一张 <span aria-hidden="true">›</span></button>
         </div>
@@ -1884,16 +1886,22 @@
     <div class="fs-sheet-mask fs-sheet-full bx-desk-mask" id="bxDeskMask" hidden>
       <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="帮写字卡">
         <div class="fs-sheet-bar">
-          <div class="fs-sheet-t"><span class="fs-sheet-ti">帮写字卡</span><button type="button" class="bx-desk-set" id="bxDeskSet">设置 ›</button></div>
+          <div class="fs-sheet-t"><span class="fs-sheet-ti">帮写字卡</span><button type="button" class="bx-desk-set" id="bxDeskChat">‹ 聊天</button><button type="button" class="bx-desk-set" id="bxDeskSet">设置 ›</button></div>
           <button type="button" class="fs-sheet-close" id="bxDeskClose" aria-label="关闭">×</button>
         </div>
         <div class="fs-sheet-body bx-desk-body">
+           
+          <div class="bx-chips bx-desk-mode" id="bxDeskMode">
+            <button type="button" class="scope-chip on" data-bx-mode="ai">AI 帮我写</button>
+            <button type="button" class="scope-chip" data-bx-mode="manual">我直接写</button>
+          </div>
           <div class="bx-sec">
             <div class="bx-hd"><span class="bx-t">给谁写</span></div>
             <div class="contact-chip-row" id="bxDeskWho"></div>
              
             <div class="bx-persona" id="bxDeskPersona"></div>
           </div>
+          <div class="bx-desk-ai" data-bx-ai>
           <div class="bx-sec">
             <div class="bx-hd"><span class="bx-t">要求</span><span class="bx-sub">点一下拼进去；不写要求也行</span></div>
             <textarea id="bxDeskReq" class="bx-ta" rows="3" placeholder="例：写几句撒娇但别太腻的晚安；或者：写一句我出差回来时可能会说的话。"></textarea>
@@ -1926,6 +1934,15 @@
             <div class="bx-cmp" id="bxCmpList"></div>
             <div class="bx-actrow"><button type="button" class="ap-btn pri" id="bxCmpSave">存下选中的</button><button type="button" class="ap-btn" id="bxCmpClear">撤掉对比</button></div>
           </div>
+          </div>
+           
+          <div class="bx-sec bx-desk-manual" id="bxDeskManual" hidden>
+            <div class="bx-hd"><span class="bx-t">我直接写</span><span class="bx-sub">一句一张卡 · 换行可分多张</span></div>
+            <textarea id="bxManualText" class="bx-ta" rows="5" placeholder="想对 TA 说什么，就直接写在这儿。例：今天路过你以前常去的店，忽然很想你。"></textarea>
+            <div class="bx-check" id="bxManualSatOut"></div>
+            <div class="bx-actrow"><button type="button" class="ap-btn" id="bxManualRate">TA的满意度</button><button type="button" class="ap-btn" id="bxManualSave">存进字卡库</button></div>
+            <div class="bx-actrow bx-desk-run"><button type="button" class="ap-btn pri" id="bxManualSend">发到聊天问 TA 的意见 <span aria-hidden="true">›</span></button><span class="bx-hint">会以「我」的身份发进聊天，TA 随后用自己的字卡回你；纯本地，不花钱、不发请求。</span></div>
+          </div>
           <details class="bx-hist-sec" id="bxHistSec">
             <summary>最近写过 <span class="bx-hist-cnt" id="bxHistCount"></span></summary>
             <div class="bx-hist" id="bxHistList"></div>
@@ -1935,76 +1952,6 @@
         </div>
       </div>
     </div>
-    <section class="view" id="aidvView">
-      <div class="bx-page" id="aidvPage">
-         
-        <div class="bx-head">
-          <p class="bx-lead">占卜牌面可以让 AI 读成这一段关系里听得懂的话：它只许串牌面上已有的六格事实，不许编；牌是一面镜子，不是判词——读错了在解析页里能纠正重读。</p>
-        </div>
-
-        <div class="bx-sec">
-          <div class="bx-hd"><span class="bx-t">AI 解读</span><span class="bx-sub" id="aidvPaneState"></span></div>
-          <label class="ap-row"><span>在占卜里能用 AI 读牌</span><input type="checkbox" id="aidvOn"></label>
-          <p class="bx-hint">默认不会自己跑：在占卜页、或聊天里那张牌面卡的「查看完整解析」里按一下才发请求。一次解读＝接口那边一次调用。</p>
-           
-          <label class="ap-row"><span>TA 主动发牌后自动读</span><input type="checkbox" id="aidvAuto"></label>
-          <label class="ap-row" id="aidvAutoCapRow" hidden><span>每天最多自动读（0＝不限）</span><input type="number" id="aidvAutoCap" min="0" max="20" step="1" inputmode="numeric"></label>
-          <p class="bx-hint" id="aidvAutoNote">默认关：TA 发牌后仍要你按一下</p>
-          <p class="bx-hint">开了之后：TA 把牌发进聊天那一刻自己读一版（用当时已有的聊天前后文），读好弹一张前台横幅，点它进这一位；额度用完就退回手动按。自动读不带补充信息——想补一句，点卡上「AI 解读这一手」再读。</p>
-        </div>
-
-        <div class="bx-sec">
-          <div class="bx-hd"><span class="bx-t">读法</span><span class="bx-sub">全站默认 · 没单独设过的那位照这份</span></div>
-          <textarea id="aidvInstrDef" class="bx-ta" rows="7" maxlength="900" placeholder="留空＝用出厂那份（先看牌面事实，再说这一手在说什么，最后给两三件能做的事）"></textarea>
-          <div class="bx-actrow"><button type="button" class="ap-btn" id="aidvInstrDefReset">恢复出厂</button><span class="bx-hint" id="aidvInstrDefNote"></span></div>
-          <div class="bx-chips" id="aidvTplRow"></div>
-        </div>
-
-        <div class="bx-sec">
-          <div class="bx-hd"><span class="bx-t">这一位</span><span class="bx-sub">读他的牌时用他这一套</span></div>
-          <div class="contact-chip-row" id="aidvWhoRow"></div>
-          <label class="ap-row"><span>单独给这一位设读法</span><input type="checkbox" id="aidvInstrOwn"></label>
-          <p class="bx-hint">不勾＝跟上面「全站默认」那份走；勾上＝以全站那份为起点，改成他这一套。</p>
-          <textarea id="aidvInstr" class="bx-ta" rows="5" maxlength="900"></textarea>
-          <p class="bx-hint" id="aidvInstrNote"></p>
-        </div>
-
-        <div class="bx-sec">
-          <div class="bx-hd"><span class="bx-t">一次读多少字</span><span class="bx-sub">全站一份</span></div>
-          <div class="contact-chip-row" id="aidvWordsRow"></div>
-          <p class="bx-hint">短 ≈ 300 字，中 ≈ 450 字，长 ≈ 700 字。太长容易水，太短说不清「怎么接」。</p>
-        </div>
-
-         
-        <details class="set-adv">
-          <summary>说明：它会看到什么 · 人设在哪改</summary>
-          <p class="bx-about">读牌时自动带：<b>世界观</b>＝【帮写字卡 → 人设】那一档的「世界观」（没填就用言字卡出厂那份）；<b>人设</b>＝这一位自己的「人设 / 说话习惯」。这里不存第二份。</p>
-          <p class="bx-about" id="aidvWorldState"></p>
-          <div class="bx-actrow"><button type="button" class="ap-btn" data-aidv-gopersona="1">去【帮写字卡 → 人设】›</button><span class="bx-hint" id="aidvPersonaState"></span></div>
-          <p class="bx-about">你按下「解读」那一下才会发出去：牌面六格 + 所问 + 补充信息 +（从聊天点开时的）这一手前后各几句原文 + 这一位的人设 + 世界观 + 读法。聊天只发这一手前后那几句（每条最多 120 字，整段 1400 字封顶），不整本上传，也不发图片。</p>
-          <p class="bx-about">接口在【帮写字卡 → 接口】那一档，这里不存第二份；没填时会明说缺哪样。</p>
-        </details>
-      </div>
-
-     
-    <div class="fs-sheet-mask fs-sheet-full" id="aidvFixMask" hidden>
-      <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="纠正这一版">
-        <div class="fs-sheet-bar">
-          <div class="fs-sheet-t"><span class="fs-sheet-ti">纠正这一版</span><span class="fs-sheet-en" id="aidvFixSub"></span></div>
-          <button type="button" class="fs-sheet-close" id="aidvFixClose" aria-label="关闭">×</button>
-        </div>
-        <div class="fs-sheet-body" id="aidvFixBody"></div>
-      </div>
-    </div>
-    <div class="sheet-mask" id="aidvSwapMask" hidden>
-      <div class="sheet" role="dialog" aria-modal="true" aria-label="这一卦按谁读">
-        <div class="sheet-head">这一卦按谁读</div>
-        <p class="aidv-swap-note">换完不会自己重读——按结果下面那枚「重新读一遍」才用新的这一套生成。</p>
-        <div class="aidv-swap-list" id="aidvSwapList"></div>
-        <button type="button" class="sheet-btn sheet-cancel" id="aidvSwapClose">取消</button>
-      </div>
-    </div>
-    </section>
      
     <section class="view" id="emoOwnView">
       <div class="eo-page" id="eoList"></div>
@@ -2564,7 +2511,7 @@
         <div class="setting-card set-entry" data-tab="ai">
           <button type="button" class="set-entry-row" data-view="bangxie"><span class="set-entry-tx"><strong>AI 接口</strong><small id="sumBxSet"></small><small>辅助功能：言字卡本质是字卡传讯，聊天里的每一句都由本地字卡池随机抽；接 AI 只是帮忙写卡，不接不影响任何使用。</small></span></button>
            
-          <button type="button" class="set-entry-row" data-view="aidv"><span class="set-entry-tx"><strong>占卜解读</strong><small id="sumAidvSet"></small><small>辅助功能：占卜牌面可以让 AI 读成一段听得懂的话——只许串牌面事实，不许编；不接接口不影响占卜本身。</small></span></button>
+          <p class="data-note" style="margin:0;padding:0 16px 12px">占卜牌面的 AI 解读住在 <b>占卜页</b> 底部「AI 解读 · 设定」——总闸 ∶ 读法 ∶ 这一位的人设都在那里。</p>
         </div>
 
         <div class="setting-card fold" data-tab="sound" data-fold="gamesfx">
@@ -2731,7 +2678,7 @@
             <div class="lic-free">代码已开源 · 完全免费 · 禁止商用倒卖</div>
           </div>
           <button type="button" class="fold-hd"><span class="fold-ti">许可与使用条款</span><span class="fold-sum">代码开源可自改 · 链接禁二传 · 禁止商用</span><i class="fold-ar">›</i></button>
-          <div class="fold-bd"><div class="setting-subhead">可以做的</div><div class="ap-row"><span>私人使用与私人二改：随意，不用问<span style="display:block;font-size:11px;color:var(--muted)">代码已完全开源：可以自己拿代码改、部署给自己私人使用；不公开、不提供给第三人使用的，无需经过作者同意。二改请保留作者署名并注明原作者</span></span></div><div class="ap-row"><span>借鉴功能、自己从零写一个新站<span style="display:block;font-size:11px;color:var(--muted)">只借鉴功能玩法、代码全部自己写的，不属于二改、无需经过作者同意；但必须标注灵感来源与作者署名</span></span></div><div class="setting-subhead">禁止事项</div><div class="ap-row"><span>禁止商用、禁止倒卖<span style="display:block;font-size:11px;color:var(--muted)">收费出售本站、本站链接、安装包、「付费版」均属侵权。作者只有小红书与抖音这两个账号，任何收费均为诈骗；若你花钱买到了链接，请拒付退款并举报卖家</span></span></div><div class="ap-row"><span>本站、代码库与公开二改版的链接禁止二传<span style="display:block;font-size:11px;color:var(--muted)">任何形式的传播都算二传：分享到抖音、小红书等公开平台、转发到群聊或给第三人都不行，公开二改版的链接同样禁止二传。从作者本人主页（二改版则从二改者本人主页）拿链接、自己收藏，都不违反这一条；需要本站链接请到作者抖音 @言序（58334080131）主页简介里拿</span></span></div><div class="ap-row"><span>一比一整体照搬：禁止<span style="display:block;font-size:11px;color:var(--muted)">把大量功能、文案、交互原样复制，换个名字、换套 UI 或换套配色就当成自己的作品发布＝抄袭；标注来源不等于换皮许可，标了来源的一比一照搬照样禁止。照搬某几个功能、借鉴思路、自己从零写的新站不在禁止范围内；但用了本站代码或借鉴了功能的，必须标注借鉴来源与作者署名</span></span></div><div class="ap-row"><span>AI 洗一遍不算从零写<span style="display:block;font-size:11px;color:var(--muted)">把本站代码喂给 AI 改写、重排、换名后声称从零写，一律按一比一照搬处理；功能清单、文案、交互、代码命名与本站高度重合又说不清来源的，按同源处理，作者有权要求补标注或下线</span></span></div><div class="ap-row"><span>二改本站后要公开：需先经作者同意<span style="display:block;font-size:11px;color:var(--muted)">部署到公网给别人用、发帖公开、公开代码仓库、提供给第三人使用之前，先在作者主页留言或私信说明「改了什么、给谁用、放在哪里公开」。公开的二改版只能从你本人主页获取，由你自己维护、与作者无关；GitHub 的 Fork 是平台机制，不等于作者同意公开。云存储可自加自用，但不得公开给他人使用。接受不了这些条件的，就不要用本站代码做二改</span></span></div><div class="setting-subhead">借鉴来源</div><p class="data-note">基础框架与随机回复逻辑的灵感来源为 milk 字卡 · 小红书 @milk（2777299956）。</p><p class="data-note">公用字卡＋专享字卡模式，借鉴自小红书 @默玉（8012400317）。</p><p class="data-note">需正确回答问卷才能进入使用网站的模式，借鉴自小红书 @小狗咖啡猫（5435843310）。</p><p class="data-note">情绪字卡源于早期网络上的类似提议（小红书 @心汋是颗彩虹多宝糖（9725312970）也提过这个模式）；换头像灵感来自网络上有人提议小手机想要 chat 自己换头像。以上功能均源于网络已有想法，设计由作者独立完成。</p><p class="data-note">本站为作者自有前作「星言」与「Mochi 字卡」的续作（同一作者 小红书 @言序 1842523578 · 抖音 @言序 58334080131），三作同属一位作者，不属于借鉴来源。</p><p class="data-note">言字卡为原创独立作品（即原版），完全免费，代码已完全开源；完整许可条款见 GitHub 仓库的 LICENSE 文件。</p><p class="data-note">使用条款与免责声明见开屏《开屏公告》。</p></div>
+          <div class="fold-bd"><div class="setting-subhead">可以做的</div><div class="ap-row"><span>私人使用与私人二改：随意，不用问<span style="display:block;font-size:11px;color:var(--muted)">代码已完全开源：可以自己拿代码改、部署给自己私人使用；不公开、不提供给第三人使用的，无需经过作者同意。二改请保留作者署名并注明原作者</span></span></div><div class="ap-row"><span>借鉴功能、自己从零写一个新站<span style="display:block;font-size:11px;color:var(--muted)">只借鉴功能玩法、代码全部自己写的，不属于二改、无需经过作者同意；但必须标注灵感来源与作者署名</span></span></div><div class="setting-subhead">禁止事项</div><div class="ap-row"><span>禁止商用、禁止倒卖<span style="display:block;font-size:11px;color:var(--muted)">收费出售本站、本站链接、安装包、「付费版」均属侵权。作者只有小红书与抖音这两个账号，任何收费均为诈骗；若你花钱买到了链接，请拒付退款并举报卖家</span></span></div><div class="ap-row"><span>本站、代码库与公开二改版的链接禁止二传<span style="display:block;font-size:11px;color:var(--muted)">任何形式的传播都算二传：分享到抖音、小红书等公开平台、转发到群聊或给第三人都不行，公开二改版的链接同样禁止二传。从作者本人主页（二改版则从二改者本人主页）拿链接、自己收藏，都不违反这一条；需要本站链接请到作者抖音 @言序（58334080131）主页简介里拿</span></span></div><div class="ap-row"><span>一比一整体照搬：禁止<span style="display:block;font-size:11px;color:var(--muted)">把大量功能、文案、交互原样复制，换个名字、换套 UI 或换套配色就当成自己的作品发布＝抄袭；标注来源不等于换皮许可，标了来源的一比一照搬照样禁止。照搬某几个功能、借鉴思路、自己从零写的新站不在禁止范围内；但用了本站代码或借鉴了功能的，必须标注借鉴来源与作者署名</span></span></div><div class="ap-row"><span>AI 洗一遍不算从零写<span style="display:block;font-size:11px;color:var(--muted)">把本站代码喂给 AI 改写、重排、换名后声称从零写，一律按一比一照搬处理；功能清单、文案、交互、代码命名与本站高度重合又说不清来源的，按同源处理，作者有权要求补标注或下线</span></span></div><div class="ap-row"><span>二改本站后要公开：需先经作者同意<span style="display:block;font-size:11px;color:var(--muted)">部署到公网给别人用、发帖公开、公开代码仓库、提供给第三人使用之前，先在作者主页留言或私信说明「改了什么、给谁用、放在哪里公开」。公开的二改版只能从你本人主页获取，由你自己维护、与作者无关；GitHub 的 Fork 是平台机制，不等于作者同意公开。云存储可自加自用，但不得公开给他人使用。接受不了这些条件的，就不要用本站代码做二改</span></span></div><div class="setting-subhead">借鉴来源</div><p class="data-note">本站虽然看起来是个简易字卡，有些功能看起来像大众功能，但其实这个字卡里堆叠的机制非常多。标注了灵感与借鉴的地方是注明来源，核心功能和机制均为我自己的原创，大部分功能也是我灵感做的，心讯和时讯也都是完全原创的功能。做功能时基本不参考其他网站，玩过的网站有参考的，已注明灵感来源。</p><p class="data-note">基础框架与随机回复逻辑的灵感来源为 milk 字卡 · 小红书 @milk（2777299956）。</p><p class="data-note">公用字卡＋专享字卡模式，借鉴自小红书 @默玉（8012400317）。</p><p class="data-note">需正确回答问卷才能进入使用网站的模式，借鉴自小红书 @小狗咖啡猫（5435843310）。</p><p class="data-note">情绪字卡源于早期网络上的类似提议（小红书 @心汋是颗彩虹多宝糖（9725312970）也提过这个模式）；换头像灵感来自网络上有人提议小手机想要 chat 自己换头像。以上功能均源于网络已有想法，设计由作者独立完成。</p><p class="data-note">本站为作者自有前作「星言」与「Mochi 字卡」的续作（同一作者 小红书 @言序 1842523578 · 抖音 @言序 58334080131），三作同属一位作者，不属于借鉴来源。</p><p class="data-note">言字卡为原创独立作品（即原版），完全免费，代码已完全开源；完整许可条款见 GitHub 仓库的 LICENSE 文件。</p><p class="data-note">使用条款与免责声明见开屏《开屏公告》。</p></div>
         </div>
       </div>
     </section>
@@ -4742,6 +4689,55 @@
       </div>
 
       <div class="dv-log" id="dvLog"></div>
+
+       
+      <details class="set-adv" id="aidvSetWrap">
+        <summary>AI 解读 · 设定（总闸 ∶ 读法 ∶ 这一位的人设）</summary>
+        <div class="bx-page" id="aidvPage">
+          <div class="bx-sec">
+            <div class="bx-hd"><span class="bx-t">AI 解读</span><span class="bx-sub" id="aidvPaneState"></span></div>
+            <label class="ap-row"><span>在占卜里能用 AI 读牌</span><input type="checkbox" id="aidvOn"></label>
+            <p class="bx-hint">不按不发：解析页里（或 TA 发来的牌面卡上）按一下才发请求；一次解读＝接口那边一次调用。</p>
+          </div>
+
+          <div class="bx-sec">
+            <div class="bx-hd"><span class="bx-t">AI 占卜师的读法（指令）</span><span class="bx-sub">全站默认 · 没单独设过的那位照这份</span></div>
+            <textarea id="aidvInstrDef" class="bx-ta" rows="4" maxlength="900" placeholder="留空＝用出厂那份（先看牌面事实，再说这一手在说什么，最后给两三件能做的事）"></textarea>
+            <div class="bx-actrow"><button type="button" class="ap-btn" id="aidvInstrDefReset">恢复出厂</button><span class="bx-hint" id="aidvInstrDefNote"></span></div>
+            <div class="bx-chips" id="aidvTplRow"></div>
+          </div>
+
+          <div class="bx-sec">
+            <div class="bx-hd"><span class="bx-t">这一位</span><span class="bx-sub">读他的牌时用他这一套</span></div>
+            <div class="contact-chip-row" id="aidvWhoRow"></div>
+            <label class="ap-row"><span>单独给这一位设读法</span><input type="checkbox" id="aidvInstrOwn"></label>
+            <p class="bx-hint">不勾＝跟上面「全站默认」那份走；勾上＝以全站那份为起点，改成他这一套。</p>
+          <textarea id="aidvInstr" class="bx-ta" rows="3" maxlength="900"></textarea>
+          <p class="bx-hint" id="aidvInstrNote"></p>
+           
+          <label class="ap-row"><span>人设（读他的牌时带上）</span></label>
+          <textarea id="aidvPersonaTa" class="bx-ta" rows="3" maxlength="1200" placeholder="这一位是什么样的人、你们是什么关系……留空＝读牌不带人设"></textarea>
+          <label class="ap-row"><span>说话习惯</span></label>
+          <textarea id="aidvHabitTa" class="bx-ta" rows="2" maxlength="800" placeholder="他平时怎么说话（可空）"></textarea>
+            <p class="bx-hint" id="aidvPersonaNote"></p>
+          </div>
+
+          <div class="bx-sec">
+            <div class="bx-hd"><span class="bx-t">一次读多少字</span><span class="bx-sub">全站一份</span></div>
+            <div class="contact-chip-row" id="aidvWordsRow"></div>
+            <p class="bx-hint">短 ≈ 300 字，中 ≈ 450 字，长 ≈ 700 字。太长容易水，太短说不清「怎么接」。</p>
+          </div>
+
+          <details class="set-adv">
+            <summary>说明：它会看到什么 · 世界观在哪改</summary>
+            <p class="bx-about">读牌时自动带：<b>世界观</b>＝【帮写字卡 → 人设】那一档的「世界观」（没填就用言字卡出厂那份）；<b>人设 / 说话习惯</b>＝上面「这一位」里写的那份（与帮写页同一本账）。这里不存第二份。</p>
+            <p class="bx-about" id="aidvWorldState"></p>
+            <div class="bx-actrow"><button type="button" class="ap-btn" data-aidv-gopersona="1">去【帮写字卡 → 人设】（改世界观 ∶ 群成员名单）›</button><span class="bx-hint" id="aidvPersonaState"></span></div>
+            <p class="bx-about">你按下「解读」那一下才会发出去：牌面六格 + 所问 + 补充信息 +（从聊天点开时的）这一手前后各几句原文 + 这一位的人设 + 世界观 + 读法。聊天只发这一手前后那几句（每条最多 120 字，整段 1400 字封顶），不整本上传，也不发图片。</p>
+            <p class="bx-about">接口在【帮写字卡 → 接口】那一档，这里不存第二份；没填时会明说缺哪样。</p>
+          </details>
+        </div>
+      </details>
     </section>
 
      
@@ -4754,6 +4750,25 @@
         <button type="button" class="dv-page-act" id="dvPageCopy">复制</button>
       </div>
       <div class="dv-page-body" id="dvPageBody"></div>
+    </div>
+
+     
+    <div class="fs-sheet-mask fs-sheet-full" id="aidvFixMask" hidden>
+      <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="纠正这一版">
+        <div class="fs-sheet-bar">
+          <div class="fs-sheet-t"><span class="fs-sheet-ti">纠正这一版</span><span class="fs-sheet-en" id="aidvFixSub"></span></div>
+          <button type="button" class="fs-sheet-close" id="aidvFixClose" aria-label="关闭">×</button>
+        </div>
+        <div class="fs-sheet-body" id="aidvFixBody"></div>
+      </div>
+    </div>
+    <div class="sheet-mask" id="aidvSwapMask" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="这一卦按谁读">
+        <div class="sheet-head">这一卦按谁读</div>
+        <p class="aidv-swap-note">换完不会自己重读——按结果下面那枚「重新读一遍」才用新的这一套生成。</p>
+        <div class="aidv-swap-list" id="aidvSwapList"></div>
+        <button type="button" class="sheet-btn sheet-cancel" id="aidvSwapClose">取消</button>
+      </div>
     </div>
      
     <section class="view" id="divineDexView" data-dx-mode="grid">
@@ -6158,7 +6173,7 @@
         <span class="pl-f-bargap"></span>
         <button type="button" class="pl-tlink" id="plfLrcBtn" data-on="0">歌词</button>
          
-        <button type="button" class="pl-tlink" id="plfFloatBtn" data-on="0" aria-label="悬浮小框开关">小框</button>
+        <button type="button" class="pl-tlink" id="plfFloatBtn" data-on="0" aria-pressed="false" aria-label="悬浮小框开关">小框</button>
          
         <span class="pl-f-div" aria-hidden="true"></span>
         <button type="button" class="pl-tlink pl-tlink-fav" id="plfFav" data-on="0" aria-label="收藏这一首" aria-pressed="false">
@@ -6251,6 +6266,17 @@
     </div>
 
      
+    <div class="pl-full pl-ncm-page" id="plArtistFull" hidden>
+      <header class="pl-full-bar">
+        <button type="button" class="pl-ico" id="plaBack" aria-label="返回播放器">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"></path></svg>
+        </button>
+        <span class="pl-full-ti">歌手主页</span>
+      </header>
+      <div class="pl-ncm-body" id="plArtistBody"></div>
+    </div>
+
+     
     <div class="pl-full pl-ncm-page" id="plLyrLogFull" hidden>
       <header class="pl-full-bar">
         <button type="button" class="pl-ico" id="pllBack" aria-label="返回播放器">
@@ -6265,7 +6291,7 @@
      
     <div class="fs-sheet-mask" id="plAskMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">TA 邀你听歌</span><button type="button" class="fs-sheet-close" id="plAskClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plAskBody"></div></div></div>
     <div class="fs-sheet-mask" id="plAddMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">添加歌曲</span><button type="button" class="fs-sheet-close" id="plAddClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plAddBody"></div></div></div>
-    <div class="fs-sheet-mask" id="plSetMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">播放器设置</span><button type="button" class="fs-sheet-close" id="plSetClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plSetBody"></div></div></div>
+    <div class="fs-sheet-mask fs-sheet-full" id="plSetMask" hidden><div class="fs-sheet" role="dialog" aria-modal="true" aria-label="播放器设置"><div class="fs-sheet-bar"><span class="fs-sheet-ti">播放器设置</span><button type="button" class="fs-sheet-close" id="plSetClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plSetBody"></div></div></div>
     <div class="fs-sheet-mask" id="plMenuMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">这一首</span><button type="button" class="fs-sheet-close" id="plMenuClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plMenuBody"></div></div></div>
      
     <div class="fs-sheet-mask" id="plLrcMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">这一首的歌词</span><button type="button" class="fs-sheet-close" id="plLrcClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plLrcBody"></div></div></div>
