@@ -14,8 +14,8 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v26.2.6.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v26.2.6.js"></script>
+  <link rel="stylesheet" href="dist/app.v26.5.6.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v26.5.6.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +251,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v26.2.6.css','dist/app.v26.2.6.js'];
+      var BOOT_FILES = ['dist/app.v26.5.6.css','dist/app.v26.5.6.js'];
 
 
 
@@ -1709,20 +1709,36 @@
           </div>
           <button type="button" class="ct-rescan" id="ctRescan">重新扫一遍</button>
         </div>
-        <p class="ct-lead">只整理「主字卡」。下面每组都是建议——一张都还没删，勾哪张才删哪张。</p>
+        <div class="ct-tabs" id="ctTabs">
+          <button type="button" class="scope-chip on" data-ct-tab="dup">重复与相近</button>
+          <button type="button" class="scope-chip" data-ct-tab="group">重新分组</button>
+          <button type="button" class="scope-chip" data-ct-tab="want">TA 想要什么</button>
+        </div>
+        <p class="ct-lead" id="ctLead">只整理「主字卡」。下面每组都是建议——一张都还没删，勾哪张才删哪张。</p>
         <div class="ct-scope-row" id="ctScopeRow">
           <button type="button" class="scope-chip on" data-ct-scope="public">公用字卡</button>
           <button type="button" class="scope-chip" data-ct-scope="own">专属字卡</button>
         </div>
         <div class="contact-chip-row" id="ctWhoRow" hidden></div>
+        <div class="ct-filter-row" id="ctFilterRow">
+          <button type="button" class="scope-chip on" data-ct-filter="all">全部</button>
+          <button type="button" class="scope-chip" data-ct-filter="same">完全一样</button>
+          <button type="button" class="scope-chip" data-ct-filter="contain">包含</button>
+          <button type="button" class="scope-chip" data-ct-filter="near">很像</button>
+        </div>
         <div class="ct-sum" id="ctSum"></div>
         <div class="ct-body" id="ctBody"></div>
-        <p class="ct-foot">重新分组、以及「这位 TA 到底想要什么类型的字卡」，会在下一批接进这一页。</p>
+        <p class="ct-foot" id="ctFoot"></p>
       </div>
       <div class="ct-bar" id="ctBar" hidden>
         <span class="ct-bar-n" id="ctBarN">已勾 0 张</span>
         <button type="button" class="soft-btn" id="ctKeepAll">全部保留</button>
         <button type="button" class="primary-btn" id="ctDelete">删除勾选的</button>
+      </div>
+      <div class="ct-bar" id="ctAiBar" hidden>
+        <span class="ct-bar-n" id="ctAiN">已勾 0 条</span>
+        <button type="button" class="soft-btn" id="ctAiCancel">全部取消</button>
+        <button type="button" class="primary-btn" id="ctAiApply">应用勾选的</button>
       </div>
     </section>
      
@@ -1950,34 +1966,39 @@
             <div class="bx-actrow bx-desk-run"><button type="button" class="ap-btn pri" id="bxDeskGen">生成</button><button type="button" class="ap-btn" id="bxDeskCancel" hidden>取消</button><span class="bx-hint">会花一次额度；等太久可以点「取消」。</span></div>
             <div class="bx-check" id="bxDeskNote"></div>
           </div>
-          <div class="bx-desk-empty" id="bxDeskEmpty">写不写要求都行：不写就按这一位的设定来。想顺着聊天写，就把你刚说出口的那句填进「TA 接我这句话」——写出来的就是 TA 会怎么回。点「生成」；写出来的卡会出现在这里，点正文就能改，还能点「TA的满意度」随机打个分（1~10，改完可重掷）。</div>
+          <div class="bx-desk-empty" id="bxDeskEmpty">不写要求也行：不写就按这一位的设定来。想顺着聊天写，就把你刚说出口的那句填进「TA 接我这句话」。点「生成」，卡会出现在这里——点正文就能改，点「TA的满意度」打个分（1~10，改完可重掷）。</div>
           <div class="bx-sec" id="bxDeskResultSec" hidden>
             <div class="bx-hd"><span class="bx-t">写出来的</span><span class="bx-sub" id="bxDeskCount"></span></div>
             <div class="bx-desk-list" id="bxDeskList"></div>
             <textarea id="bxDeskFix" class="bx-ta" rows="2" placeholder="哪儿不对？例：太书面了，短一点；不要用感叹号。"></textarea>
-            <div class="bx-actrow"><button type="button" class="ap-btn" id="bxDeskRedo">再写一版</button><span class="bx-hint">会带着上一版与这句纠正重写；上一版留在「最近写过」里，还能摆到上面并排比。</span></div>
+            <div class="bx-actrow"><button type="button" class="ap-btn" id="bxDeskRedo">再写一版</button><span class="bx-hint">带着上一版与这句纠正重写；上一版还在「最近写过」里。</span></div>
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxDeskSaveSel">存勾选的</button><button type="button" class="ap-btn pri" id="bxDeskSaveAll">全部存入</button><button type="button" class="ap-btn" id="bxCmpAddNow">加入对比</button></div>
+          </div>
           </div>
            
           <div class="bx-sec" id="bxCmpSec" hidden>
             <div class="bx-hd"><span class="bx-t">并排比一比</span><span class="bx-sub" id="bxCmpCount"></span></div>
-            <p class="bx-hint">点「加入对比」把这一批或下面「最近写过」里的任意一版摆进来（最多 4 版）。标「稳」的是两版以上都写过的句子——最像 TA 平时会说的，通常先留它；标「在库」的库里已经有了，不用再存。</p>
+            <p class="bx-hint">点「加入对比」把这一批或「最近写过」里的某版摆进来（最多 4 版）。标「稳」＝两版以上都写过，通常先留它；标「在库」＝库里已有，不用再存。</p>
             <div class="bx-cmp" id="bxCmpList"></div>
             <div class="bx-actrow"><button type="button" class="ap-btn pri" id="bxCmpSave">存下选中的</button><button type="button" class="ap-btn" id="bxCmpClear">撤掉对比</button></div>
           </div>
-          </div>
+           
            
           <div class="bx-sec bx-desk-manual" id="bxDeskManual" hidden>
             <div class="bx-hd"><span class="bx-t">我直接写</span><span class="bx-sub">一句一张卡 · 换行可分多张</span></div>
             <textarea id="bxManualText" class="bx-ta" rows="5" placeholder="想对 TA 说什么，就直接写在这儿。例：今天路过你以前常去的店，忽然很想你。"></textarea>
             <div class="bx-check" id="bxManualSatOut"></div>
-            <div class="bx-actrow"><button type="button" class="ap-btn" id="bxManualRate">TA的满意度</button><button type="button" class="ap-btn" id="bxManualSave">存进字卡库</button></div>
-            <div class="bx-actrow bx-desk-run"><button type="button" class="ap-btn pri" id="bxManualSend">发到聊天问 TA 的意见 <span aria-hidden="true">›</span></button><span class="bx-hint">会以「我」的身份发进聊天，TA 随后用自己的字卡回你；纯本地，不花钱、不发请求。</span></div>
+            <div class="bx-cap">存到哪个分组</div>
+            <div class="bx-chips" id="bxManualGroupRow"></div>
+            <p class="bx-hint">想换个新组名就点「AI 拟组名」（会花一次额度）；不点就按选好的组存。</p>
+             
+            <div class="bx-actrow bx-desk-run"><button type="button" class="ap-btn pri" id="bxManualSend">发到聊天 <span aria-hidden="true">›</span></button><span class="bx-hint">以 TA 的字卡出现在聊天里；纯本地，不花钱、不发请求。</span></div>
+            <div class="bx-actrow"><button type="button" class="ap-btn" id="bxManualRate">TA的满意度</button><button type="button" class="ap-btn" id="bxManualCmp">加入对比</button><button type="button" class="ap-btn" id="bxManualSave">存进字卡库</button></div>
           </div>
           <details class="bx-hist-sec" id="bxHistSec">
             <summary>最近写过 <span class="bx-hist-cnt" id="bxHistCount"></span></summary>
             <div class="bx-hist" id="bxHistList"></div>
-            <p class="bx-hint">每一行就是一次写出来的那一版：点整行＝载回台面；点「对比」＝摆到上面并排比。只在这台设备上，不进备份，最多 30 批。</p>
+            <p class="bx-hint">点整行＝载回台面；点「对比」＝摆上去并排比。只在这台设备上，不进备份，最多 30 批。</p>
             <button type="button" class="ap-btn" id="bxHistClear">清空</button>
           </details>
         </div>
@@ -2431,7 +2452,7 @@
     <section class="view" id="settingsView">
       <div class="settings-top">
          
-        <div class="settings-tabs" role="tablist"><button class="settings-tab" data-tab="notify" role="tab">通知</button><button class="settings-tab" data-tab="sound" role="tab">声音</button><button class="settings-tab" data-tab="ai" role="tab">AI</button><button class="settings-tab" data-tab="desk" role="tab">外观</button><button class="settings-tab" data-tab="data" role="tab">数据</button><button class="settings-tab" data-tab="about" role="tab">关于</button></div>
+        <div class="settings-tabs" role="tablist"><button class="settings-tab" data-tab="notify" role="tab">通知</button><button class="settings-tab" data-tab="sound" role="tab">音效</button><button class="settings-tab" data-tab="ai" role="tab">AI</button><button class="settings-tab" data-tab="desk" role="tab">外观</button><button class="settings-tab" data-tab="data" role="tab">数据</button></div>
       </div>
       <div class="settings-list" id="settingsList">
          
@@ -2710,16 +2731,19 @@
          
 
          
-        <div class="setting-card set-entry" data-tab="about">
+        <div class="setting-card set-entry" data-tab="data">
           <button type="button" class="set-entry-row" data-view="feedback"><span class="set-entry-tx"><strong>反馈</strong><small>用不了 · 显示不对；报修须知见这一页</small></span></button>
         </div>
 
          
-        <div class="setting-card set-entry" data-tab="about">
+        <div class="set-sec" data-tab="data"><span>关于本站</span><small>每一版改了什么 · 许可与使用条款</small></div>
+
+         
+        <div class="setting-card set-entry" data-tab="data">
           <button type="button" class="set-entry-row" data-view="update"><span class="set-entry-tx"><strong>更新公告</strong><small>每一版的更新与说明 · 最新一条在最上面</small></span></button>
         </div>
 
-        <div class="setting-card fold" data-tab="about" data-fold="about">
+        <div class="setting-card fold" data-tab="data" data-fold="about">
           <div class="lic-sign">
             <div class="lic-name">言字卡</div>
             <div class="lic-author">作者 · 小红书 @言序（1842523578）· 抖音 @言序（58334080131）</div>
@@ -2890,7 +2914,7 @@
         </div>
          
         <div class="setting-card ap-resetline">
-          <span class="ap-reset-tx">恢复默认外观<small>只把这一位 TA 的聊天装扮交回出厂：气泡·文字·时间·背景·两栏与 CSS</small></span>
+          <span class="ap-reset-tx">恢复默认外观<small>回到没改过任何美化的样子：这一位的气泡·文字·时间·背景·两栏与 CSS，加上全站外观（排版·毛玻璃·头像形状·全站字体）一并交回出厂</small></span>
           <button type="button" class="ap-btn sm" id="apResetAll">恢复默认</button>
         </div>
          
@@ -3320,6 +3344,24 @@
             </div>
           </div>
         </div>
+         
+        <div class="setting-card fold" data-fold="replysat" data-rtab="rhythm">
+          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">回复满意度</span><span class="fold-sum" id="mateReplySatSum"></span></span><i class="fold-ar">›</i></button>
+          <div class="fold-bd">
+            <div class="check-row"><label class="check-item"><input type="checkbox" id="replySatOn"><span>你发消息时，TA 给你这条回复打分<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：聊天里落一行「阿言 · 对你这条回复的满意度 · 7/10 · 挺满意」。分数纯随机，只对你亲手发出的文字消息生效；纯图和语音不触发。单聊＝当前这位 TA；群聊按下面三档。出厂开。</span></span></label></div>
+            <label id="replySatProbLab" class="mate-stp-row">触发概率（%）<button type="button" class="stp-min" data-stp="replySatProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="replySatProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="replySatProb" data-d="1" aria-label="多一点">+</button></label>
+            <div id="rsGroupWrap">
+              <p class="data-note" style="margin:10px 0 6px">群聊里给谁打分</p>
+              <div class="contact-chip-row" id="rsGroupRow" role="group" aria-label="群聊里给回复满意度打分">
+                <button type="button" class="contact-chip active" data-rs-group="reply">回你的那位</button>
+                <button type="button" class="contact-chip" data-rs-group="all">全群整体</button>
+                <button type="button" class="contact-chip" data-rs-group="each">每位成员</button>
+              </div>
+              <p class="data-note">「回你的那位」＝谁这一轮真开口，才给谁打分并写上名字；没人开口就不出。「每位成员」＝一次给群里每人各一条（带各自名字）；「全群整体」＝一个分。</p>
+            </div>
+            <p class="data-note">和上面【话题意愿度】是一对：意愿度看 TA 对这个<b>话题</b>上不上心，满意度看 TA 对你<b>这句话</b>满不满意。两枚都命中时只落一行「阿言 · 意愿度 7/10 · 满意度 5/10」；只中一项时照旧只说那一项。</p>
+          </div>
+        </div>
         <div class="setting-card fold" data-fold="stray" data-rtab="rhythm">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">话没挤过来</span><span class="fold-sum" id="mateStraySum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
@@ -3521,7 +3563,7 @@
         <div class="setting-card fold" data-fold="mxacc">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">MiniMax 账户 · 全站一份</span><span class="fold-sum" id="mateMxAccSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
-            <div class="check-row"><label class="check-item"><input type="checkbox" id="mateMxOn"><span>使用 MiniMax 语音<span style="display:block;font-size:11px;color:var(--muted)">这一枚与「更多 → 设置 → 声音 → MiniMax 语音」是同一枚开关；勾掉后全站都不发 MiniMax 请求。</span></span></label></div>
+            <div class="check-row"><label class="check-item"><input type="checkbox" id="mateMxOn"><span>使用 MiniMax 语音<span style="display:block;font-size:11px;color:var(--muted)">这一枚与「更多 → 设置 → AI → MiniMax 语音」是同一枚开关；勾掉后全站都不发 MiniMax 请求。</span></span></label></div>
              
             <label class="key-row">API Key<span class="key-wrap"><input id="mateMxKey" type="password" placeholder="粘贴开放平台的 Key" autocomplete="off"><button type="button" class="key-x" data-key-x="mateMxKey" aria-label="清空已填的 API Key" title="清空">×</button></span></label>
             <p class="data-note key-sync" id="mateMxSync">这里填的是全局那一份 Key（不是这位 TA 单独一份）。</p>
@@ -3582,7 +3624,7 @@
             </div>
             </div>
               <div class="setting-subhead">不分 TA · 整页一份</div>
-              <div class="ap-row"><span>刷新页面不打断通话<span style="display:block;font-size:11px;color:var(--muted)">开着＝这一通正在打的时候刷新页面（含误按刷新、浏览器崩了把这一页恢复回来），回来仍停在通话那一面、计时接着走；半小时内回来才算，更久就按「异常结束」记进通话记录。关掉＝刷新即挂断，那一通也照样记进通话记录（结果写「异常结束」）。与「单独设置通话」无关，对所有 TA 都生效；设置 → 声音 → 通话 那一枚是同一件事</span></span><input type="checkbox" id="mateCallResumeOnReload" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
+              <div class="ap-row"><span>刷新页面不打断通话<span style="display:block;font-size:11px;color:var(--muted)">开着＝这一通正在打的时候刷新页面（含误按刷新、浏览器崩了把这一页恢复回来），回来仍停在通话那一面、计时接着走；半小时内回来才算，更久就按「异常结束」记进通话记录。关掉＝刷新即挂断，那一通也照样记进通话记录（结果写「异常结束」）。与「单独设置通话」无关，对所有 TA 都生效；设置 → 音效 → 通话 那一枚是同一件事</span></span><input type="checkbox" id="mateCallResumeOnReload" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             </div>
             <div class="call-pane" data-call-pane="voice" hidden>
               <p class="data-note">只作用在语音通话那一面：接通后他先念几句自己的专属语音。视频里 TA 用字卡消息说话，不吃这一份。</p>
@@ -4060,7 +4102,7 @@
     <p class="fb-foot">这一页只说明怎么报修：不发消息、不上传任何内容。</p>
   </div>
 </section>
-    <input type="file" id="chatImageInput" accept="image/*" multiple hidden><input type="file" id="avatarInput" class="av-file-native" accept="image/*"><input type="file" id="chatBgInput" accept="image/*" hidden><input type="file" id="deskBgInput" accept="image/*" hidden><input type="file" id="xnBgInput" accept="image/*" hidden><input type="file" id="momentImageInput" accept="image/*" multiple hidden><input type="file" id="momentsCoverInput" accept="image/*" hidden><input type="file" id="momentsAvatarInput" accept="image/*" hidden><input type="file" id="cardsImgInput" accept="image/*" multiple hidden><input type="file" id="cardsAudioInput" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.webm" multiple hidden><input type="file" id="cardsInput" accept="application/json,.json" hidden><input type="file" id="txtCardsInput" accept=".txt,text/plain" hidden><input type="file" id="dataInput" accept="application/json,.json" hidden><input type="file" id="avFileInput" class="av-file-native" accept="image/*" multiple>
+    <input type="file" id="chatImageInput" accept="image/*" multiple hidden><input type="file" id="avatarInput" class="av-file-native" accept="image/*"><input type="file" id="chatBgInput" accept="image/*" hidden><input type="file" id="deskBgInput" accept="image/*" hidden><input type="file" id="xnBgInput" accept="image/*" hidden><input type="file" id="momentImageInput" accept="image/*" multiple hidden><input type="file" id="momentCommentImageInput" accept="image/*" hidden><input type="file" id="momentsCoverInput" accept="image/*" hidden><input type="file" id="momentsAvatarInput" accept="image/*" hidden><input type="file" id="cardsImgInput" accept="image/*" multiple hidden><input type="file" id="cardsAudioInput" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.webm" multiple hidden><input type="file" id="cardsInput" accept="application/json,.json" hidden><input type="file" id="txtCardsInput" accept=".txt,text/plain" hidden><input type="file" id="dataInput" accept="application/json,.json" hidden><input type="file" id="avFileInput" class="av-file-native" accept="image/*" multiple>
  
 
  
@@ -4348,6 +4390,7 @@
             <button type="button" class="ask-kind" data-kind="choice" role="tab">单选题</button>
             <button type="button" class="ask-kind" data-kind="multi" role="tab">多选题</button>
             <button type="button" class="ask-kind" data-kind="text" role="tab">文字题</button>
+            <button type="button" class="ask-kind" data-kind="score" role="tab">满意度</button>
           </div>
            
           <p class="ask-hint" id="askHint"></p>
@@ -4740,44 +4783,56 @@
 
        
       <details class="set-adv" id="aidvSetWrap">
-        <summary>AI 解读 · 设定（总闸 ∶ 读法 ∶ 这一位的人设）</summary>
+        <summary><span class="dv-aidvsum-t">AI 解读 · 设定</span><span class="dv-aidvsum-s" id="aidvSumState"></span></summary>
         <div class="bx-page" id="aidvPage">
+           
           <div class="bx-sec">
-            <div class="bx-hd"><span class="bx-t">AI 解读</span><span class="bx-sub" id="aidvPaneState"></span></div>
             <label class="ap-row"><span>在占卜里能用 AI 读牌</span><input type="checkbox" id="aidvOn"></label>
             <p class="bx-hint">不按不发：解析页里（或 TA 发来的牌面卡上）按一下才发请求；一次解读＝接口那边一次调用。</p>
+            <p class="bx-hint" id="aidvApiRead"></p>
+            <div class="bx-actrow">
+              <button type="button" class="ap-btn pri" data-aidv-goset="1">去接口 ∶ 换模型 ›</button>
+              <button type="button" class="ap-btn" id="aidvTestBtn">测试能不能用</button>
+            </div>
+            <div class="bx-check" id="aidvCheckOut"></div>
           </div>
 
-          <div class="bx-sec">
-            <div class="bx-hd"><span class="bx-t">AI 占卜师的读法（指令）</span><span class="bx-sub">全站默认 · 没单独设过的那位照这份</span></div>
-            <textarea id="aidvInstrDef" class="bx-ta" rows="4" maxlength="900" placeholder="留空＝用出厂那份（先看牌面事实，再说这一手在说什么，最后给两三件能做的事）"></textarea>
-            <div class="bx-actrow"><button type="button" class="ap-btn" id="aidvInstrDefReset">恢复出厂</button><span class="bx-hint" id="aidvInstrDefNote"></span></div>
-            <div class="bx-chips" id="aidvTplRow"></div>
-          </div>
-
-          <div class="bx-sec">
-            <div class="bx-hd"><span class="bx-t">这一位</span><span class="bx-sub">读他的牌时用他这一套</span></div>
-            <div class="contact-chip-row" id="aidvWhoRow"></div>
-            <label class="ap-row"><span>单独给这一位设读法</span><input type="checkbox" id="aidvInstrOwn"></label>
-            <p class="bx-hint">不勾＝跟上面「全站默认」那份走；勾上＝以全站那份为起点，改成他这一套。</p>
-          <textarea id="aidvInstr" class="bx-ta" rows="3" maxlength="900"></textarea>
-          <p class="bx-hint" id="aidvInstrNote"></p>
            
-          <label class="ap-row"><span>人设（读他的牌时带上）</span></label>
-          <textarea id="aidvPersonaTa" class="bx-ta" rows="3" maxlength="1200" placeholder="这一位是什么样的人、你们是什么关系……留空＝读牌不带人设"></textarea>
-          <label class="ap-row"><span>说话习惯</span></label>
-          <textarea id="aidvHabitTa" class="bx-ta" rows="2" maxlength="800" placeholder="他平时怎么说话（可空）"></textarea>
-            <p class="bx-hint" id="aidvPersonaNote"></p>
-          </div>
+          <details class="set-adv" id="aidvAdvWrap">
+            <summary><span class="dv-aidvsum-t">读法 · 这一位 · 字数</span></summary>
+            <div class="bx-sec">
+              <div class="bx-hd"><span class="bx-t">AI 占卜师的读法</span><span class="bx-sub">指令 · 全站默认 · 没单独设过的那位照这份</span></div>
+              <textarea id="aidvInstrDef" class="bx-ta" rows="4" maxlength="900" placeholder="留空＝用出厂那份（先看牌面事实，再说这一手在说什么，最后给两三件能做的事）"></textarea>
+              <div class="bx-actrow"><button type="button" class="ap-btn" id="aidvInstrDefReset">恢复出厂</button><span class="bx-hint" id="aidvInstrDefNote"></span></div>
+              <div class="bx-chips" id="aidvTplRow"></div>
+            </div>
 
-          <div class="bx-sec">
-            <div class="bx-hd"><span class="bx-t">一次读多少字</span><span class="bx-sub">全站一份</span></div>
-            <div class="contact-chip-row" id="aidvWordsRow"></div>
-            <p class="bx-hint">短 ≈ 300 字，中 ≈ 450 字，长 ≈ 700 字。太长容易水，太短说不清「怎么接」。</p>
-          </div>
+            <div class="bx-sec">
+              <div class="bx-hd"><span class="bx-t">这一位</span><span class="bx-sub">读他的牌时用他这一套</span></div>
+              <div class="contact-chip-row" id="aidvWhoRow"></div>
+              <label class="ap-row"><span>单独给这一位设读法</span><input type="checkbox" id="aidvInstrOwn"></label>
+              <p class="bx-hint">不勾＝跟上面「全站默认」那份走；勾上＝以全站那份为起点，改成他这一套。</p>
+              <textarea id="aidvInstr" class="bx-ta" rows="3" maxlength="900"></textarea>
+              <p class="bx-hint" id="aidvInstrNote"></p>
+               
+              <label class="ap-row"><span>人设（读他的牌时带上）</span></label>
+              <textarea id="aidvPersonaTa" class="bx-ta" rows="3" maxlength="1200" placeholder="这一位是什么样的人、你们是什么关系……留空＝读牌不带人设"></textarea>
+              <label class="ap-row"><span>说话习惯</span></label>
+              <textarea id="aidvHabitTa" class="bx-ta" rows="2" maxlength="800" placeholder="他平时怎么说话（可空）"></textarea>
+              <p class="bx-hint" id="aidvPersonaNote"></p>
+            </div>
 
-          <details class="set-adv">
-            <summary>说明：它会看到什么 · 世界观在哪改</summary>
+            <div class="bx-sec">
+              <div class="bx-hd"><span class="bx-t">一次读多少字</span><span class="bx-sub">全站一份</span></div>
+              <div class="contact-chip-row" id="aidvWordsRow"></div>
+              <p class="bx-hint">短 ≈ 300 字，中 ≈ 450 字，长 ≈ 700 字。太长容易水，太短说不清「怎么接」。</p>
+            </div>
+          </details>
+
+           
+          <details class="set-adv" id="aidvAboutWrap">
+            <summary><span class="dv-aidvsum-t">说明 · 它会看到什么</span></summary>
+            <p class="bx-about">接口全站只有一份账，住在【帮写字卡 → 接口】那一档，这里不存第二份；改完回来按「测试」，通了就能读牌。</p>
             <p class="bx-about">读牌时自动带：<b>世界观</b>＝【帮写字卡 → 人设】那一档的「世界观」（没填就用言字卡出厂那份）；<b>人设 / 说话习惯</b>＝上面「这一位」里写的那份（与帮写页同一本账）。这里不存第二份。</p>
             <p class="bx-about" id="aidvWorldState"></p>
             <div class="bx-actrow"><button type="button" class="ap-btn" data-aidv-gopersona="1">去【帮写字卡 → 人设】（改世界观 ∶ 群成员名单）›</button><span class="bx-hint" id="aidvPersonaState"></span></div>
@@ -6001,13 +6056,15 @@
 
       <div class="sf-sec" data-solo-body="head">
         <div class="sf-hd"><span class="sf-t">框头</span><span class="sf-sub">关掉哪一项就少哪一项</span></div>
-        <div class="ap-row"><span>头像</span><input type="checkbox" id="sfAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头头像"></div>
+        <div class="ap-row"><span>头像 · 我与 TA</span><input type="checkbox" id="sfAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头头像"></div>
+        <div class="ap-row"><span>头像形状</span><div class="contact-chip-row" id="sfAvShapeRow"><button type="button" class="contact-chip" data-v="">跟随全站</button><button type="button" class="contact-chip" data-v="circle">圆形</button><button type="button" class="contact-chip" data-v="rounded">圆角</button><button type="button" class="contact-chip" data-v="square">方形</button><button type="button" class="contact-chip" data-v="custom">自定义</button></div></div>
+        <div id="sfAvRwrap" hidden><label class="ap-knob"><span>头像圆角</span><input type="range" id="sfAvR" min="0" max="15" step="0.5" value="10" aria-label="头像圆角"><output id="sfAvROut">10px</output></label></div>
         <div class="ap-row"><span>名字</span><input type="checkbox" id="sfName" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头名字"></div>
         <div class="ap-row"><span>副题</span><input type="checkbox" id="sfSub" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头副题"></div>
         <div class="ap-row"><span>副题文字</span><input type="text" id="sfSubTxt" maxlength="16" placeholder="最近的聊天记录" style="flex:1;min-width:0;width:0;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:inherit;font-size:12.5px;text-align:right" aria-label="副题文字"></div>
         <div class="ap-row"><span>进入聊天</span><input type="checkbox" id="sfGo" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头进入聊天"></div>
         <div class="ap-row"><span>进入聊天文字</span><input type="text" id="sfGoTxt" maxlength="16" placeholder="进入聊天 ›" style="flex:1;min-width:0;width:0;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:inherit;font-size:12.5px;text-align:right" aria-label="进入聊天文字"></div>
-        <p class="sf-hint">文案两格填了就用你的（≤16 字），空着＝出厂那两句——想造「回家」的感觉，可以写「欢迎回家」和「回家 ›」。四项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
+        <p class="sf-hint">头像那一行是这一本的两张脸（你与 TA）叠在一起，形状可单挑：「跟随全站」＝跟设置→外观里的头像形状走，自定义那根杆从方形（0）一路拖到整圆（15）。文案两格填了就用你的（≤16 字），空着＝出厂那两句——想造「回家」的感觉，可以写「欢迎回家」和「回家 ›」。四项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
       </div>
 
       <div class="sf-sec" data-solo-body="text">
@@ -6361,6 +6418,7 @@
         <span class="srp-nm">助眠频道<span class="srp-nm-who" id="srWho"></span></span>
         <svg class="srp-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
       </button>
+      <button type="button" class="srp-ico" id="srWhLogBtn" aria-label="轻语记录" title="轻语记录"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l3 3v15H8z"/><path d="M11 9h5M11 13h5M11 17h3"/></svg></button>
       <button type="button" class="srp-ico" id="srSetBtn" aria-label="助眠频道设置" title="助眠频道设置"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></button>
     </div>
     <div class="srp-modes" id="srModeTabs" role="tablist" aria-label="助眠频道模式">
@@ -6421,6 +6479,10 @@
     <div class="fs-sheet srp-sheet" id="srWhSheet"></div>
   </div>
    
+  <div class="fs-sheet-mask fs-sheet-full" id="srWhLogMask" hidden>
+    <div class="fs-sheet srp-sheet" id="srWhLogSheet"></div>
+  </div>
+   
   <div class="fs-sheet-mask fs-sheet-full" id="srPlanMask" hidden>
     <div class="fs-sheet srp-sheet">
       <div class="fs-sheet-bar">
@@ -6448,6 +6510,11 @@
           <div><span class="hub-en mono">FEATURES · 都在这里</span><h2>使用大全</h2></div>
           <div class="hub-stat" id="hubStat"></div>
         </div>
+        <div class="hub-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="hubSearch" type="search" placeholder="搜功能 · 名字或说明" autocomplete="off" aria-label="搜索功能">
+          <button type="button" id="hubSearchClear" aria-label="清空搜索" hidden>×</button>
+        </div>
         <div class="fchips hub-tags" id="hubTags"></div>
         <div id="hubBody"></div>
         <div class="hub-foot mono">言字卡 · FEATURES</div>
@@ -6470,7 +6537,7 @@
         <div class="ckx-sum" id="ckSum"></div>
         <div class="ckx-body" id="ckBody"></div>
         <input type="file" id="ckFile" accept="application/json,.json" hidden>
-        <p class="ckx-foot">要问接口的两族不在这一页：声音去 设置 → 声音 按「检测为什么没声音」（八道门），歌词去播放器那一屏的设置里按「查」。</p>
+        <p class="ckx-foot">要问接口的两族不在这一页：声音去 设置 → AI 按「检测为什么没声音」（八道门），歌词去播放器那一屏的设置里按「查」。</p>
       </div>
     </section>
      
