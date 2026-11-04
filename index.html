@@ -14,8 +14,8 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v26.0.5.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v26.0.5.js"></script>
+  <link rel="stylesheet" href="dist/app.v26.2.6.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v26.2.6.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +251,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v26.0.5.css','dist/app.v26.0.5.js'];
+      var BOOT_FILES = ['dist/app.v26.2.6.css','dist/app.v26.2.6.js'];
 
 
 
@@ -1557,6 +1557,8 @@
            
           <button class="cards-menu-item" data-view="cardfit">字卡适应度…</button>
            
+          <button class="cards-menu-item" id="cardsTidyOpen"><span class="menu-label">整理字卡</span><small class="menu-tip">找重复 · 不花钱</small></button>
+           
           <button class="cards-menu-item" id="cardsBxDesk">帮写几张…</button>
            
           <button class="cards-menu-item" id="toggleBatchCards"><span class="menu-label">批量管理</span><small class="menu-tip">长按字卡也可</small></button>
@@ -1697,6 +1699,32 @@
 
       <button id="addCardImages" hidden aria-hidden="true"></button>
     </section>
+ 
+    <section class="view" id="cardTidyView">
+      <div class="ct-page">
+        <div class="ct-head">
+          <div>
+            <div class="ct-eyebrow">CARDS</div>
+            <div class="ct-title">整理字卡</div>
+          </div>
+          <button type="button" class="ct-rescan" id="ctRescan">重新扫一遍</button>
+        </div>
+        <p class="ct-lead">只整理「主字卡」。下面每组都是建议——一张都还没删，勾哪张才删哪张。</p>
+        <div class="ct-scope-row" id="ctScopeRow">
+          <button type="button" class="scope-chip on" data-ct-scope="public">公用字卡</button>
+          <button type="button" class="scope-chip" data-ct-scope="own">专属字卡</button>
+        </div>
+        <div class="contact-chip-row" id="ctWhoRow" hidden></div>
+        <div class="ct-sum" id="ctSum"></div>
+        <div class="ct-body" id="ctBody"></div>
+        <p class="ct-foot">重新分组、以及「这位 TA 到底想要什么类型的字卡」，会在下一批接进这一页。</p>
+      </div>
+      <div class="ct-bar" id="ctBar" hidden>
+        <span class="ct-bar-n" id="ctBarN">已勾 0 张</span>
+        <button type="button" class="soft-btn" id="ctKeepAll">全部保留</button>
+        <button type="button" class="primary-btn" id="ctDelete">删除勾选的</button>
+      </div>
+    </section>
      
     <section class="view" id="sysCardsView">
       <div class="home-greet cards-greet">
@@ -1826,13 +1854,13 @@
         <div class="bx-pane" data-bx-pane="persona" hidden>
           <div class="bx-sec">
             <div class="bx-hd"><span class="bx-t">人设</span><span class="bx-sub">世界观全站一份 · 人设按 TA 各一份</span></div>
-            <p class="bx-hint">写得越具体，写出来的卡越贴：身份 ∶ 与我的关系 ∶ 性格 ∶ 在意什么 ∶ 怎么称呼我 ∶ 绝不会说的话。这里写一次，帮写、占卜解读、助眠三处用的是同一份，不用重复填。</p>
-            <label class="bx-field"><span>世界观</span><textarea id="bxWorld" class="bx-ta" rows="2" placeholder="例：现代都市，没有超能力；我们在一起三年，住在城南；TA 是急诊科医生，习惯把关心藏在抱怨里。"></textarea></label>
+            <p class="bx-hint">写得越具体，写出来的卡越贴：身份 ∶ 与我的关系 ∶ 性格 ∶ 在意什么 ∶ 怎么称呼我 ∶ 绝不会说的话。这里写一次，帮写、占卜解读、助眠三处用的是同一份，不用重复填。三格都能写多行，框会跟着内容长高。</p>
+            <label class="bx-field"><span>世界观</span><textarea id="bxWorld" class="bx-ta" rows="3" placeholder="例：现代都市，没有超能力；我们在一起三年，住在城南；TA 是急诊科医生，习惯把关心藏在抱怨里。"></textarea></label>
             <div class="contact-chip-row" id="bxWhoRow"></div>
-            <label class="bx-field"><span>这一位的人设</span><textarea id="bxPersona" class="bx-ta" rows="2" placeholder="身份、与我的关系、性格、在意什么。"></textarea></label>
+            <label class="bx-field"><span>这一位的人设</span><textarea id="bxPersona" class="bx-ta" rows="3" placeholder="身份、与我的关系、性格、在意什么。"></textarea></label>
             <div class="bx-cap">不知道写什么？点一行，接着往下填</div>
             <div class="bx-chips" id="bxPersonaWiz"></div>
-            <label class="bx-field"><span>说话习惯</span><textarea id="bxHabit" class="bx-ta" rows="2" placeholder="口癖、怎么称呼我、常用语气、禁用词。"></textarea></label>
+            <label class="bx-field"><span>说话习惯</span><textarea id="bxHabit" class="bx-ta" rows="3" placeholder="口癖、怎么称呼我、常用语气、禁用词。"></textarea></label>
             <div class="bx-chips" id="bxHabitWiz"></div>
              
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxPersonaPull">从最近聊天总结一份</button><button type="button" class="ap-btn" id="bxPersonaUndo" hidden>撤回刚才的</button><span class="bx-hint">会花一次额度：只读这一位的最近聊天与他用过的卡，归纳成上面两格；不会自己编经历。</span></div>
@@ -1886,7 +1914,7 @@
     <div class="fs-sheet-mask fs-sheet-full bx-desk-mask" id="bxDeskMask" hidden>
       <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="帮写字卡">
         <div class="fs-sheet-bar">
-          <div class="fs-sheet-t"><span class="fs-sheet-ti">帮写字卡</span><button type="button" class="bx-desk-set" id="bxDeskChat">‹ 聊天</button><button type="button" class="bx-desk-set" id="bxDeskSet">设置 ›</button></div>
+          <div class="fs-sheet-t bx-desk-t"><span class="fs-sheet-ti">帮写字卡</span><button type="button" class="bx-desk-set" id="bxDeskChat">‹ 聊天</button><button type="button" class="bx-desk-set" id="bxDeskSet">设置 ›</button></div>
           <button type="button" class="fs-sheet-close" id="bxDeskClose" aria-label="关闭">×</button>
         </div>
         <div class="fs-sheet-body bx-desk-body">
@@ -1905,6 +1933,9 @@
           <div class="bx-sec">
             <div class="bx-hd"><span class="bx-t">要求</span><span class="bx-sub">点一下拼进去；不写要求也行</span></div>
             <textarea id="bxDeskReq" class="bx-ta" rows="3" placeholder="例：写几句撒娇但别太腻的晚安；或者：写一句我出差回来时可能会说的话。"></textarea>
+             
+            <div class="bx-cap">TA 接我这句话（可不填）</div>
+            <textarea id="bxDeskMyLine" class="bx-ta" rows="2" placeholder="正常聊天里你刚说出口的那句。例：我：今晚加班，要很晚才回你。填了，写出来的就是 TA 会怎么接这句话。"></textarea>
             <p class="bx-tpl-echo" id="bxDeskTplEcho" hidden></p>
             <div class="bx-cap">写什么</div>
             <div class="bx-chips" id="bxDeskTpl"></div>
@@ -1919,7 +1950,7 @@
             <div class="bx-actrow bx-desk-run"><button type="button" class="ap-btn pri" id="bxDeskGen">生成</button><button type="button" class="ap-btn" id="bxDeskCancel" hidden>取消</button><span class="bx-hint">会花一次额度；等太久可以点「取消」。</span></div>
             <div class="bx-check" id="bxDeskNote"></div>
           </div>
-          <div class="bx-desk-empty" id="bxDeskEmpty">写不写要求都行：不写就按这一位的设定来。点「生成」；写出来的卡会出现在这里，点正文就能改，还能点「TA的满意度」随机打个分（1~10，改完可重掷）。</div>
+          <div class="bx-desk-empty" id="bxDeskEmpty">写不写要求都行：不写就按这一位的设定来。想顺着聊天写，就把你刚说出口的那句填进「TA 接我这句话」——写出来的就是 TA 会怎么回。点「生成」；写出来的卡会出现在这里，点正文就能改，还能点「TA的满意度」随机打个分（1~10，改完可重掷）。</div>
           <div class="bx-sec" id="bxDeskResultSec" hidden>
             <div class="bx-hd"><span class="bx-t">写出来的</span><span class="bx-sub" id="bxDeskCount"></span></div>
             <div class="bx-desk-list" id="bxDeskList"></div>
@@ -2170,6 +2201,15 @@
               <button type="button" class="mc-chip" id="mcSetCover">更换封面图</button>
               <button type="button" class="mc-chip mc-danger" id="mcClearCover" hidden>恢复默认封面</button>
             </div>
+             
+            <div class="mm-set-row"><span class="mm-fl">怎么显示</span>
+              <div class="mc-fit-row">
+                <button type="button" class="mc-chip" data-mm-fit="contain" aria-pressed="true">完整 · 不裁切</button>
+                <button type="button" class="mc-chip" data-mm-fit="cover" aria-pressed="false">铺满 · 可拖动</button>
+              </div>
+            </div>
+            <div class="mm-set-row" id="mmCoverPosRow" hidden><span class="mm-fl">上下位置</span><input type="range" id="mmCoverPos" min="0" max="100" step="1" value="50"><span class="mm-fu" id="mmCoverPosVal">50%</span></div>
+            <p class="fs-sheet-note">「完整」＝整张图都看得到，比例不匹配时两边留浅色底；「铺满」＝填满这一块，多出的边裁掉，按住封面半秒再上下拖就能挑露出哪一段。</p>
           </div>
           </div>
         </div>
@@ -2472,7 +2512,22 @@
         </div>
 
          
-        <div class="setting-card fold" id="mxCard" data-tab="sound" data-fold="mx">
+        <div class="set-sec" data-tab="ai"><span>AI 功能</span><small>接口一套共用 · 各功能的开关在自己那页</small></div>
+
+        <div class="setting-card set-entry" data-tab="ai">
+          <button type="button" class="set-entry-row" data-view="bangxie"><span class="set-entry-tx"><strong>AI 接口 · 帮写字卡</strong><small id="sumBxSet"></small><small>辅助功能：言字卡本质是字卡传讯，聊天里的每一句都由本地字卡池随机抽；接 AI 只是帮忙写卡，不接不影响任何使用。同一套接口与人设还管占卜解读与助眠轻语。</small></span></button>
+        </div>
+
+        <div class="setting-card set-entry" data-tab="ai">
+          <button type="button" class="set-entry-row" data-view="divine"><span class="set-entry-tx"><strong>占卜 AI 解读</strong><small>总闸 ∶ 读法 ∶ 这一位的人设——在占卜页底部「AI 解读 · 设定」，进去翻到底</small></span></button>
+        </div>
+
+        <div class="setting-card set-entry" data-tab="ai">
+          <button type="button" class="set-entry-row" data-view="sleeproom"><span class="set-entry-tx"><strong>助眠频道</strong><small>AI 轻语哄睡：请一位 TA 进来，用自己的音色轻声说话（要接 MiniMax 语音）</small></span></button>
+        </div>
+
+         
+        <div class="setting-card fold" id="mxCard" data-tab="ai" data-fold="mx">
           <button type="button" class="fold-hd"><span class="fold-ti">MiniMax 语音</span><span class="fold-sum" id="sumMx"></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
             <div class="check-row"><label class="check-item"><input type="checkbox" id="mxOn"><span>使用 MiniMax 语音<span style="display:block;font-size:11px;color:var(--muted)">不勾＝一个字也不发出去，也不花钱</span></span></label></div>
@@ -2505,13 +2560,6 @@
               <p class="data-note">念错了、或者这个音色念某一句怪：<b>长按那条消息旁边的小喇叭</b>＝丢掉这句的存档重新合成（同一段话＋同一音色只存一份，念错会一直重放同一段）。合成结果自动存进该联系人的专属字卡库（字卡库 → 专属字卡 →「语音」下的「XX的语音」），同一段话同一音色只在第一次点播时请求接口，之后直接播存档。</p>
             </details>
           </div>
-        </div>
-
-         
-        <div class="setting-card set-entry" data-tab="ai">
-          <button type="button" class="set-entry-row" data-view="bangxie"><span class="set-entry-tx"><strong>AI 接口</strong><small id="sumBxSet"></small><small>辅助功能：言字卡本质是字卡传讯，聊天里的每一句都由本地字卡池随机抽；接 AI 只是帮忙写卡，不接不影响任何使用。</small></span></button>
-           
-          <p class="data-note" style="margin:0;padding:0 16px 12px">占卜牌面的 AI 解读住在 <b>占卜页</b> 底部「AI 解读 · 设定」——总闸 ∶ 读法 ∶ 这一位的人设都在那里。</p>
         </div>
 
         <div class="setting-card fold" data-tab="sound" data-fold="gamesfx">
