@@ -14,8 +14,22 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v27.2.1.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v27.2.1.js"></script>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('ordinal-dark') === '1') {
+          document.documentElement.setAttribute('data-dark', 'on');
+          var mt = document.querySelector('meta[name="theme-color"]');
+          if (mt) mt.setAttribute('content', '#101114');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <style>html[data-dark=on],html[data-dark=on] body{background:#101114;color:#E9EAEF}</style>
+
+   
+  <link rel="stylesheet" href="dist/app.v27.6.0.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v27.6.0.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +265,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v27.2.1.css','dist/app.v27.2.1.js'];
+      var BOOT_FILES = ['dist/app.v27.6.0.css','dist/app.v27.6.0.js'];
 
 
 
@@ -1201,6 +1215,8 @@
         <div>
           <div class="g-eyebrow">MORE</div><div class="g-hi">更多</div>
           <div class="g-sub" id="moreVer"></div> 
+           
+          <button type="button" class="g-sub more-upd" id="moreUpd" hidden></button>
         </div>
          
         <div class="mg-acts">
@@ -1288,7 +1304,7 @@
           <button type="button" class="fs-sheet-close" id="favSendClose" aria-label="关闭">×</button>
         </div>
         <div class="fs-sheet-body">
-          <div class="fs-sheet-note">选中的 <b id="favSendCount">0</b> 条收藏会以卡片发到这位的聊天里（我的一侧），点卡可看完整内容。</div>
+          <div class="fs-sheet-note">选中的 <b id="favSendCount">0</b> 条收藏会收成<b>一张卡</b>发到这位的聊天里（我的一侧），点那张卡看全部几条；只勾一条时仍是一张单卡。</div>
           <div class="fav-send-list" id="favSendList"></div>
         </div>
       </div>
@@ -1865,6 +1881,7 @@
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxTryBtn">试写一张</button><span class="bx-hint">会花一次额度。</span></div>
             <div class="bx-check" id="bxTryOut"></div>
             <p class="bx-hint" id="bxUsageLine"></p>
+            <div id="bxUsageMore"></div>
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxUsageClear">用量清零</button></div>
           </details>
         </div>
@@ -2502,7 +2519,7 @@
 
         <div class="setting-card fold" data-tab="notify" data-fold="bg">
           <button type="button" class="fold-hd"><span class="fold-ti">新消息提醒</span><span class="fold-sum" id="sumBg"></span><i class="fold-ar">›</i></button>
-          <div class="fold-bd"><div class="setting-subhead">后台保活</div><div class="ap-row"><span>开启后台保活<span style="display:block;font-size:11px;color:var(--muted)">默认已开启。切后台时持续播放近无声音频防冻结，消息即时到达；默认走静音通道，不压低你在听的其他 App 声音（上传自定义有声音频或极个别设备回落到媒体元素时才会占声道）；回前台自动补跑错过的调度</span></span><input type="checkbox" id="bgKeepAlive" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>不抢其他 App 的声音<span style="display:block;font-size:11px;color:var(--muted)">保活音频走静音通道，不压低你在听的音乐/视频音量</span></span><input type="checkbox" id="bg-keep-noduck" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>保活音频<span style="display:block;font-size:11px;color:var(--muted)">点击可换成自定义音频（白噪音/助眠声，会按原音量出声）</span></span><button class="soft-btn" id="bg-keep-audio-btn" style="flex:none;width:auto;padding:5px 10px">默认静音音频</button></div><button class="soft-btn" id="testKeepAlive">保活测试</button><div class="setting-subhead">系统通知（切后台）</div><div class="ap-row"><span>开启系统通知<span style="display:block;font-size:11px;color:var(--muted)">切后台后收到新消息·来信·来电，弹系统通知（装在手机上＝手机 设置 → 应用 → 言字卡 → 通知 里允许；用浏览器打开＝浏览器问你要网站通知权限）</span></span><input type="checkbox" id="bgNotify" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>通知哪些来源<span style="display:block;font-size:11px;color:var(--muted)">只给勾上的类型弹系统通知；聊天·时讯·信箱·朋友圈四类默认全勾</span></span><div class="pop-src-row" id="bgNotifySrcRow"><label class="pop-src"><input type="checkbox" value="chat">聊天</label><label class="pop-src"><input type="checkbox" value="shixun">时讯</label><label class="pop-src"><input type="checkbox" value="mail">信箱</label><label class="pop-src"><input type="checkbox" value="moment">朋友圈</label></div></div><div class="ap-row"><span>每条消息单独通知<span style="display:block;font-size:11px;color:var(--muted)">关闭时同一会话连发多条只弹一条</span></span><input type="checkbox" id="bgNotifyNoDedup" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div id="bgNotifyPermWarn"></div><button class="soft-btn" id="testNotify">通知测试</button><div class="setting-subhead">桌面前台弹窗</div><div class="ap-row"><span>显示横幅<span style="display:block;font-size:11px;color:var(--muted)">前台收到新消息/来信时，顶部弹出横幅提醒，点击直达</span></span><input type="checkbox" id="deskPopupToggle" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>弹窗哪些来源<span style="display:block;font-size:11px;color:var(--muted)">只给勾上的类型弹顶部横幅；聊天·时讯·信箱·朋友圈四类默认全勾（朋友圈那一枚是它自己的动静提醒，关掉就只剩红点）</span></span><div class="pop-src-row" id="deskPopSrcRow"><label class="pop-src"><input type="checkbox" value="chat">聊天</label><label class="pop-src"><input type="checkbox" value="shixun">时讯</label><label class="pop-src"><input type="checkbox" value="mail">信箱</label><label class="pop-src"><input type="checkbox" value="moment">朋友圈</label></div></div><div class="ap-row"><span>弹窗行数<span style="display:block;font-size:11px;color:var(--muted)">同时最多显示几条横幅；1 行时新弹窗顶掉旧弹窗，2 行时不同来源并行各占一行</span></span><div class="contact-chip-row" style="margin:0" id="deskPopRowsRow"><button type="button" class="contact-chip" data-rows="1">1 行</button><button type="button" class="contact-chip" data-rows="2">2 行并行</button></div></div><div class="ap-row"><span>显示 × 关闭钮<span style="display:block;font-size:11px;color:var(--muted)">横幅最右那枚 ×，默认不画。不画也收得掉——桌面前台弹窗可以右滑关闭</span></span><input type="checkbox" id="deskPopCloseToggle" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div id="bgTestResult" style="font-size:11px;line-height:1.7;color:var(--muted);white-space:pre-wrap;margin-top:8px"></div></div>
+          <div class="fold-bd"><div class="setting-subhead">后台保活</div><div class="ap-row"><span>开启后台保活<span style="display:block;font-size:11px;color:var(--muted)">默认已开启。切后台时持续播放近无声音频防冻结，消息即时到达；默认走静音通道，不压低你在听的其他 App 声音（上传自定义有声音频时才会占声道；勾了下面那格「不抢」时，安卓上静音通道被系统挂起也不换回出声通道，代价是那期间后台可能收不到消息）；回前台自动补跑错过的调度</span></span><input type="checkbox" id="bgKeepAlive" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>不抢其他 App 的声音<span style="display:block;font-size:11px;color:var(--muted)">保活音频只走静音通道，不换回出声通道去压低你在听的音乐/视频；安卓上系统挂起静音通道时也不回抢（代价：那期间后台可能收不到消息、弹不出通知）；iPhone 为保证后台收消息仍会自动换回出声通道</span></span><input type="checkbox" id="bg-keep-noduck" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>保活音频<span style="display:block;font-size:11px;color:var(--muted)">点击可换成自定义音频（白噪音/助眠声，会按原音量出声）</span></span><button class="soft-btn" id="bg-keep-audio-btn" style="flex:none;width:auto;padding:5px 10px">默认静音音频</button></div><button class="soft-btn" id="testKeepAlive">保活测试</button><div class="setting-subhead">系统通知（切后台）</div><div class="ap-row"><span>开启系统通知<span style="display:block;font-size:11px;color:var(--muted)">切后台后收到新消息·来信·来电，弹系统通知（装在手机上＝手机 设置 → 应用 → 言字卡 → 通知 里允许；用浏览器打开＝浏览器问你要网站通知权限）</span></span><input type="checkbox" id="bgNotify" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>通知哪些来源<span style="display:block;font-size:11px;color:var(--muted)">只给勾上的类型弹系统通知；聊天·时讯·信箱·朋友圈四类默认全勾</span></span><div class="pop-src-row" id="bgNotifySrcRow"><label class="pop-src"><input type="checkbox" value="chat">聊天</label><label class="pop-src"><input type="checkbox" value="shixun">时讯</label><label class="pop-src"><input type="checkbox" value="mail">信箱</label><label class="pop-src"><input type="checkbox" value="moment">朋友圈</label></div></div><div class="ap-row"><span>每条消息单独通知<span style="display:block;font-size:11px;color:var(--muted)">关闭时同一会话连发多条只弹一条</span></span><input type="checkbox" id="bgNotifyNoDedup" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div id="bgNotifyPermWarn"></div><button class="soft-btn" id="testNotify">通知测试</button><div class="setting-subhead">桌面前台弹窗</div><div class="ap-row"><span>显示横幅<span style="display:block;font-size:11px;color:var(--muted)">前台收到新消息/来信时，顶部弹出横幅提醒，点击直达</span></span><input type="checkbox" id="deskPopupToggle" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span>弹窗哪些来源<span style="display:block;font-size:11px;color:var(--muted)">只给勾上的类型弹顶部横幅；聊天·时讯·信箱·朋友圈四类默认全勾（朋友圈那一枚是它自己的动静提醒，关掉就只剩红点）</span></span><div class="pop-src-row" id="deskPopSrcRow"><label class="pop-src"><input type="checkbox" value="chat">聊天</label><label class="pop-src"><input type="checkbox" value="shixun">时讯</label><label class="pop-src"><input type="checkbox" value="mail">信箱</label><label class="pop-src"><input type="checkbox" value="moment">朋友圈</label></div></div><div class="ap-row"><span>弹窗行数<span style="display:block;font-size:11px;color:var(--muted)">同时最多显示几条横幅；1 行时新弹窗顶掉旧弹窗，2 行时不同来源并行各占一行</span></span><div class="contact-chip-row" style="margin:0" id="deskPopRowsRow"><button type="button" class="contact-chip" data-rows="1">1 行</button><button type="button" class="contact-chip" data-rows="2">2 行并行</button></div></div><div class="ap-row"><span>显示 × 关闭钮<span style="display:block;font-size:11px;color:var(--muted)">横幅最右那枚 ×，默认不画。不画也收得掉——桌面前台弹窗可以右滑关闭</span></span><input type="checkbox" id="deskPopCloseToggle" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div id="bgTestResult" style="font-size:11px;line-height:1.7;color:var(--muted);white-space:pre-wrap;margin-top:8px"></div></div>
         </div>
 
          
@@ -2583,6 +2600,17 @@
           <button type="button" class="set-entry-row" data-view="bangxie"><span class="set-entry-tx"><strong>AI 接口 · 帮写字卡</strong><small id="sumBxSet"></small><small>辅助功能：言字卡本质是字卡传讯，聊天里的每一句都由本地字卡池随机抽；接 AI 只是帮忙写卡，不接不影响任何使用。同一套接口与人设还管占卜解读与助眠轻语。</small></span></button>
         </div>
 
+         
+        <div class="setting-card set-entry" data-tab="ai" id="bxUsageCard">
+          <button type="button" class="set-entry-row" id="bxUsageHead" aria-expanded="false"><span class="set-entry-tx"><strong>用量与余额</strong><small id="sumBxUsage"></small><small>这套接口一共发了多少次、花了多少 tokens、最近一发是什么时候——打开设置页会顺手帮你查一次余额（半小时内不重复问），也可以点开手查。</small></span></button>
+          <div id="bxUsagePanel" hidden>
+            <p class="bx-hint" id="bxUsageLineSt"></p>
+            <div id="bxUsageMoreSt"></div>
+            <div class="bx-actrow"><button type="button" class="ap-btn" id="bxUsageBalBtn">查一下余额</button></div>
+            <div class="bx-check" id="bxUsageBalOut"></div>
+          </div>
+        </div>
+
         <div class="setting-card set-entry" data-tab="ai">
           <button type="button" class="set-entry-row" data-view="divine"><span class="set-entry-tx"><strong>占卜 AI 解读</strong><small>总闸 ∶ 读法 ∶ 这一位的人设——在占卜页底部「AI 解读 · 设定」，进去翻到底</small></span></button>
         </div>
@@ -2637,6 +2665,16 @@
          
 
          
+         
+        <div class="set-sec" data-tab="desk"><span>深色模式</span><small>整站调暗 · 随时切回浅色</small></div>
+        <div class="setting-card fold flat" data-tab="desk">
+          <div class="fold-bd">
+            <div class="ap-row night-now-row"><span>深色模式</span><input type="checkbox" id="darkModeOn" class="night-now-check" aria-label="深色模式"><p class="night-now-sub">全站底色 · 卡片 · 气泡 · 字色一起转深，随时切回浅色</p></div>
+            <p class="data-note">打开后整站的<b>画布、卡片、气泡、输入框、弹层</b>一起转成深色，字与图标跟着翻白，影也换成黑色（深底上白影会读作脏光晕）。壁纸会一起压暗一档，不换图、不改版式、不动圆角。点一下当场生效、重启仍记得；关掉就逐字节回到原来的浅色。<b>META theme-color</b> 也跟着换，装到桌面后状态栏那一根不会在深色页上留一条白。</p>
+            <p class="data-note">与「桌面背景」里的<b>压暗/提亮</b>两根杆不冲突：那两根管的是壁纸本身，深色模式管的是界面；两者可以叠加。</p>
+          </div>
+        </div>
+
          
         <div class="set-sec" data-tab="desk"><span>一套搞定</span><small>不确定怎么调就先点这里</small></div>
          
@@ -3038,13 +3076,15 @@
             <div class="ap-sec">
               <div class="ap-sec-t">引用消息</div>
                
+               
               <div class="ap-row"><span>更多</span><button type="button" class="ap-btn" id="apQuoteLibBtn">引用框美化 · 独立页</button></div>
+              <div class="ap-row"><span>跟随气泡</span><div class="contact-chip-row" style="margin:0" id="apQuoteFollowRow"><button type="button" class="contact-chip" data-v="auto">自动</button><button type="button" class="contact-chip" data-v="on">始终跟随</button><button type="button" class="contact-chip" data-v="off">不跟随</button></div></div>
               <div class="ap-row"><span>左侧竖条</span><div class="contact-chip-row" style="margin:0" id="apQuoteBarShow"><button type="button" class="contact-chip" data-v="on">显示</button><button type="button" class="contact-chip" data-v="off">隐藏</button></div></div>
               <label class="ap-knob4"><span>框形状</span><input type="range" id="apQuoteRadius" min="0" max="24" step="1" value="12" aria-label="引用框圆角"><output id="apQuoteRadiusOut">跟随</output><span class="ap-color-reset" id="apQuoteRadiusRst" title="恢复默认形状">×</span></label>
               <div class="ap-color-row"><span>框底色</span><input type="color" id="apQuoteBg" class="ap-color" value="#ffffff"><span class="ap-color-reset" id="apQuoteBgRst" title="恢复默认">×</span></div>
               <div class="ap-color-row"><span>竖条颜色</span><input type="color" id="apQuoteBar" class="ap-color" value="#616162"><span class="ap-color-reset" id="apQuoteBarRst" title="恢复默认">×</span></div>
               <div class="ap-color-row"><span>引用文字</span><input type="color" id="apQuoteInk" class="ap-color" value="#717174"><span class="ap-color-reset" id="apQuoteInkRst" title="恢复默认">×</span></div>
-              <p class="data-note">管消息里那块「引用：…」——它的形状、左边那道竖条、底与字。框形状拖到 0＝直角、越大越圆，自定义后与气泡分开；竖条隐藏后仍留出同样宽度的空白。点 × 恢复默认。</p>
+              <p class="data-note">「跟随气泡」＝这一位写了自定义气泡 CSS 时，引用块跟着它的底色、字色与圆角走——自己传过气泡 css 的，这一档最治突兀；「自动」＝写了才跟（出厂）、「始终跟随/不跟随」照字面。管消息里那块「引用：…」的形状、左边那道竖条、底与字：框形状拖到 0＝直角、越大越圆，自定义后与气泡分开；竖条隐藏后仍留出同样宽度的空白。点 × 恢复默认。</p>
             </div>
           </div>
         </div>
@@ -3646,30 +3686,19 @@
               <p class="data-note">这一份语音通话和视频通话都吃：一通电话怎么响、接不接得通、多久结束、他会不会主动打来。</p>
               <div class="ap-row sound-row" style="margin-top:2px"><span>单独设置通话<span style="display:block;font-size:11px;color:var(--muted)">开启后这位 TA 的通话按下面这几档走（以全局当前值为起点，之后互不影响），关闭即恢复跟随全局。群聊没有通话，这一档在本群与成员档整档收起。</span></span><input type="checkbox" class="mate-call-ind" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="mate-call-fields">
-            <div class="setting-card fold call-fold" data-fold="callsec">
-              <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">接通与时长</span><span class="fold-sum">接通结果概率 · 响铃 · 通话时长</span></span><i class="fold-ar">›</i></button>
-              <div class="fold-bd">
+             
+            <div class="setting-subhead">接通与时长</div>
               <div class="field-row"><label>接通<input type="text" id="mcAnswerProb" min="0" max="100" inputmode="numeric"></label><label>拒绝<input type="text" id="mcRejectProb" min="0" max="100" inputmode="numeric"></label></div>
               <div class="field-row"><label>未接<input type="text" id="mcMissProb" min="0" max="100" inputmode="numeric"></label><label>忙线<input type="text" id="mcBusyProb" min="0" max="100" inputmode="numeric"></label></div>
               <div class="field-row"><label>响铃最快（秒）<input type="text" id="mcRingMin" min="1" max="60" inputmode="numeric"></label><label>响铃最慢（秒）<input type="text" id="mcRingMax" min="1" max="60" inputmode="numeric"></label></div>
               <div class="field-row"><label>通话最短（分钟）<input type="text" id="mcMinLen" min="1" max="60" inputmode="numeric"></label><label>通话最长（分钟）<input type="text" id="mcMaxLen" min="1" max="60" inputmode="numeric"></label></div>
-              </div>
-            </div>
-            <div class="setting-card fold call-fold" data-fold="callsec">
-              <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">结束方式</span><span class="fold-sum">他会不会自己挂断</span></span><i class="fold-ar">›</i></button>
-              <div class="fold-bd">
+            <div class="setting-subhead">结束方式</div>
               <div class="ap-row"><span>禁止这位联系人主动挂断电话<span style="display:block;font-size:11px;color:var(--muted)">开启后他接通不会自己结束，需你手动挂断</span></span><input type="checkbox" id="mcNoAutoHangup" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-              </div>
-            </div>
-            <div class="setting-card fold call-fold" data-fold="callsec">
-              <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">对方主动来电</span><span class="fold-sum">开关 · 响铃 · 间隔 · 视频几率</span></span><i class="fold-ar">›</i></button>
-              <div class="fold-bd">
+            <div class="setting-subhead">对方主动来电</div>
               <div class="ap-row"><span>允许这位 TA 主动给我来电<span style="display:block;font-size:11px;color:var(--muted)">关闭后他不会主动打来；单独设置后各算各的，没单设的 TA 照全局那份</span></span><input type="checkbox" id="mcIncomingEnable" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
               <div class="field-row"><label>响铃最快（秒）<input type="text" id="mcIncomingRingMin" min="1" max="120" inputmode="numeric"></label><label>响铃最慢（秒）<input type="text" id="mcIncomingRingMax" min="1" max="120" inputmode="numeric"></label></div>
               <div class="field-row"><label>来电间隔最快（分钟）<input type="text" id="mcIncomingMin" min="1" max="1440" inputmode="numeric"></label><label>来电间隔最慢（分钟）<input type="text" id="mcIncomingMax" min="1" max="1440" inputmode="numeric"></label></div><div class="field-row"><label>来电是视频通话的几率（%）<input type="text" id="mcIncomingVideoProb" min="0" max="100" inputmode="numeric"></label><div></div></div>
               <p class="data-note">四种概率之和无需等于 100%，会自动按比例分配。</p>
-              </div>
-            </div>
             </div>
               <div class="setting-subhead">不分 TA · 整页一份</div>
               <div class="ap-row"><span>刷新页面不打断通话<span style="display:block;font-size:11px;color:var(--muted)">开着＝这一通正在打的时候刷新页面（含误按刷新、浏览器崩了把这一页恢复回来），回来仍停在通话那一面、计时接着走；半小时内回来才算，更久就按「异常结束」记进通话记录。关掉＝刷新即挂断，那一通也照样记进通话记录（结果写「异常结束」）。与「单独设置通话」无关，对所有 TA 都生效；设置 → 音效 → 通话 那一枚是同一件事</span></span><input type="checkbox" id="mateCallResumeOnReload" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
@@ -3685,31 +3714,21 @@
             </div>
             <div class="call-pane" data-call-pane="video" hidden>
               <div class="mate-call-fields">
-                <div class="setting-card fold call-fold" data-fold="callsec">
-                  <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">收成小框后（按这一位 TA）</span><span class="fold-sum">TA 会不会自己出声</span></span><i class="fold-ar">›</i></button>
-                  <div class="fold-bd">
+                <div class="setting-subhead">收成小框后（按这一位 TA）</div>
                 <div class="ap-row"><span>小框里 TA 会自己出声<span style="display:block;font-size:11px;color:var(--muted)">视频通话收成小框后，这位 TA 按下面的几率偶尔说一句（取他自己的主字卡），自动用 MiniMax 念出来，字贴在小框下方；没绑音色就不出声。语音通话收成小框没有这一层</span></span><input type="checkbox" id="mcMiniVoice" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
                 <div class="field-row"><label>出声的几率（%）<input type="text" id="mcMiniVoiceProb" min="0" max="100" inputmode="numeric"></label><div></div></div>
-                  </div>
-                </div>
               </div>
               <p class="data-note">通话背景图不在这分层：本来就按联系人各一张，在「通话美化」那一档里传。没打开「单独设置通话」时，这里显示的就是全局当前值（整格灰着＝跟全局走，在这里改了也不会保存）。</p>
-            <div class="setting-card fold call-fold" data-fold="callsec">
-              <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">视频里怎么念与收发</span><span class="fold-sum">自动念 · 转写 · 免提 · 气泡 · 顺口应一声</span></span><i class="fold-ar">›</i></button>
-              <div class="fold-bd">
-              <div class="setting-subhead">不分 TA · 对所有 TA 生效</div>
+            <div class="setting-subhead">视频里怎么念与收发 · 不分 TA</div>
             <div class="ap-row"><span>自动播放语音<span style="display:block;font-size:11px;color:var(--muted)">TA 在视频通话里发来的消息自动念出来（MiniMax 语音，TA 绑了音色才念；TA 发来的录音放原声）。关掉后想听哪句，点气泡上那枚小喇叭</span></span><input type="checkbox" id="vcAutoVoice" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
              
             <div class="ap-row"><span>我的语音自动转成文字<span style="display:block;font-size:11px;color:var(--muted)">你在视频通话里发完语音，手机会把它听写成一行字压在语音条下；听错了长按那行字就能改。用浏览器自带听写，不用填 Key、不花钱——能不能用看浏览器（iPhone 的 Safari 没有，安卓 Chrome 走谷歌那边、国内常连不上）；转不出来会提示一次并自动关掉这一格。免提那条不转。关掉＝不听写也不显示</span></span><input type="checkbox" id="vcAutoTrans" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="ap-row"><span>免提（麦克风常开）<span style="display:block;font-size:11px;color:var(--muted)">开着＝不用再点录音：你说话，停下来约一秒就把这一句当语音发出去（只记在通话记录里），TA 照常回你。TA 说话时它会自动让开，不会把他自己的声音录进去。走的是同一条「发语音」的路，回不回、怎么回和手动发完全一样。同一通里的免提语音超过 8 分钟会自动关掉一次</span></span><input type="checkbox" id="vcHandsFree" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="ap-row"><span>同步聊天气泡 CSS<span style="display:block;font-size:11px;color:var(--muted)">开着＝视频里的气泡跟聊天页一样（含你在「气泡 CSS」里写的那一段）；关掉＝这一面用默认气泡，聊天页不受影响。只影响视频通话这一面</span></span><input type="checkbox" id="vcSyncLook" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="ap-row"><span>顺口应一声<span style="display:block;font-size:11px;color:var(--muted)">你打进一句话后，TA 有这枚几率先轻轻应一声（「嗯」「等一下」「我在听」），再接着说正文。这些短句也用 MiniMax 念：第一次合成后自动存进 TA 的「语音」字卡组，之后每次都用存好的那一条、不再花额度。填 0＝不这么做</span></span><input type="text" id="vcFillerProb" class="vc-num" inputmode="numeric"></div>
-              </div>
-            </div>
+
              
-            <div class="setting-card fold call-fold" data-fold="callsec">
-              <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">联系人表情</span><span class="fold-sum">随机换 / 只在有动静时换</span></span><i class="fold-ar">›</i></button>
-              <div class="fold-bd">
+
             <div class="setting-subhead">联系人表情</div>
             <p class="data-note">TA 脸上那枚表情（emoji ＋ 一句话）怎么换。两种模式随时可换，正在进行的那一通也认。</p>
             <div class="contact-chip-row vc-expr-modes" id="vcExprModes">
@@ -3734,12 +3753,8 @@
               <p class="data-note">「TA 发来消息」＝他自己冒出来的一句；「TA 回复你」＝你刚发过话、他的第一条回应到达那一刻。这两件按先后各掷各的，不会同一句掷两次。带情绪字卡的那些话照旧当场换脸（那是内容本身的表情，不属于随机那一档）。</p>
             </div>
             <p class="data-note vc-expr-hint" id="vcExprHint"></p>
-              </div>
-            </div>
              
-            <div class="setting-card fold call-fold" data-fold="callsec">
-              <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">视频里发什么</span><span class="fold-sum">卡片 · 签与注脚 · 表情包 · 图片 · 语音 · 拍一拍</span></span><i class="fold-ar">›</i></button>
-              <div class="fold-bd">
+            <div class="setting-subhead">视频里发什么</div>
             <div class="ap-row"><span>视频通话里发卡片<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。开着＝TA 在这一通里也会递占卜牌面、一起听邀请、摘一句这类卡片；关着＝只说话、不递卡（挂了再去聊天页正常发，那一头不受影响）</span></span><input type="checkbox" id="vcCardSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="setting-subhead">视频通话里的附加项（各自独立，出厂全关）</div>
             <p class="data-note">视频通话里默认只走<b>公用字卡 · 专属字卡</b>里的 <b>主字卡 · 颜文字 · emoji</b> 三类；下面这些都是附加的，想用哪一样自己开——开一样管一样，互不连带，改完当场生效，正在进行的那一通也认。</p>
@@ -3749,8 +3764,7 @@
             <div class="ap-row"><span>语音<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不发语音条（「语音」字卡里那些录音；TA 念出来的声音走上面那枚「自动播放语音」，两件事互不影响）</span></span><input type="checkbox" id="vcVoiceSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="ap-row"><span>拍一拍<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不拍你（聊天页不受影响）</span></span><input type="checkbox" id="vcPokeSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <p class="data-note">关着上面这几枚＝TA 在视频通话里只发<b>主字卡 · 颜文字 · emoji</b>三类（公用字卡与专属字卡里那三类），气泡下面也不挂注脚。各枚各管一类、互不连带；改完当场生效，正在进行的那一通也认。</p>
-              </div>
-            </div>
+
             <details class="set-adv"><summary>说明（点开看）</summary>
             <p class="data-note">这一档是<b>视频通话本身</b>的开关（怎么念、怎么收话、发什么）：不分 TA，改完当场生效，正在进行的那一通也认。视频那一面没有自己的设置面板。</p>
             </details>
@@ -3927,7 +3941,10 @@
         <div class="mate-group" id="mateChromeCard">
           <button type="button" class="mate-jump" id="mateLayoutBtn"><span class="fold-tx"><span class="fold-ti">界面布局</span><small class="fold-sum" id="sumLayout">所有会话通用</small></span></button>
            
-          <button type="button" class="mate-jump" id="mateFsBtn"><span class="fold-tx"><span class="fold-ti">全屏模式</span><small class="fold-sum">所有会话通用 · 含「添加到主屏幕 / 安装应用」</small></span></button>
+          <div class="mate-fs-row">
+            <button type="button" class="mate-jump mate-fs-jump" id="mateFsBtn" aria-label="全屏模式：点开看设置页那张卡，含添加到主屏幕"><span class="fold-tx"><span class="fold-ti">全屏模式</span><small class="fold-sum">所有会话通用 · 含「添加到主屏幕 / 安装应用」</small></span></button>
+            <button type="button" class="hub-tg mate-fs-tg off" id="mateFsTg" role="switch" aria-pressed="false" aria-label="全屏模式开关（点击直接进入全屏）"></button>
+          </div>
            
           <button type="button" class="mate-jump" data-view="shortcuts"><span class="fold-tx"><span class="fold-ti">长按快捷方式</span><small class="fold-sum">所有会话通用 · 发送按钮 / TA 的头像 / 我的头像</small></span></button>
         </div>
@@ -6073,7 +6090,7 @@
       <p class="ll-rand-note" id="dzTplHint"></p>
       <div class="ll-rand-sub">素材 · 点一下勾上（一套最多 5 枚）</div>
       <div class="ll-grid ll-grid-stk" id="llStkGrid"></div>
-      <p class="ll-empty" id="llStkEmpty">还没有贴纸。点「添加」传几张——PNG 带透明底最好看。</p>
+      <p class="ll-empty" id="llStkEmpty">还没传自己的贴纸——上面那 16 枚 emoji 是自带的，不占配额、删不掉，勾几枚就能贴。想用自己的图就点「添加」传几张（PNG 带透明底最好看）。</p>
       <p class="ll-rand-note" id="dzRead"></p>
       <button type="button" class="soft-btn" id="dzClear">撕掉这一位的贴纸</button>
       <input type="file" id="llStkInput" accept="image/*" multiple hidden>
@@ -6549,8 +6566,6 @@
       <button type="button" class="srp-mode" data-sr-mode-tab="custom" role="tab" aria-selected="false">我的编排</button>
     </div>
     <div class="srp-body">
-       
-      <div class="sr-tl" id="srTl" hidden></div>
       <div class="srp-list" id="srList" aria-live="polite"></div>
     </div>
      
@@ -6630,6 +6645,10 @@
     </div>
   </div>
 </section>
+ 
+<div class="sr-float" id="srFloat" hidden></div>
+ 
+<div class="sr-float-menu" id="srFloatMenu" hidden></div>
      
     <section class="view" id="hubView">
       <div class="hub-page">
