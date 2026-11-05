@@ -28,8 +28,99 @@
   <style>html[data-dark=on],html[data-dark=on] body{background:#101114;color:#E9EAEF}</style>
 
    
-  <link rel="stylesheet" href="dist/app.v27.6.0.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v27.6.0.js"></script>
+  <style>
+
+  
+
+
+  #ageGate{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;background:#fff;flex-direction:column}
+
+
+
+  
+
+
+
+
+  html.gate-early .app-shell{display:none}
+
+  html.gate-early #ageGate{display:flex}
+
+
+
+  .ag-scroll{flex:1 1 auto;min-height:0;overflow-y:auto}
+
+
+
+  
+
+
+
+
+  .ag-bar{position:absolute;top:0;right:0;left:0;height:2px;background:#efeeed;z-index:2}
+
+
+
+  .ag-bar>i{display:block;height:100%;width:0;background:#575652}
+
+
+
+  .ag-load{margin:0 0 12px}
+
+
+
+  .ag-load-bar{height:3px;background:#efeeed}
+
+
+
+  .ag-load-bar>i{display:block;height:100%;width:0;background:#575652}
+
+
+
+  .ag-load-txt{font-size:11px;color:#5b5a58;text-align:center;letter-spacing:.3px;margin-top:8px}
+
+
+
+  .ag-load-btn{display:block;width:100%;min-height:44px;margin-top:9px;padding:10px 12px;border-radius:15px;border:1px solid #cdcbc9;background:#fff;color:#1c1917;font-size:12.5px;line-height:1.5}
+
+
+
+  
+
+
+  .ag-toc-row{display:block;width:100%;padding:8px 0;border:0;background:none;color:inherit;font:inherit;text-align:left}
+
+  .ag-toc-lead{display:none}
+
+  .ag-toc-no{margin-right:6px}
+
+  .ag-toc-t{margin-right:6px}
+
+  .ag-toc-r{float:right}
+
+  
+
+
+  .ag-warn{display:flex;gap:10px;padding:12px}
+
+  .ag-warn>svg{flex:none;width:15px;height:15px;margin-top:2px}
+
+  .ag-head{display:block}
+
+  .ag-head-r{display:flex;justify-content:space-between;gap:10px}
+
+  
+
+
+  .ag-by-k,.ag-by-v{margin-right:9px;white-space:nowrap}
+
+  
+
+
+  </style>
+
+  <link rel="stylesheet" href="dist/app.v27.7.5.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v27.7.5.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -265,7 +356,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v27.6.0.css','dist/app.v27.6.0.js'];
+      var BOOT_FILES = ['dist/app.v27.7.5.css','dist/app.v27.7.5.js'];
 
 
 
@@ -868,98 +959,6 @@
   })();
 
   </script>
-
-  <style>
-
-  
-
-
-  #ageGate{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;background:#fff;flex-direction:column}
-
-
-
-  
-
-
-
-
-  html.gate-early .app-shell{display:none}
-
-  html.gate-early #ageGate{display:flex}
-
-
-
-  .ag-scroll{flex:1 1 auto;min-height:0;overflow-y:auto}
-
-
-
-  
-
-
-
-
-  .ag-bar{position:absolute;top:0;right:0;left:0;height:2px;background:#efeeed;z-index:2}
-
-
-
-  .ag-bar>i{display:block;height:100%;width:0;background:#575652}
-
-
-
-  .ag-load{margin:0 0 12px}
-
-
-
-  .ag-load-bar{height:3px;background:#efeeed}
-
-
-
-  .ag-load-bar>i{display:block;height:100%;width:0;background:#575652}
-
-
-
-  .ag-load-txt{font-size:11px;color:#5b5a58;text-align:center;letter-spacing:.3px;margin-top:8px}
-
-
-
-  .ag-load-btn{display:block;width:100%;min-height:44px;margin-top:9px;padding:10px 12px;border-radius:15px;border:1px solid #cdcbc9;background:#fff;color:#1c1917;font-size:12.5px;line-height:1.5}
-
-
-
-  
-
-
-  .ag-toc-row{display:block;width:100%;padding:8px 0;border:0;background:none;color:inherit;font:inherit;text-align:left}
-
-  .ag-toc-lead{display:none}
-
-  .ag-toc-no{margin-right:6px}
-
-  .ag-toc-t{margin-right:6px}
-
-  .ag-toc-r{float:right}
-
-  
-
-
-  .ag-warn{display:flex;gap:10px;padding:12px}
-
-  .ag-warn>svg{flex:none;width:15px;height:15px;margin-top:2px}
-
-  .ag-head{display:block}
-
-  .ag-head-r{display:flex;justify-content:space-between;gap:10px}
-
-  
-
-
-  .ag-by-k,.ag-by-v{margin-right:9px;white-space:nowrap}
-
-  
-
-
-  </style>
-
 </head>
 <body>
   <div id="ageGate" aria-hidden="true">
@@ -2136,6 +2135,8 @@
        
       <p class="mm-quiet" id="mmQuiet" hidden></p>
       <div class="moments-cover" id="momentsCover" hidden>
+         
+        <button type="button" class="mc-back" id="mcBackBtn" hidden>‹ 返回全部</button>
         <span class="mc-hint" id="mcHint" hidden>轻触更换封面</span>
         <span class="mc-name" id="mcName"></span>
         <button type="button" class="mc-avatar" id="mcAvatarBtn" title="朋友圈头像"><span id="mcAvatarImg"></span></button>
@@ -5391,6 +5392,11 @@
           </div>
           <p class="data-note">「透出背景」＝卡面半透明，背后这一页的背景图会透上来，磨砂随透出档自动加深（40%≈14px）；0＝实心纸面。牌桌、手牌、心愿卡一起换；卡册整页保持实底（读账用）。</p>
         </div>
+         
+        <div class="setting-card ap-resetline" id="xnLookReset">
+          <span class="ap-reset-tx">恢复默认美化<small>回到没改过任何美化的样子：这一页的背景·顶栏底栏·牌面一并交回出厂。来源、回牌与显示不动。</small></span>
+          <button type="button" class="ap-btn sm" id="xnLookResetBtn">恢复默认</button>
+        </div>
       </div>
     </div>
   </div>
@@ -6415,6 +6421,8 @@
         <button type="button" class="pl-ico" id="plfBack" aria-label="收回播放条">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"></path></svg>
         </button>
+         
+        <button type="button" class="pl-tlink pl-tlink-lib" id="plfHome" aria-label="打开播放器主页">曲库</button>
         <span class="pl-f-bargap"></span>
         <button type="button" class="pl-tlink" id="plfLrcBtn" data-on="0">歌词</button>
          
