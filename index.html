@@ -14,8 +14,8 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <link rel="stylesheet" href="dist/app.v26.5.6.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v26.5.6.js"></script>
+  <link rel="stylesheet" href="dist/app.v26.9.1.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v26.9.1.js"></script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -251,7 +251,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v26.5.6.css','dist/app.v26.5.6.js'];
+      var BOOT_FILES = ['dist/app.v26.9.1.css','dist/app.v26.9.1.js'];
 
 
 
@@ -1963,10 +1963,12 @@
             <div class="bx-chips" id="bxDeskGroupRow"></div>
           </div>
           <div class="bx-sec">
-            <div class="bx-actrow bx-desk-run"><button type="button" class="ap-btn pri" id="bxDeskGen">生成</button><button type="button" class="ap-btn" id="bxDeskCancel" hidden>取消</button><span class="bx-hint">会花一次额度；等太久可以点「取消」。</span></div>
+            <div class="bx-actrow bx-desk-run"><button type="button" class="ap-btn pri" id="bxDeskGen">生成</button><button type="button" class="ap-btn" id="bxDeskCancel" hidden>取消</button><span class="bx-hint">会花额度；开了「让 AI 合理分组」＝写完后多发一小发按内容归组。等太久可以点「取消」。</span></div>
             <div class="bx-check" id="bxDeskNote"></div>
           </div>
           <div class="bx-desk-empty" id="bxDeskEmpty">不写要求也行：不写就按这一位的设定来。想顺着聊天写，就把你刚说出口的那句填进「TA 接我这句话」。点「生成」，卡会出现在这里——点正文就能改，点「TA的满意度」打个分（1~10，改完可重掷）。</div>
+           
+          <div class="bx-desk-stream" id="bxDeskStream" hidden></div>
           <div class="bx-sec" id="bxDeskResultSec" hidden>
             <div class="bx-hd"><span class="bx-t">写出来的</span><span class="bx-sub" id="bxDeskCount"></span></div>
             <div class="bx-desk-list" id="bxDeskList"></div>
@@ -2185,16 +2187,21 @@
             <div class="mm-set-row"><span class="mm-fl">来点赞</span><input type="text" id="mmLikeProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
             <div class="mm-set-row"><span class="mm-fl">来点赞的间隔</span><input type="text" id="mmLikeMin" min="1" max="3600" inputmode="numeric"><span class="mm-fu">–</span><input type="text" id="mmLikeMax" min="1" max="3600" inputmode="numeric"><span class="mm-fu">秒</span></div>
             <div class="mm-set-row"><span class="mm-fl">来评论</span><input type="text" id="mmTaCommentPostProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
+            <div class="mm-set-row"><span class="mm-fl">来贴贴纸</span><input type="text" id="mmTaStickerProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
+            <div class="mm-set-row"><span class="mm-fl">来贴贴纸的间隔</span><input type="text" id="mmTaStickerMin" min="1" max="3600" inputmode="numeric"><span class="mm-fu">–</span><input type="text" id="mmTaStickerMax" min="1" max="3600" inputmode="numeric"><span class="mm-fu">秒</span></div>
             <div class="mm-set-row"><span class="mm-fl">来收藏</span><input type="text" id="mmTaCollectProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
-            <p class="fs-sheet-note">「来评论」出厂填 0＝TA 不请自来地评论你发的东西这一档是关着的；填上数＝你每发一条，TA 都有这个概率来说一句。</p>
+            <p class="fs-sheet-note">「来评论」出厂填 0＝TA 不请自来地评论你发的东西这一档是关着的；填上数＝你每发一条，TA 都有这个概率来说一句。「来贴贴纸」同口径，出厂 0＝不主动贴；填上数＝你发带图的圈之后，TA 会按这个概率自己在配图上贴一张（纯文字的动态没有可贴的地方，这一档不生效）。</p>
           </div>
           <div class="mm-set-sec">
-            <div class="mm-sec-h"><b>你互动之后</b><span>你评了论、回了楼、点了赞，TA 怎么接</span></div>
+            <div class="mm-sec-h"><b>你互动之后</b><span>你评了论、回了楼、点了赞、贴了贴纸，TA 怎么接</span></div>
             <div class="mm-set-row"><span class="mm-fl">你评论后 TA 接话</span><input type="text" id="mmCommentProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
             <div class="mm-set-row"><span class="mm-fl">接话的间隔</span><input type="text" id="mmCommentMin" min="1" max="3600" inputmode="numeric"><span class="mm-fu">–</span><input type="text" id="mmCommentMax" min="1" max="3600" inputmode="numeric"><span class="mm-fu">秒</span></div>
             <div class="mm-set-row"><span class="mm-fl">你回复后 TA 接话</span><input type="text" id="mmReplyProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
             <div class="mm-set-row"><span class="mm-fl">接话的间隔</span><input type="text" id="mmReplyMin" min="1" max="3600" inputmode="numeric"><span class="mm-fu">–</span><input type="text" id="mmReplyMax" min="1" max="3600" inputmode="numeric"><span class="mm-fu">秒</span></div>
             <div class="mm-set-row"><span class="mm-fl">你点赞后 TA 回赞</span><input type="text" id="mmReturnLikeProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
+            <div class="mm-set-row"><span class="mm-fl">你贴贴纸后 TA 回贴</span><input type="text" id="mmStickerReplyProb" min="0" max="100" inputmode="numeric"><span class="mm-fu">%</span></div>
+            <div class="mm-set-row"><span class="mm-fl">回贴的间隔</span><input type="text" id="mmStickerReplyMin" min="1" max="3600" inputmode="numeric"><span class="mm-fu">–</span><input type="text" id="mmStickerReplyMax" min="1" max="3600" inputmode="numeric"><span class="mm-fu">秒</span></div>
+            <p class="fs-sheet-note">「你贴贴纸后 TA 回贴」：你往谁发的动态上贴了一张，那条动态的作者按这一格掷一次，掷中就回你一张（贴什么从表情包与 emoji 里挑，两样都没有时不发）。这一格与上面的「你评论后 TA 接话」是两件独立的事，改一边不动另一边。</p>
           </div>
           </div>
           <div class="mm-set-group" id="mmSetG3">
@@ -2248,6 +2255,29 @@
           <div class="mm-scopes" id="mmStkScopes" hidden></div>
           <div class="mm-stk-grid" id="mmStkBody"></div>
           <p class="fs-sheet-note">选好一张，再点配图上的位置贴上；想换一张就再点一次「贴纸」。贴上去的那张点它可以撤回。</p>
+        </div>
+      </div>
+    </div>
+     
+    <div class="fs-sheet-mask" id="mmStkViewMask" hidden>
+      <div class="fs-sheet" id="mmStkViewSheet">
+        <div class="fs-sheet-bar">
+          <div class="fs-sheet-t"><span class="fs-sheet-ti">贴纸</span><span class="fs-sheet-en">STICKER</span></div>
+          <button type="button" class="fs-sheet-close" id="mmStkViewClose" aria-label="关闭贴纸查看">×</button>
+        </div>
+        <div class="fs-sheet-body">
+          <div class="mm-stkv-stage" id="mmStkViewStage"></div>
+          <div class="mm-stkv-nav" id="mmStkViewNav" hidden>
+            <button type="button" class="mc-chip" id="mmStkViewPrev" aria-label="上一张">‹</button>
+            <span class="mm-stkv-n" id="mmStkViewN"></span>
+            <button type="button" class="mc-chip" id="mmStkViewNext" aria-label="下一张">›</button>
+          </div>
+          <div class="mm-stkv-dial" id="mmStkViewDial" hidden>
+            <div class="mm-set-row"><span class="mm-fl">大小</span><input type="range" id="mmStkViewS" min="60" max="200" step="5" value="100"><span class="mm-fu" id="mmStkViewSV">100%</span></div>
+            <div class="mm-set-row"><span class="mm-fl">旋转</span><input type="range" id="mmStkViewR" min="-25" max="25" step="1" value="0"><span class="mm-fu" id="mmStkViewRV">0°</span></div>
+          </div>
+          <button type="button" class="mc-chip mc-danger" id="mmStkViewDel" hidden>撤回这张贴纸</button>
+          <p class="fs-sheet-note" id="mmStkViewNote"></p>
         </div>
       </div>
     </div>
@@ -2396,6 +2426,16 @@
       </div>
     </div>
     <div class="fs-sheet-acts"><button type="button" class="soft-btn" id="calCfgReset">恢复出厂的三处</button></div>
+  </div>
+</div>
+ 
+<div class="fs-sheet-mask fs-sheet-full" id="calNoteMask" hidden>
+  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="记一笔">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti" id="calNoteTitle">记一笔</span><span class="fs-sheet-en">NOTE</span></div>
+      <button type="button" class="fs-sheet-close" id="calNoteClose" aria-label="关闭记一笔">×</button>
+    </div>
+    <div class="fs-sheet-body" id="calNoteBody" data-ta-skip></div>
   </div>
 </div>
      
@@ -3348,7 +3388,7 @@
         <div class="setting-card fold" data-fold="replysat" data-rtab="rhythm">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">回复满意度</span><span class="fold-sum" id="mateReplySatSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
-            <div class="check-row"><label class="check-item"><input type="checkbox" id="replySatOn"><span>你发消息时，TA 给你这条回复打分<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：聊天里落一行「阿言 · 对你这条回复的满意度 · 7/10 · 挺满意」。分数纯随机，只对你亲手发出的文字消息生效；纯图和语音不触发。单聊＝当前这位 TA；群聊按下面三档。出厂开。</span></span></label></div>
+            <div class="check-row"><label class="check-item"><input type="checkbox" id="replySatOn"><span>你发消息时，TA 给你这条回复打分<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：聊天里落一行「阿言 · 对你这轮回复的满意度 · 7/10 · TA 挺满意」——措辞随机用「这条」或「这轮」，说的是同一件事。分数纯随机，只对你亲手发出的文字消息生效；纯图和语音不触发。单聊＝当前这位 TA；群聊按下面三档。出厂开。</span></span></label></div>
             <label id="replySatProbLab" class="mate-stp-row">触发概率（%）<button type="button" class="stp-min" data-stp="replySatProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="replySatProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="replySatProb" data-d="1" aria-label="多一点">+</button></label>
             <div id="rsGroupWrap">
               <p class="data-note" style="margin:10px 0 6px">群聊里给谁打分</p>
@@ -4192,6 +4232,7 @@
        
       <div class="fchips fs-sheet-who" id="layoutTabs" aria-label="选择要排的那一条">
         <button type="button" class="fchip" data-lay-sec="tabbar" aria-pressed="false">全站底栏</button>
+        <button type="button" class="fchip" data-lay-sec="topbar" aria-pressed="false">全站顶栏</button>
         <button type="button" class="fchip" data-lay-sec="head" aria-pressed="false">聊天页顶栏</button>
         <button type="button" class="fchip" data-lay-sec="chatfoot" aria-pressed="false">聊天页两栏</button>
       </div>
@@ -4212,15 +4253,37 @@
         </div>
         <div class="lay-row"><span class="lay-row-t">栏面</span><span class="fchips" id="tabbarSkinChips">
           <button type="button" class="fchip" data-tbbar-skin="off" aria-pressed="true">原状</button>
-          <button type="button" class="fchip" data-tbbar-skin="glass" aria-pressed="false">毛玻璃</button>
+          <button type="button" class="fchip" data-tbbar-skin="liquid" aria-pressed="false">毛玻璃</button>
           <button type="button" class="fchip" data-tbbar-skin="clear" aria-pressed="false">透明</button>
+          <button type="button" class="fchip" data-tbbar-skin="frost" aria-pressed="false">磨砂</button>
+          <button type="button" class="fchip" data-tbbar-skin="solid" aria-pressed="false">素色</button>
         </span></div>
+        <div class="lay-row"><span class="lay-row-t">透出</span><input type="range" id="tabbarVeil" min="0" max="100" step="1" value="55" aria-label="栏面透出"><output id="tabbarVeilOut">55</output></div>
+        <div class="lay-row"><span class="lay-row-t">圆角</span><input type="range" id="tabbarRadius" min="0" max="30" step="1" value="26" aria-label="悬浮条圆角"><output id="tabbarRadiusOut">26</output></div>
         <div class="lay-row"><span class="lay-row-t">分割线</span><span class="fchips" id="tabbarLineChips">
           <button type="button" class="fchip" data-tbbar-line="on" aria-pressed="true">显示</button>
           <button type="button" class="fchip" data-tbbar-line="off" aria-pressed="false">隐藏</button>
         </span></div>
-        <p class="fs-sheet-note">这一格只管外面四枚主导航的图标；聊天页屏底的输入栏在「聊天页底栏」那一档，两栏的底色／图标色／外框在 聊天设置 → 外观 → 两栏（按这一位 TA 分开）。</p>
+        <p class="fs-sheet-note">这一格只管外面四枚主导航的图标；聊天页屏底的输入栏在「聊天页两栏」那一档，两栏的底色／图标色／外框在 聊天设置 → 外观 → 两栏（按这一位 TA 分开）。透出与圆角两根杆在材质档（毛玻璃／磨砂／素色）生效。</p>
         <div class="tb-list" id="tbList"></div>
+      </div>
+      <div class="lay-sec" data-lay-sec-body="topbar" hidden>
+         
+        <p class="fs-sheet-note">这条是功能页（设置、信箱、统计⋯）头顶的栏；聊天页顶部的头在「聊天页顶栏」那一档。改完关掉面板，随便进一页就能看到。</p>
+        <div class="lay-row"><span class="lay-row-t">栏面</span><span class="fchips" id="topbarSkinChips">
+          <button type="button" class="fchip" data-tbar-skin="off" aria-pressed="true">原状</button>
+          <button type="button" class="fchip" data-tbar-skin="liquid" aria-pressed="false">毛玻璃</button>
+          <button type="button" class="fchip" data-tbar-skin="clear" aria-pressed="false">清透</button>
+          <button type="button" class="fchip" data-tbar-skin="frost" aria-pressed="false">磨砂</button>
+          <button type="button" class="fchip" data-tbar-skin="solid" aria-pressed="false">素色</button>
+        </span></div>
+        <div class="lay-row"><span class="lay-row-t">透出</span><input type="range" id="topbarVeil" min="0" max="100" step="1" value="55" aria-label="栏面透出"><output id="topbarVeilOut">55</output></div>
+        <div class="lay-row"><span class="lay-row-t">圆角</span><input type="range" id="topbarRadius" min="0" max="22" step="1" value="0" aria-label="顶栏圆角"><output id="topbarRadiusOut">0</output></div>
+        <div class="lay-row"><span class="lay-row-t">分割线</span><span class="fchips" id="topbarLineChips">
+          <button type="button" class="fchip" data-tbar-line="on" aria-pressed="true">显示</button>
+          <button type="button" class="fchip" data-tbar-line="off" aria-pressed="false">隐藏</button>
+        </span></div>
+        <p class="fs-sheet-note">圆角大于 0 时顶栏会变成悬浮岛（左右自动内缩）；0 就是贴边的原样。材质参数与聊天页两栏同用一套（毛玻璃／清透／磨砂／素色四款）。</p>
       </div>
       <div class="lay-sec" data-lay-sec-body="head" hidden>
          
@@ -4384,6 +4447,8 @@
               <button type="button" class="ask-modal-close" id="askClose" aria-label="关闭">×</button>
             </span>
           </div>
+           
+          <p class="ask-hint ask-top-note">当 TA 禁用了问问TA，长按聊天输入栏旁的问问TA图标可以强制打开</p>
            
           <div id="askEditBody">
           <div class="ask-kinds" role="tablist" aria-label="题目类型">
@@ -4768,11 +4833,13 @@
         <div class="dv-drawn" id="dvDrawn"></div>
          
         <div class="dv-shuffle" id="dvShuffle">
-          <div class="dv-stack" id="dvDeck" role="button" tabindex="0" aria-label="按一下就再洗一次 · 洗完自动摊开">
+           
+          <div class="dv-cutline" id="dvCutLine" aria-hidden="true"></div>
+          <div class="dv-stack" id="dvDeck" role="button" tabindex="0" aria-label="按住横着拖＝切牌后洗 · 轻点＝自动洗一次 · 洗完自动摊开">
             <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
             <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           </div>
-          <p class="dv-shuffle-hint" id="dvShuffleHint">洗牌中…</p>
+          <p class="dv-shuffle-hint" id="dvShuffleHint">按住这摞牌横着拖 · 手指落在哪儿就从哪儿切 · 松手就洗</p>
         </div>
          
         <div class="dv-table" id="dvTable" aria-label="摊在桌上的牌"></div>
@@ -6056,15 +6123,17 @@
 
       <div class="sf-sec" data-solo-body="head">
         <div class="sf-hd"><span class="sf-t">框头</span><span class="sf-sub">关掉哪一项就少哪一项</span></div>
-        <div class="ap-row"><span>头像 · 我与 TA</span><input type="checkbox" id="sfAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头头像"></div>
+        <div class="ap-row"><span>头像 · TA 在左、我在右</span><input type="checkbox" id="sfAv" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头头像"></div>
         <div class="ap-row"><span>头像形状</span><div class="contact-chip-row" id="sfAvShapeRow"><button type="button" class="contact-chip" data-v="">跟随全站</button><button type="button" class="contact-chip" data-v="circle">圆形</button><button type="button" class="contact-chip" data-v="rounded">圆角</button><button type="button" class="contact-chip" data-v="square">方形</button><button type="button" class="contact-chip" data-v="custom">自定义</button></div></div>
         <div id="sfAvRwrap" hidden><label class="ap-knob"><span>头像圆角</span><input type="range" id="sfAvR" min="0" max="15" step="0.5" value="10" aria-label="头像圆角"><output id="sfAvROut">10px</output></label></div>
-        <div class="ap-row"><span>名字</span><input type="checkbox" id="sfName" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头名字"></div>
-        <div class="ap-row"><span>副题</span><input type="checkbox" id="sfSub" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头副题"></div>
-        <div class="ap-row"><span>副题文字</span><input type="text" id="sfSubTxt" maxlength="16" placeholder="最近的聊天记录" style="flex:1;min-width:0;width:0;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:inherit;font-size:12.5px;text-align:right" aria-label="副题文字"></div>
+        <label class="ap-knob"><span>头像大小</span><input type="range" id="sfAvSz" min="28" max="48" step="1" value="38" aria-label="头像大小"><output id="sfAvSzOut">38px</output></label>
+        <label class="ap-knob"><span>两张脸叠压</span><input type="range" id="sfAvOv" min="0" max="18" step="1" value="4" aria-label="两张脸叠压"><output id="sfAvOvOut">4px</output></label>
+        <div class="ap-row"><span>中间小字</span><input type="text" id="sfHeadTxt" maxlength="20" placeholder="空着＝不写" style="flex:1;min-width:0;width:0;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:inherit;font-size:12.5px;text-align:right" aria-label="框头中间小字"></div>
+        <div class="ap-row"><span>小标记</span><div class="contact-chip-row" id="sfMarkRow"><button type="button" class="contact-chip" data-v="">无</button><button type="button" class="contact-chip" data-v="dot">·</button><button type="button" class="contact-chip" data-v="heart">♡</button><button type="button" class="contact-chip" data-v="star">✦</button><button type="button" class="contact-chip" data-v="inf">∞</button></div></div>
+        <div class="ap-row"><span>中间分隔线</span><input type="checkbox" id="sfRule" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头中间分隔线"></div>
         <div class="ap-row"><span>进入聊天</span><input type="checkbox" id="sfGo" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)" aria-label="框头进入聊天"></div>
         <div class="ap-row"><span>进入聊天文字</span><input type="text" id="sfGoTxt" maxlength="16" placeholder="进入聊天 ›" style="flex:1;min-width:0;width:0;padding:7px 10px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:inherit;font-size:12.5px;text-align:right" aria-label="进入聊天文字"></div>
-        <p class="sf-hint">头像那一行是这一本的两张脸（你与 TA）叠在一起，形状可单挑：「跟随全站」＝跟设置→外观里的头像形状走，自定义那根杆从方形（0）一路拖到整圆（15）。文案两格填了就用你的（≤16 字），空着＝出厂那两句——想造「回家」的感觉，可以写「欢迎回家」和「回家 ›」。四项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
+        <p class="sf-hint">框头只剩三段：<b>两张脸</b>（TA 在左、我在右，位置写死）∶ <b>中间那一段</b> ∶ <b>进入聊天</b>。名字与「最近的聊天记录」两行 2026-11-04 整条删掉了（用户原话「这行字删掉」），空出来的地方给了三样可调的东西：<b>中间小字</b>（≤20 字，空着＝不写；写「晚安」「第 365 天」都行）、<b>小标记</b>（两张脸右边一枚 ♡／✦／∞／·）、<b>中间分隔线</b>（从左往右渐隐的一根发丝线，重量比字还轻）。头像那两根杆：大小 28~48px（出厂 38）、叠压 0~18px（出厂 4，拖到 0＝两张脸并排各露全脸）。形状「跟随全站」＝跟设置→外观里的头像形状走。四项全关＝框头整条收起，只剩消息流；点整块仍进聊天。</p>
       </div>
 
       <div class="sf-sec" data-solo-body="text">
@@ -6426,8 +6495,12 @@
       <button type="button" class="srp-mode" data-sr-mode-tab="custom" role="tab" aria-selected="false">我的编排</button>
     </div>
     <div class="srp-body">
+       
+      <div class="sr-tl" id="srTl" hidden></div>
       <div class="srp-list" id="srList" aria-live="polite"></div>
     </div>
+     
+    <div class="srp-scenes" id="srScenes"></div>
     <div class="srp-comp">
       <button type="button" class="srp-go" id="srGoBtn">开 播</button>
       <button type="button" class="srp-dm" id="srDmBtn">点播一句</button>
