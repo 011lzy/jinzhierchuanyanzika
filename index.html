@@ -109,8 +109,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v28.0.8.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v28.0.8.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v28.2.5.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v28.2.5.js" fetchpriority="high"></script>
 
    
   <script>
@@ -359,7 +359,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v28.0.8.css','dist/app.v28.0.8.js'];
+      var BOOT_FILES = ['dist/app.v28.2.5.css','dist/app.v28.2.5.js'];
 
 
 
@@ -1447,11 +1447,6 @@
       <div class="cf-body">
         <div class="cf-hero">
            
-          <div class="cf-type" id="cfType" hidden>
-            <svg id="cfTypeVid" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5"/><path d="M15.5 10.5 21 7.5v9l-5.5-3"/></svg>
-            <svg id="cfTypePh" hidden viewBox="-4 -4 32 32" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <span id="cfTypeTx">语音通话</span>
-          </div>
           <div class="cf-avatar-wrap">
             <span class="call-rings" aria-hidden="true"></span>
             <span class="cf-av-disc">
@@ -2591,8 +2586,8 @@
               <div class="field-row"><label>出声的几率（%）<input type="text" id="callMiniVoiceProb" min="0" max="100" inputmode="numeric"></label><div></div></div>
             </div>
             <div class="call-pane" data-call-pane="look" hidden>
-              <div class="ap-btnrow" style="margin:0"><button type="button" class="ap-btn pri" id="setCallLookBtn">背景图 · 气泡颜色 · 气泡文字 · 气泡 CSS · 占卜卡片 CSS ›</button></div>
-              <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">通话那一面的美化整块住进 聊天页右上角 → TA 的设置 → 通话 →「通话美化」那一档了（2026-11-03 FEATURES #3162：不再单独开一页，六节直接铺在档里）。点上面那枚就跳过去并自动点亮那一档。背景图仍是一位一张、只铺在全屏通话那一页；颜色、字色与两段 CSS 也按人各存一份，只作用在<b>视频通话那一面</b>的气泡与占卜牌卡上，聊天页一个字不动。这五样都不设＝与改前一样（视频里的气泡跟聊天页同一副样子）。</p></details>
+              <div class="ap-btnrow" style="margin:0"><button type="button" class="ap-btn pri" id="setCallLookBtn">背景图 · 气泡颜色 · 气泡文字 · 气泡 CSS ›</button></div>
+              <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">通话那一面的美化整块住进 聊天页右上角 → TA 的设置 → 通话 →「通话美化」那一档了（2026-11-03 FEATURES #3162：不再单独开一页，几节直接铺在档里）。点上面那枚就跳过去并自动点亮那一档。背景图仍是一位一张、只铺在全屏通话那一页；颜色、字色与那段 CSS 也按人各存一份，只作用在<b>视频通话那一面</b>的气泡上，聊天页一个字不动。这几样都不设＝与改前一样（视频里的气泡跟聊天页同一副样子）。</p><p class="data-note">原来那一串末尾还挂着「占卜卡片 CSS」，2026-11-06 FEATURES #4076 按用户定档整档撤了：视频通话里 TA 不再递牌卡，那段 CSS 没有宿主。</p></details>
             </div>
           </div>
         </div>
@@ -2648,6 +2643,7 @@
                
               <div class="mx-actrow"><button type="button" class="soft-btn" id="mxModelPull">拉取可用模型</button><span class="data-note" id="mxModelPullNote"></span></div>
               <div class="contact-chip-row" id="mxModelChips" hidden></div>
+              <p class="data-note">这一排不用先按「拉取」就铺着：点一枚＝切过去。<b>hd</b>＝更清楚、扣得多一档；<b>turbo</b>＝更快、更省；speech-2.8 这一代还能认文字里的语气词。<b>换模型只影响之后新念的句子</b>——听过的那句存的还是旧音频，长按那条的小喇叭才会用新模型重念。这一格留空＝按默认顺序试（先 speech-02-turbo）。</p>
               <label>语速（0.5~2）<input type="text" id="mxSpeed" min="0.5" max="2" step="0.1" inputmode="decimal"></label>
               <p class="data-note">这四项只在两种时候才要动：<b>手里是旧控制台的 Key</b>（那时才需要 GroupId），或者<b>官方换了地址／模型名</b>。四格全留空＝自动轮询官方地址、用默认模型、语速一倍——绝大多数人一辈子不用打开这里。</p>
             </details>
@@ -3758,10 +3754,8 @@
             </div>
             <p class="data-note vc-expr-hint" id="vcExprHint"></p>
              
-            <div class="setting-subhead">视频里发什么</div>
-            <div class="ap-row"><span>视频通话里发卡片<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。开着＝TA 在这一通里也会递占卜牌面、一起听邀请、摘一句这类卡片；关着＝只说话、不递卡（挂了再去聊天页正常发，那一头不受影响）</span></span><input type="checkbox" id="vcCardSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="setting-subhead">视频通话里的附加项（各自独立，出厂全关）</div>
-            <p class="data-note">视频通话里默认只走<b>公用字卡 · 专属字卡</b>里的 <b>主字卡 · 颜文字 · emoji</b> 三类；下面这些都是附加的，想用哪一样自己开——开一样管一样，互不连带，改完当场生效，正在进行的那一通也认。</p>
+            <p class="data-note">视频通话里默认只走<b>公用字卡 · 专属字卡</b>里的 <b>主字卡 · 颜文字 · emoji</b> 三类；下面这些都是附加的，想用哪一样自己开——开一样管一样，互不连带，改完当场生效，正在进行的那一通也认。<b>占卜牌面那一族卡不在这里</b>：视频通话里 TA 不递卡（2026-11-06 用户定档），要收牌去聊天页。</p>
             <div class="ap-row"><span>气泡下方的签与注脚<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。那行就是「这句说谁 · 这句本意」那枚签加上情绪字卡那几个词（聊天页里它是骑在气泡上沿的，通话流里落到了气泡下面）。关着＝TA 在这一通里不挂这行，气泡下面只剩时间；开着＝跟聊天页一样画出来。聊天页不受影响</span></span><input type="checkbox" id="vcFootOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="ap-row"><span>表情包<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不发表情包（聊天页不受影响）</span></span><input type="checkbox" id="vcStickerSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="ap-row"><span>图片<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不发图片（「图片」分类与相册那类大图；聊天页不受影响）</span></span><input type="checkbox" id="vcImageSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
@@ -3784,7 +3778,6 @@
                 <button type="button" class="mate-subtab" data-clk-tab-btn="color" role="tab" aria-selected="false">颜色</button>
                 <button type="button" class="mate-subtab" data-clk-tab-btn="layout" role="tab" aria-selected="false">版式</button>
                 <button type="button" class="mate-subtab" data-clk-tab-btn="css" role="tab" aria-selected="false">气泡CSS</button>
-                <button type="button" class="mate-subtab" data-clk-tab-btn="dvcss" role="tab" aria-selected="false">卡片CSS</button>
               </div>
 
                
@@ -3806,11 +3799,10 @@
                       </span>
                       <span class="mini-avatar mine"><span class="initial" id="clkPrevAvMe">我</span></span>
                     </div>
-                    <div id="clkPrevDv" hidden></div>
                   </div>
                 </div>
                 <details class="set-adv"><summary>说明（点开看）</summary>
-                <p class="data-note">这块铺的就是这一位的<b>通话背景</b>（没设图时是原来那层雾蓝底），两枚气泡用的也是视频通话里那一套真类名——改哪一样，这里当场变；切到「卡片CSS」那一档时下面还会多一张牌卡样本。上面写的样式只作用于<b>视频通话那一面</b>：语音那一面只有字幕与头像盘，没有气泡可换。</p>
+                <p class="data-note">这块铺的就是这一位的<b>通话背景</b>（没设图时是原来那层雾蓝底），两枚气泡用的也是视频通话里那一套真类名——改哪一样，这里当场变。上面写的样式只作用于<b>视频通话那一面</b>：语音那一面只有字幕与头像盘，没有气泡可换。</p>
                 </details>
               </div>
 
@@ -3887,28 +3879,15 @@
                 <div class="ap-frow"><span class="ap-status" id="clkCssStatus">未设置（视频里跟聊天页那段一样）</span></div>
                 <details class="set-adv"><summary>说明（点开看）</summary>
                 <p class="data-note">只作用于<b>视频通话那一面</b>的气泡：常用类名 <b>.message</b>（一条消息，加 <b>.mine</b> 是我方）· <b>.bubble</b>（气泡）· <b>.mini-avatar</b>（小头像）· <b>.ft-time</b>（时间小字）。写好的整段自动落到这一面之下，不用手写 !important，也压得过上面那两排配色。写错不生效、也不会弄坏页面，清空即可回头。</p>
-                <p class="data-note">八族卡片（问问TA · TA 想问你 · 占卜牌卡 · 邀请听歌 · 摘一句 · 递牌纸牌 · TA 的收藏 · 世界感知卡）本体也是一枚 <b>.bubble</b>，但这一段<b>刻意不碰它们</b>——想让卡片也跟着变，就切到顶上「卡片CSS」那一档单独给那一族写（或者直接写 <b>.dv-card</b>）。</p>
+                <p class="data-note">八族卡片（问问TA · TA 想问你 · 占卜牌卡 · 邀请听歌 · 摘一句 · 递牌纸牌 · TA 的收藏 · 世界感知卡）本体也是一枚 <b>.bubble</b>，但这一段<b>刻意不碰它们</b>——卡片自己的 CSS 在 设置 → 外观 → 自定义气泡 CSS 那一页的「卡片CSS」档里按族写（只管聊天页）。视频通话里 TA 已经不递这一族卡（2026-11-06 FEATURES #4076），这一段也就用不上。</p>
                 <p class="data-note">这里写了东西之后，视频那一面就不再吃聊天页那段「气泡 CSS」（免得两套互相打架）；<b>清空</b>它就自动回到「跟聊天页一样」。视频里那枚「同步聊天气泡 CSS」开关决定的是「没单独写时要不要同步」，写了自己的就以后者为准。</p>
                 </details>
               </div>
 
                
-              <div class="setting-card" data-clk-tab="dvcss">
-                <div class="setting-subhead">占卜卡片气泡 CSS</div>
-                <textarea id="clkDvCss" class="ap-ta ac-ta clk-ta-dv" rows="6" spellcheck="false" placeholder=".dv-card{ background:#fff; border-radius:18px; }
-          .dv-card-hd b{ letter-spacing:1px; }"></textarea>
-                <div class="ap-btnrow">
-                  <button type="button" class="ap-btn pri" id="clkDvApply">应用卡片 CSS</button>
-                  <button type="button" class="ap-btn" id="clkDvClear">清空</button>
-                </div>
-                <div class="ap-frow"><span class="ap-status" id="clkDvState">未设置（用卡自己的卡面）</span></div>
-                <details class="set-adv"><summary>说明（点开看）</summary>
-                <p class="data-note">只管<b>视频通话里那张占卜牌卡</b>。写法照卡里的类名写就行：<b>.dv-card</b> 是卡本身，<b>.dv-card-hd</b> 卡头、<b>.dv-card-q</b> 问句、<b>.dv-card-names</b> 牌名、<b>.dv-card-say</b> 结论——前缀 <b>.mine</b> 只作用于我方发的那张。想一次改卡里所有字，写 <b>.dv-card{ --dv-card-fg:#fff; background:#111; }</b>（这枚令牌管卡内全部文字，没写就跟着这一侧气泡的字色走）。</p>
-                </details>
-              </div>
 
               <details class="set-adv"><summary>怎么退回默认 · 这一档只管谁</summary>
-              <p class="clk-note">这几节<b>各存一份</b>（分在顶上五档里），也都随时可以退回默认：颜色、文字、形状、头像、时间与行距点「跟随聊天」，圆角那根杆点 × 交回形状，留白与不透明度拖回原值，两段 CSS 点「清空」，背景点「清除」。这一档只认<b>当前这位</b>——换一位 TA 就是另一份，互不影响。</p>
+              <p class="clk-note">这几节<b>各存一份</b>（分在顶上四档里），也都随时可以退回默认：颜色、文字、形状、头像、时间与行距点「跟随聊天」，圆角那根杆点 × 交回形状，留白与不透明度拖回原值，气泡 CSS 点「清空」，背景点「清除」。这一档只认<b>当前这位</b>——换一位 TA 就是另一份，互不影响。</p>
               </details>
             </div>
             </div>
@@ -4915,7 +4894,7 @@
 
            
           <details class="set-adv" id="aidvAdvWrap">
-            <summary><span class="dv-aidvsum-t">读法 · 这一位 · 字数</span></summary>
+            <summary><span class="dv-aidvsum-t">读法 · 这一位</span></summary>
             <div class="bx-sec">
               <div class="bx-hd"><span class="bx-t">AI 占卜师的读法</span><span class="bx-sub">指令 · 全站默认 · 没单独设过的那位照这份</span></div>
               <textarea id="aidvInstrDef" class="bx-ta" rows="4" maxlength="900" placeholder="留空＝用出厂那份（先看牌面事实，再说这一手在说什么，最后给两三件能做的事）"></textarea>
@@ -4938,11 +4917,6 @@
               <p class="bx-hint" id="aidvPersonaNote"></p>
             </div>
 
-            <div class="bx-sec">
-              <div class="bx-hd"><span class="bx-t">一次读多少字</span><span class="bx-sub">全站一份</span></div>
-              <div class="contact-chip-row" id="aidvWordsRow"></div>
-              <p class="bx-hint">上限：短 300 字 · 中 450 字 · 长 700 字。这是发给模型的上限，不是保证写满——实际写多长由内容定（通常会短一些，读完后正文下面会写「本文 N 字」）。太长容易水，太短说不清「怎么接」。</p>
-            </div>
           </details>
 
            
@@ -6143,6 +6117,9 @@
         <div class="ll-grid" id="llRandBgPool"></div>
         <div class="ll-rand-sub">贴纸 · 点一下勾上</div>
         <div class="ll-grid ll-grid-stk" id="llRandStkPool"></div>
+         
+        <div class="ll-rand-sub">两栏 · 点一下勾上</div>
+        <div class="contact-chip-row ll-rand-chips" id="llRandBarPool"></div>
         <p class="ll-empty" id="llRandEmpty" hidden></p>
         <p class="ll-rand-note" id="llRandNote"></p>
       </div>
