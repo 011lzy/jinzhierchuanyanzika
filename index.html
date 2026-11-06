@@ -14,20 +14,6 @@
   <meta name="theme-color" content="#F7F7F5">
 
    
-  <script>
-    (function () {
-      try {
-        if (localStorage.getItem('ordinal-dark') === '1') {
-          document.documentElement.setAttribute('data-dark', 'on');
-          var mt = document.querySelector('meta[name="theme-color"]');
-          if (mt) mt.setAttribute('content', '#101114');
-        }
-      } catch (e) {}
-    })();
-  </script>
-  <style>html[data-dark=on],html[data-dark=on] body{background:#101114;color:#E9EAEF}</style>
-
-   
   <style>
 
   
@@ -117,10 +103,27 @@
   
 
 
+  
+
+  html[data-dark=on],html[data-dark=on] body{background:#101114;color:#E9EAEF}
+
   </style>
 
-  <link rel="stylesheet" href="dist/app.v27.7.5.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v27.7.5.js"></script>
+  <link rel="stylesheet" href="dist/app.v28.0.8.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v28.0.8.js" fetchpriority="high"></script>
+
+   
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('ordinal-dark') === '1') {
+          document.documentElement.setAttribute('data-dark', 'on');
+          var mt = document.querySelector('meta[name="theme-color"]');
+          if (mt) mt.setAttribute('content', '#101114');
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -356,7 +359,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v27.7.5.css','dist/app.v27.7.5.js'];
+      var BOOT_FILES = ['dist/app.v28.0.8.css','dist/app.v28.0.8.js'];
 
 
 
@@ -1214,8 +1217,6 @@
         <div>
           <div class="g-eyebrow">MORE</div><div class="g-hi">更多</div>
           <div class="g-sub" id="moreVer"></div> 
-           
-          <button type="button" class="g-sub more-upd" id="moreUpd" hidden></button>
         </div>
          
         <div class="mg-acts">
@@ -1226,6 +1227,8 @@
         </div>
       </div>
        
+       
+      <button type="button" class="g-sub more-upd" id="moreUpd" hidden></button>
       <div class="more-list" id="moreList"></div>
     </section>
     <section class="view" id="collectView">
@@ -4133,6 +4136,16 @@
       <h2>更新公告</h2>
       <p class="upd-lead">最新一条展开在最上面；之前发过的折在下面，点一下再展开。标了「首次使用必读」的那条，没读完之前不收折。</p>
     </div>
+    <div class="upd-how" id="updHow">
+      <div class="upd-how-hd">怎么更新到最新版</div>
+      <ol class="upd-ol">
+        <li><b>平时不用手动查版本</b>：只要刷新一次页面（浏览器里的刷新键，或下拉刷新），网站就会自动换成线上最新版；新版下完后页面会自己重开，重开就是新版。</li>
+        <li><b>站内有两处会提示</b>：打开时开屏的那一行、以及「更多」页版号下面那一行，都会写明「线上已有新版」还是「线上也是这一版」，点一下就拉新版。</li>
+        <li><b>弱网要多等一会儿</b>：新版是一整包（页面加代码，约 3MB）。网络慢时下载大概要一两分钟，最差可能几分钟——这期间别退出、别连着点，它下完会自动重开。</li>
+        <li><b>刷完还是旧版</b>：多半是这一趟没下完。再点一次；仍不行就彻底关掉浏览器再重开一次，或换更快的网络（比如手机流量）再试。</li>
+        <li><b>想确认是不是最新</b>：到「更多」页点一下版号下面那一行，它若说「线上也是这一版」，就已经是最新版了。</li>
+      </ol>
+    </div>
     <div class="upd-list" id="updList"></div>
     <div class="upd-foot mono">言字卡 · UPDATES</div>
   </div>
@@ -4928,7 +4941,7 @@
             <div class="bx-sec">
               <div class="bx-hd"><span class="bx-t">一次读多少字</span><span class="bx-sub">全站一份</span></div>
               <div class="contact-chip-row" id="aidvWordsRow"></div>
-              <p class="bx-hint">短 ≈ 300 字，中 ≈ 450 字，长 ≈ 700 字。太长容易水，太短说不清「怎么接」。</p>
+              <p class="bx-hint">上限：短 300 字 · 中 450 字 · 长 700 字。这是发给模型的上限，不是保证写满——实际写多长由内容定（通常会短一些，读完后正文下面会写「本文 N 字」）。太长容易水，太短说不清「怎么接」。</p>
             </div>
           </details>
 
@@ -5470,8 +5483,9 @@
               <div class="sx-chips" id="sxStyleRow" role="group" aria-label="时讯页面风格">
                 <button type="button" class="sx-chip" data-sx-style="slip" aria-pressed="true">纸笺</button>
                 <button type="button" class="sx-chip" data-sx-style="bubble" aria-pressed="false">气泡</button>
+                <button type="button" class="sx-chip" data-sx-style="letter" aria-pressed="false">信笺</button>
               </div>
-              <p class="sx-desc">「纸笺」＝一张张平放的小纸片：不歪、不带影、按话长短收边；「气泡」＝圆角带方向的气泡。只换摆法，下面那几套配色照常生效。</p>
+              <p class="sx-desc">「纸笺」＝一张张平放的小纸片：不歪、不带影、按话长短收边；「气泡」＝圆角带方向的气泡；「信笺」＝一整张信纸：每条话独占一整行、行行一根横格线，我那行整行铺一层淡色，输入框接着在纸上写。只换摆法，下面那几套配色照常生效。</p>
             </div>
             <div class="sx-sec">
               <div class="sx-lb">配色</div>
@@ -5516,7 +5530,7 @@
                 <button type="button" class="sx-chip" data-sx-rad="soft" aria-pressed="true">柔</button>
                 <button type="button" class="sx-chip" data-sx-rad="round" aria-pressed="false">圆</button>
               </div>
-              <p class="sx-desc">「锐」＝方一点，「柔」＝出厂那副（靠说话人那一角收窄、其余圆润），「圆」＝更软的一档。摆法换到纸笺时，它也跟着走（纸笺的方角会随之松一点）。这一档是整页的，不按人记。</p>
+              <p class="sx-desc">「锐」＝方一点，「柔」＝出厂那副（靠说话人那一角收窄、其余圆润），「圆」＝更软的一档。摆法换到纸笺时，它也跟着走（纸笺的方角会随之松一点）。这一档是整页的，不按人记；「信笺」那一档不吃它——纸是方的，话是写在格上的，没有圆角可言。</p>
             </div>
             <div class="sx-sec">
               <div class="sx-lb">这一页的形制</div>
@@ -6015,6 +6029,12 @@
       <p class="ll-tip">一套＝<b>聊天设置 → 外观</b> 里此刻的<b>全部</b>改动，点一套整套换回来（存了哪几样，见页底「说明」）。</p>
       <div class="ap-pv-list" id="apPvList"></div>
       <p class="ll-empty" id="apPvEmpty">还没有方案。先去「聊天设置 → 外观」把样子调成你喜欢的（或者直接用下面三本素材库换几样），回来点「存一套」——以后一点就整套换回来。想边看聊天边存，点「边看边存」。</p>
+       
+      <div class="ll-io">
+        <button type="button" class="ll-addrow" id="llIoExport">导出整套美化</button>
+        <button type="button" class="ll-addrow" id="llIoImport">从文件导入</button>
+      </div>
+      <input type="file" id="llIoInput" accept=".json,application/json" hidden>
     </div>
 
     <div class="ll-sec" data-ll-tab="bg" hidden>
@@ -6096,8 +6116,12 @@
       <p class="ll-rand-note" id="dzTplHint"></p>
       <div class="ll-rand-sub">素材 · 点一下勾上（一套最多 5 枚）</div>
       <div class="ll-grid ll-grid-stk" id="llStkGrid"></div>
-      <p class="ll-empty" id="llStkEmpty">还没传自己的贴纸——上面那 16 枚 emoji 是自带的，不占配额、删不掉，勾几枚就能贴。想用自己的图就点「添加」传几张（PNG 带透明底最好看）。</p>
+      <div class="ll-edit" id="llStkEditRow" hidden></div>
+      <p class="ll-empty" id="llStkEmpty">还没传自己的贴纸——上面那些 emoji 是自带的，不占配额、删不掉，勾几枚就能贴。想用自己的图就点「添加」传几张（PNG 带透明底最好看）。</p>
       <p class="ll-rand-note" id="dzRead"></p>
+       
+      <p class="ll-rand-note" id="dzAutoNote"></p>
+      <button type="button" class="ll-addrow" id="dzToDaily">让它每天自己贴一批 →</button>
       <button type="button" class="soft-btn" id="dzClear">撕掉这一位的贴纸</button>
       <input type="file" id="llStkInput" accept="image/*" multiple hidden>
     </div>
@@ -6107,25 +6131,32 @@
         <div class="ll-hd">
           <span class="ll-t">随机换装<i class="ll-n" id="llRandN"></i><i class="ll-scope">按 TA 各存一份</i></span>
         </div>
-        <p class="ll-tip">开着＝TA 回你话的时候，自己偶尔换一样（夜里不换）。下面勾了哪些，就只从哪些里换。改哪位用页面最上面那排名字。</p>
+        <p class="ll-tip">开着＝TA 回你话的时候，自己偶尔换一样（夜里不换）。下面勾了哪些，就只从哪些里换；勾整套方案＝TA 可能整套装上（全站那几格也跟着方案走）。改哪位用页面最上面那排名字。</p>
         <div class="ap-row ll-rand-row"><span>开关</span><div class="contact-chip-row" style="margin:0" id="llRandEn"><button type="button" class="contact-chip" data-v="on">开</button><button type="button" class="contact-chip" data-v="off">关</button></div></div>
         <div class="ap-row ll-rand-row"><span>多久换</span><div class="contact-chip-row" style="margin:0" id="llRandRate"><button type="button" class="contact-chip" data-v="1">很少</button><button type="button" class="contact-chip" data-v="2">偶尔</button><button type="button" class="contact-chip" data-v="3">常换</button></div></div>
+        <div class="ll-rand-sub">整套方案 · 点一下勾上</div>
+        <div class="contact-chip-row ll-rand-chips" id="llRandPlanPool"></div>
+        <p class="ll-empty" id="llRandPlanEmpty" hidden>还没有方案——先去「整套方案」那一档存一套，再来勾。</p>
         <div class="ll-rand-sub">气泡样式 · 点一下勾上</div>
         <div class="contact-chip-row ll-rand-chips" id="llRandBubPool"></div>
         <div class="ll-rand-sub">背景图 · 点一下勾上</div>
         <div class="ll-grid" id="llRandBgPool"></div>
+        <div class="ll-rand-sub">贴纸 · 点一下勾上</div>
+        <div class="ll-grid ll-grid-stk" id="llRandStkPool"></div>
         <p class="ll-empty" id="llRandEmpty" hidden></p>
         <p class="ll-rand-note" id="llRandNote"></p>
       </div>
        
       <div class="dz-daily" id="dzDailySec">
         <div class="ll-hd">
-          <span class="ll-t">每天随机装修<i class="ll-scope">开关全站一份 · 用的池按这一位</i></span>
+          <span class="ll-t">每天随机装修<i class="ll-scope">按 TA 各存一份 · 没单独调的跟全站</i></span>
         </div>
-        <p class="ll-tip">开着＝<b>当天第一次落到这一位</b>时，TA 可能给自己重贴一批贴纸，并顺手从上面勾好的池里换一样外观。一天最多一次；没掷中就今天不换。</p>
-        <div class="ap-row ll-rand-row"><span>每天那一掷</span><button type="button" class="hub-tg" id="dzEnTg" role="switch" aria-pressed="true" aria-label="每天随机装修开关"></button></div>
+        <p class="ll-tip">开着＝<b>当天第一次落到这一位</b>时，TA 可能给自己重贴一批贴纸，并顺手从上面勾好的池里换一样外观。一天最多一次；没掷中就今天不换。这一位单独调过之后，就不再跟全站那一枚。<br>没勾贴纸池时，TA 整套贴<b>同一个主题</b>（夜空／花草／心意／小屋／动物／雨天），或整套贴你自己传的图——不会混着贴；夜里更容易贴出「夜空」那一套。<br>下面两枚开关都按<b>这一位 TA</b>各存一份；关掉哪一枚，这一位现在正贴着的贴纸都会<b>当场撤掉</b>（桌面单人框与聊天页两面一起撤）。</p>
+        <div class="ap-row ll-rand-row"><span>允许 TA 自己装修</span><button type="button" class="hub-tg" id="dzEnTg" role="switch" aria-pressed="true" aria-label="允许这一位 TA 自己装修"></button></div>
+        <div class="ap-row ll-rand-row"><span>允许 TA 自己贴贴纸</span><button type="button" class="hub-tg" id="dzStkTg" role="switch" aria-pressed="true" aria-label="允许这一位 TA 自己贴贴纸"></button></div>
         <label class="ap-knob"><span>几率</span><input type="range" id="dzProb" min="0" max="100" step="5" value="55" aria-label="每天随机装修几率"><output id="dzProbOut">55%</output></label>
         <div class="ap-row ll-rand-row"><span>贴纸浮在字上面</span><button type="button" class="hub-tg" id="dzFloatTg" role="switch" aria-pressed="false" aria-label="贴纸浮在字上面"></button></div>
+        <div class="ap-row ll-rand-row" id="dzFollowRow" hidden><span>这一位单独调过</span><button type="button" class="soft-btn" id="dzFollow">恢复跟全站</button></div>
         <p class="ll-rand-note" id="dzDailyNote"></p>
       </div>
     </div>
@@ -6133,10 +6164,11 @@
     <div class="setting-card fold" data-fold="looklibHelp">
       <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">说明</span><span class="fold-sum">收藏夹 · 系统自带 · 更细的开关</span></span><i class="fold-ar">›</i></button>
       <div class="fold-bd">
-        <p class="data-note"><b>整套方案</b>与三本素材库不是一回事：方案是<b>快照</b>——「聊天设置 → 外观」与「设置 → 外观」里你此刻的全部改动（配色 · 气泡形状/圆角/留白/透明度 · 气泡毛玻璃 · 气泡里的字 · 时间样式与位置 · 系统消息 · 引用与其它文字 · 栏边 · 背景图与压暗/焦点/放大 · 主动小签 · 气泡版式（按这位）· 全站排版与头像形状 · 按钮与栏位颜色 · 卡片通透（毛玻璃/列表磨砂/三根杆）· 卡片圆角 · 光影 · 宽屏适配 · 全站字号 · 桌面壁纸的调法（压暗/提亮/放大/模糊/铺法/铺哪几页）· 气泡 CSS 与八族卡片 CSS · 全站字体 CSS）各存一份，点一套整套回位；字体<b>文件</b>和桌面壁纸的<b>图</b>不在方案里（都是全站一份、几 MB 起，存进每套会把存档撑爆），各套共用。老方案没有登记的那几格＝换上时按「这一套的原样」回出厂，不往回猜你的值。</p>
+        <p class="data-note"><b>整套方案</b>与三本素材库不是一回事：方案是<b>快照</b>——「聊天设置 → 外观」与「设置 → 外观」里你此刻的全部改动（配色 · 气泡形状/圆角/留白/透明度 · 气泡毛玻璃 · 气泡里的字 · 时间样式与位置 · 系统消息 · 引用与其它文字 · 栏边 · 背景图与压暗/焦点/放大 · 主动小签 · 气泡版式（按这位）· 全站排版与头像形状 · 按钮与栏位颜色 · 卡片通透（毛玻璃/列表磨砂/三根杆）· 卡片圆角 · 光影 · 宽屏适配 · 全站字号 · 桌面壁纸的调法（压暗/提亮/放大/模糊/铺法/铺哪几页）· 气泡 CSS 与八族卡片 CSS · 全站字体 CSS · 引用框美化那二十六格 · 贴纸摆法（桌面＋聊天页两份））各存一份，点一套整套回位；字体<b>文件</b>和桌面壁纸的<b>图</b>不在方案里（都是全站一份、几 MB 起，存进每套会把存档撑爆），各套共用。老方案没有登记的那几格＝换上时按「这一套的原样」回出厂，不往回猜你的值。</p>
         <p class="data-note">三本库是<b>收藏夹</b>，和方案、和你正在用的是<b>三份</b>东西：点一份＝把这一样换上；<b>删掉库里那一份，聊天里正在用的样式不会跟着变</b>（想换回去就点另一份）。同一张图、同一段 CSS 可以给不同的 TA 用：切到那位再点一下。所有东西都跟着备份走，重启、导出再导入都在。</p>
         <p class="data-note">气泡那本最上面几行是<b>系统自带</b>（液态玻璃那几款），副行写着「内置」：点一下就换上、不占你的配额、删不掉，也不进备份——它们跟着版本走。想照着改：点完去「气泡 CSS」页，编辑器里就是它那段原文。</p>
         <p class="data-note">更细的开关都在原处：气泡 CSS 页写／改这一位的样式与那几枚卡片开关；「全站字体」页传字体文件、写字体 CSS；背景的压暗、焦点、放大与铺法在 TA 的设置 → 外观 →「聊天背景」那张卡里。库越大开机越慢一点，背景图是里面最贵的一样——建议十几张以内。</p>
+        <p class="data-note">「导出整套美化」把方案＋五本素材＋随机池勾选打包成一个文件，拿到另一台设备「从文件导入」即可（按内容合并，库里已有的份不会重复占配额）。哪一档想清理，点「管理」——那行「清掉没在用的」只清谁都不用的收藏，正在用的样式一条都不在里面。气泡／字体那两本的行首小图就是这份样式的真预览，点整行才换上。</p>
       </div>
     </div>
   </div>
