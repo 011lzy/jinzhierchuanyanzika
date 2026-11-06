@@ -109,8 +109,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v28.5.9.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v28.5.9.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v28.6.1.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v28.6.1.js" fetchpriority="high"></script>
 
    
   <script>
@@ -359,7 +359,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v28.5.9.css','dist/app.v28.5.9.js'];
+      var BOOT_FILES = ['dist/app.v28.6.1.css','dist/app.v28.6.1.js'];
 
 
 
@@ -6103,12 +6103,6 @@
       <p class="ll-tip">一套＝<b>聊天设置 → 外观</b> 里此刻的<b>全部</b>改动，点一套整套换回来（存了哪几样，见页底「说明」）。</p>
       <div class="ap-pv-list" id="apPvList"></div>
       <p class="ll-empty" id="apPvEmpty">还没有方案。先去「聊天设置 → 外观」把样子调成你喜欢的（或者直接用下面三本素材库换几样），回来点「存一套」——以后一点就整套换回来。想边看聊天边存，点「边看边存」。</p>
-       
-      <div class="ll-io">
-        <button type="button" class="ll-addrow" id="llIoExport">导出整套美化</button>
-        <button type="button" class="ll-addrow" id="llIoImport">从文件导入</button>
-      </div>
-      <input type="file" id="llIoInput" accept=".json,application/json" hidden>
     </div>
 
     <div class="ll-sec" data-ll-tab="bg" hidden>
@@ -6190,13 +6184,11 @@
       <p class="ll-rand-note" id="dzTplHint"></p>
       <div class="ll-rand-sub">素材 · 点一下勾上（一套最多 5 枚）</div>
       <div class="ll-grid ll-grid-stk" id="llStkGrid"></div>
-      <div class="ll-edit" id="llStkEditRow" hidden></div>
-      <p class="ll-empty" id="llStkEmpty">还没传自己的贴纸——上面那些 emoji 是自带的，不占配额、删不掉，勾几枚就能贴。想用自己的图就点「添加」传几张（PNG 带透明底最好看）。</p>
+      <p class="ll-empty" id="llStkEmpty">还没传自己的贴纸——上面那 16 枚 emoji 是自带的，不占配额、删不掉，勾几枚就能贴。想用自己的图就点「添加」传几张（PNG 带透明底最好看）。</p>
       <p class="ll-rand-note" id="dzRead"></p>
-       
-      <p class="ll-rand-note" id="dzAutoNote"></p>
-      <button type="button" class="ll-addrow" id="dzToDaily">让它每天自己贴一批 →</button>
       <button type="button" class="soft-btn" id="dzClear">撕掉这一位的贴纸</button>
+      <p class="ll-rand-note" id="dzAutoNote">TA 会不会<b>每天自己贴一批</b>，归「随机换装」那一档的「每天随机装修」卡管——这一档只管贴的是什么、贴成什么样。</p>
+      <button type="button" class="soft-btn" id="dzToDaily">让它每天自己贴一批 →</button>
       <input type="file" id="llStkInput" accept="image/*" multiple hidden>
     </div>
 
@@ -6205,20 +6197,19 @@
         <div class="ll-hd">
           <span class="ll-t">随机换装<i class="ll-n" id="llRandN"></i><i class="ll-scope">按 TA 各存一份</i></span>
         </div>
-        <p class="ll-tip">开着＝TA 回你话的时候，自己偶尔换一样（夜里不换）。下面勾了哪些，就只从哪些里换；勾整套方案＝TA 可能整套装上（全站那几格也跟着方案走）。改哪位用页面最上面那排名字。</p>
+        <p class="ll-tip">开着＝TA 回你话的时候，自己偶尔换一样（夜里不换）。下面勾了哪些，就只从哪些里换。改哪位用页面最上面那排名字。</p>
         <div class="ap-row ll-rand-row"><span>开关</span><div class="contact-chip-row" style="margin:0" id="llRandEn"><button type="button" class="contact-chip" data-v="on">开</button><button type="button" class="contact-chip" data-v="off">关</button></div></div>
         <div class="ap-row ll-rand-row"><span>多久换</span><div class="contact-chip-row" style="margin:0" id="llRandRate"><button type="button" class="contact-chip" data-v="1">很少</button><button type="button" class="contact-chip" data-v="2">偶尔</button><button type="button" class="contact-chip" data-v="3">常换</button></div></div>
-        <div class="ll-rand-sub">整套方案 · 点一下勾上</div>
-        <div class="contact-chip-row ll-rand-chips" id="llRandPlanPool"></div>
-        <p class="ll-empty" id="llRandPlanEmpty" hidden>还没有方案——先去「整套方案」那一档存一套，再来勾。</p>
         <div class="ll-rand-sub">气泡样式 · 点一下勾上</div>
         <div class="contact-chip-row ll-rand-chips" id="llRandBubPool"></div>
         <div class="ll-rand-sub">背景图 · 点一下勾上</div>
         <div class="ll-grid" id="llRandBgPool"></div>
         <div class="ll-rand-sub">贴纸 · 点一下勾上</div>
         <div class="ll-grid ll-grid-stk" id="llRandStkPool"></div>
-         
-        <div class="ll-rand-sub">两栏 · 点一下勾上</div>
+        <div class="ll-rand-sub">整套方案 · 点一下勾上（TA 只换自己那身，不碰你的全站）</div>
+        <div class="contact-chip-row ll-rand-chips" id="llRandPlanPool"></div>
+        <p class="ll-empty" id="llRandPlanEmpty" hidden>还没有存过整套方案——去「整套方案」那一档把现在这身存下来，就能勾给 TA 换。</p>
+        <div class="ll-rand-sub">两栏 · 点一下勾上（顶栏与输入栏那一族）</div>
         <div class="contact-chip-row ll-rand-chips" id="llRandBarPool"></div>
         <p class="ll-empty" id="llRandEmpty" hidden></p>
         <p class="ll-rand-note" id="llRandNote"></p>
@@ -6228,10 +6219,10 @@
         <div class="ll-hd">
           <span class="ll-t">每天随机装修<i class="ll-scope">按 TA 各存一份 · 没单独调的跟全站</i></span>
         </div>
-        <p class="ll-tip">开着＝<b>当天第一次落到这一位</b>时，TA 可能给自己重贴一批贴纸，并顺手从上面勾好的池里换一样外观。一天最多一次；没掷中就今天不换。这一位单独调过之后，就不再跟全站那一枚。<br>没勾贴纸池时，TA 整套贴<b>同一个主题</b>（夜空／花草／心意／小屋／动物／雨天），或整套贴你自己传的图——不会混着贴；夜里更容易贴出「夜空」那一套。<br>下面两枚开关都按<b>这一位 TA</b>各存一份；关掉哪一枚，这一位现在正贴着的贴纸都会<b>当场撤掉</b>（桌面单人框与聊天页两面一起撤）。</p>
-        <div class="ap-row ll-rand-row"><span>允许 TA 自己装修</span><button type="button" class="hub-tg" id="dzEnTg" role="switch" aria-pressed="true" aria-label="允许这一位 TA 自己装修"></button></div>
-        <div class="ap-row ll-rand-row"><span>允许 TA 自己贴贴纸</span><button type="button" class="hub-tg" id="dzStkTg" role="switch" aria-pressed="true" aria-label="允许这一位 TA 自己贴贴纸"></button></div>
+        <p class="ll-tip">开着＝<b>当天第一次落到这一位</b>时，TA 可能给自己重贴一批贴纸，并顺手从上面勾好的池里换一样外观。一天最多一次；没掷中就今天不换。这一位单独调过开关或几率之后，就不再跟全站那一枚。没勾贴纸池时，TA 整套贴<b>同一个主题</b>（夜空／花草／心意／小屋／动物／雨天），或整套贴你自己传的图——不会混着贴；夜里更容易贴出「夜空」那一套。</p>
+        <div class="ap-row ll-rand-row"><span>允许 TA 自己装修</span><button type="button" class="hub-tg" id="dzEnTg" role="switch" aria-pressed="true" aria-label="允许 TA 自己装修（每天一掷）"></button></div>
         <label class="ap-knob"><span>几率</span><input type="range" id="dzProb" min="0" max="100" step="5" value="55" aria-label="每天随机装修几率"><output id="dzProbOut">55%</output></label>
+        <div class="ap-row ll-rand-row"><span>允许 TA 自己贴贴纸</span><button type="button" class="hub-tg" id="dzStkTg" role="switch" aria-pressed="true" aria-label="允许 TA 自己贴贴纸"></button></div>
         <div class="ap-row ll-rand-row"><span>贴纸浮在字上面</span><button type="button" class="hub-tg" id="dzFloatTg" role="switch" aria-pressed="false" aria-label="贴纸浮在字上面"></button></div>
         <div class="ap-row ll-rand-row" id="dzFollowRow" hidden><span>这一位单独调过</span><button type="button" class="soft-btn" id="dzFollow">恢复跟全站</button></div>
         <p class="ll-rand-note" id="dzDailyNote"></p>
@@ -6241,11 +6232,10 @@
     <div class="setting-card fold" data-fold="looklibHelp">
       <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">说明</span><span class="fold-sum">收藏夹 · 系统自带 · 更细的开关</span></span><i class="fold-ar">›</i></button>
       <div class="fold-bd">
-        <p class="data-note"><b>整套方案</b>与三本素材库不是一回事：方案是<b>快照</b>——「聊天设置 → 外观」与「设置 → 外观」里你此刻的全部改动（配色 · 气泡形状/圆角/留白/透明度 · 气泡毛玻璃 · 气泡里的字 · 时间样式与位置 · 系统消息 · 引用与其它文字 · 栏边 · 背景图与压暗/焦点/放大 · 主动小签 · 气泡版式（按这位）· 全站排版与头像形状 · 按钮与栏位颜色 · 卡片通透（毛玻璃/列表磨砂/三根杆）· 卡片圆角 · 光影 · 宽屏适配 · 全站字号 · 桌面壁纸的调法（压暗/提亮/放大/模糊/铺法/铺哪几页）· 气泡 CSS 与八族卡片 CSS · 全站字体 CSS · 引用框美化那二十六格 · 贴纸摆法（桌面＋聊天页两份））各存一份，点一套整套回位；字体<b>文件</b>和桌面壁纸的<b>图</b>不在方案里（都是全站一份、几 MB 起，存进每套会把存档撑爆），各套共用。老方案没有登记的那几格＝换上时按「这一套的原样」回出厂，不往回猜你的值。</p>
+        <p class="data-note"><b>整套方案</b>与三本素材库不是一回事：方案是<b>快照</b>——「聊天设置 → 外观」与「设置 → 外观」里你此刻的全部改动（配色 · 气泡形状/圆角/留白/透明度 · 气泡毛玻璃 · 气泡里的字 · 时间样式与位置 · 系统消息 · 引用与其它文字 · 栏边 · 背景图与压暗/焦点/放大 · 主动小签 · 气泡版式（按这位）· 全站排版与头像形状 · 按钮与栏位颜色 · 卡片通透（毛玻璃/列表磨砂/三根杆）· 卡片圆角 · 光影 · 宽屏适配 · 全站字号 · 桌面壁纸的调法（压暗/提亮/放大/模糊/铺法/铺哪几页）· 气泡 CSS 与八族卡片 CSS · 全站字体 CSS）各存一份，点一套整套回位；字体<b>文件</b>和桌面壁纸的<b>图</b>不在方案里（都是全站一份、几 MB 起，存进每套会把存档撑爆），各套共用。老方案没有登记的那几格＝换上时按「这一套的原样」回出厂，不往回猜你的值。</p>
         <p class="data-note">三本库是<b>收藏夹</b>，和方案、和你正在用的是<b>三份</b>东西：点一份＝把这一样换上；<b>删掉库里那一份，聊天里正在用的样式不会跟着变</b>（想换回去就点另一份）。同一张图、同一段 CSS 可以给不同的 TA 用：切到那位再点一下。所有东西都跟着备份走，重启、导出再导入都在。</p>
         <p class="data-note">气泡那本最上面几行是<b>系统自带</b>（液态玻璃那几款），副行写着「内置」：点一下就换上、不占你的配额、删不掉，也不进备份——它们跟着版本走。想照着改：点完去「气泡 CSS」页，编辑器里就是它那段原文。</p>
         <p class="data-note">更细的开关都在原处：气泡 CSS 页写／改这一位的样式与那几枚卡片开关；「全站字体」页传字体文件、写字体 CSS；背景的压暗、焦点、放大与铺法在 TA 的设置 → 外观 →「聊天背景」那张卡里。库越大开机越慢一点，背景图是里面最贵的一样——建议十几张以内。</p>
-        <p class="data-note">「导出整套美化」把方案＋五本素材＋随机池勾选打包成一个文件，拿到另一台设备「从文件导入」即可（按内容合并，库里已有的份不会重复占配额）。哪一档想清理，点「管理」——那行「清掉没在用的」只清谁都不用的收藏，正在用的样式一条都不在里面。气泡／字体那两本的行首小图就是这份样式的真预览，点整行才换上。</p>
       </div>
     </div>
   </div>
@@ -6845,8 +6835,8 @@
     <div class="wide-split" id="wideSplit" aria-hidden="true"></div>
     <nav class="tabbar" id="mainTabbar" aria-label="主导航">
       <button class="tab-item active" data-view="chats" title="聊天" aria-label="聊天"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></button>
-      <button class="tab-item" data-view="cards" title="字卡库" aria-label="字卡库"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button>
-      <button class="tab-item" data-view="cjian" title="世界感知" aria-label="世界感知"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 17v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h2"/></svg></button>
+      <button class="tab-item" data-view="cjian" title="世界感知" aria-label="世界感知"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></button>
+      <button class="tab-item" data-view="cards" title="字卡库" aria-label="字卡库"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 17v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h2"/></svg></button>
        
       <button class="tab-item" data-view="more" title="更多" aria-label="更多"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2C12.9 8.1 15.9 11.1 20.8 12 15.9 12.9 12.9 15.9 12 20.8 11.1 15.9 8.1 12.9 3.2 12 8.1 11.1 11.1 8.1 12 3.2Z"/></svg></button>
     </nav>
