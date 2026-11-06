@@ -109,8 +109,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v28.2.5.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v28.2.5.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v28.2.7.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v28.2.7.js" fetchpriority="high"></script>
 
    
   <script>
@@ -359,7 +359,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v28.2.5.css','dist/app.v28.2.5.js'];
+      var BOOT_FILES = ['dist/app.v28.2.7.css','dist/app.v28.2.7.js'];
 
 
 
@@ -3655,6 +3655,9 @@
              
             <label class="key-row">API Key<span class="key-wrap"><input id="mateMxKey" type="password" placeholder="粘贴开放平台的 Key" autocomplete="off"><button type="button" class="key-x" data-key-x="mateMxKey" aria-label="清空已填的 API Key" title="清空">×</button></span></label>
             <p class="data-note key-sync" id="mateMxSync">这里填的是全局那一份 Key（不是这位 TA 单独一份）。</p>
+             
+            <p class="data-note">语音模型 · 全站一份（点一枚就切；换模型只影响之后新念的句子）</p>
+            <div class="contact-chip-row" id="mateModelChips" hidden></div>
              
             <div class="mx-actrow"><button type="button" class="soft-btn" id="mateMxCheck">检测为什么没声音</button><span class="data-note" id="mateMxCheckNote"></span></div>
             <div class="diag-out" id="mateMxCheckOut" hidden></div>
