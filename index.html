@@ -109,8 +109,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v28.6.1.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v28.6.1.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v28.9.1.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v28.9.1.js" fetchpriority="high"></script>
 
    
   <script>
@@ -359,7 +359,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v28.6.1.css','dist/app.v28.6.1.js'];
+      var BOOT_FILES = ['dist/app.v28.9.1.css','dist/app.v28.9.1.js'];
 
 
 
@@ -1552,6 +1552,8 @@
        
       <div class="group-search-wrap" id="cardsSearchRow"><input id="groupSearchInput" class="group-search" placeholder="搜索字卡" autocomplete="off"><button type="button" class="home-add cards-plus" id="newCardGroup" aria-label="新建分组或导入字卡"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
        
+      <div class="cards-search-meta" id="cardsSearchMeta" hidden><span id="cardsSearchMetaN"></span></div>
+       
       <button type="button" class="cards-bx-entry" id="cardsBxEntry" hidden>
         <span class="cards-bx-entry-tx"><b>让 AI 写几张</b><small>按世界观与人设写；不满意可以改要求再写，选中的存进这一档。</small></span>
         <span class="cards-bx-entry-go">打开 ›</span>
@@ -1778,6 +1780,14 @@
           </div>
 
            
+          <div class="setting-card" id="emoTagShowCard">
+            <div class="setting-subhead">显示</div>
+            <div class="emo-chips" id="emoTagShow"></div>
+            <div class="emo-chips" id="emoTagGrpShow"></div>
+            <p class="data-note">出厂就是从前的原样：无外框、不显示分组名、只印词。想开 mochi 那种样子，切到「外框＋显示分组名」——分组名会画成一枚浅灰小圆签、「主动」这类来源签也穿同一副皮。老消息没存过组名的，按词回查认出它属于哪一组。</p>
+          </div>
+
+           
           <div class="setting-card" id="emoProbs"></div>
 
           <div class="setting-card">
@@ -1878,7 +1888,7 @@
             <summary>试写一张 · 用量</summary>
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxTryBtn">试写一张</button><span class="bx-hint">会花一次额度。</span></div>
             <div class="bx-check" id="bxTryOut"></div>
-            <p class="bx-hint" id="bxUsageLine"></p>
+            <div id="bxUsageLine"></div>
             <div id="bxUsageMore"></div>
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxUsageClear">用量清零</button></div>
           </details>
@@ -2602,12 +2612,17 @@
 
          
         <div class="setting-card set-entry" data-tab="ai" id="bxUsageCard">
-          <button type="button" class="set-entry-row" id="bxUsageHead" aria-expanded="false"><span class="set-entry-tx"><strong>用量与余额</strong><small id="sumBxUsage"></small><small>这套接口一共发了多少次、花了多少 tokens、按用途∶按模型∶按天怎么分。MiniMax 的月套餐与按量余额都问一口——打开设置页顺手查一次（半小时内不重复问），也可以点开手查。</small></span></button>
+          <button type="button" class="set-entry-row" id="bxUsageHead" aria-expanded="false"><span class="set-entry-tx"><strong>用量与余额</strong><small id="sumBxUsage"></small><small>点开看细账：发了多少次 ∶ 花了多少 tokens ∶ 余额还剩多少。</small></span></button>
           <div id="bxUsagePanel" hidden>
-            <p class="bx-hint" id="bxUsageLineSt"></p>
+            <div id="bxUsageLineSt"></div>
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxUsageBalBtn">查一下余额</button></div>
+            <div class="bx-when" id="bxUsageBalWhen"></div>
             <div class="bx-check" id="bxUsageBalOut"></div>
             <div id="bxUsageMoreSt"></div>
+            <div class="bx-actrow">
+              <button type="button" class="ap-btn" id="bxUsageCopyBtn">复制读数</button>
+              <button type="button" class="ap-btn" id="bxUsageClearSt">用量清零</button>
+            </div>
           </div>
         </div>
 
@@ -3365,7 +3380,8 @@
         <div class="mate-subtabs" id="mateReplyTabs" role="tablist">
           <button type="button" class="mate-subtab on" data-rtab-btn="rhythm" role="tab" aria-selected="true">节奏</button>
           <button type="button" class="mate-subtab" data-rtab-btn="express" role="tab" aria-selected="false">表达</button>
-          <button type="button" class="mate-subtab" data-rtab-btn="draw" role="tab" aria-selected="false">抽牌</button>
+          <button type="button" class="mate-subtab" data-rtab-btn="score" role="tab" aria-selected="false">打分</button>
+          <button type="button" class="mate-subtab" data-rtab-btn="card" role="tab" aria-selected="false">卡片</button>
         </div>
          
         <div class="setting-card fold" id="mateMemPanel" data-fold="mempanel" data-rtab="rhythm" hidden>
@@ -3406,7 +3422,7 @@
           </div>
         </div>
          
-        <div class="setting-card fold" data-fold="topic" data-rtab="rhythm">
+        <div class="setting-card fold" data-fold="topic" data-rtab="score">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">话题意愿度</span><span class="fold-sum" id="mateTopicSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
             <div class="check-row"><label class="check-item"><input type="checkbox" id="topicWillOn"><span>你发消息时，TA 会看你对这个话题上不上心<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：聊天里落一行「阿言 · 觉得你对这个话题的意愿度 · 7/10 · 想跟你聊聊」——分数评的是你（你觉得这个话题有多上心），打分的是 TA。纯随机，只对你亲手发出的文字消息生效；纯图和语音不触发。出厂开。</span></span></label></div>
@@ -3434,7 +3450,7 @@
           </div>
         </div>
          
-        <div class="setting-card fold" data-fold="replysat" data-rtab="rhythm">
+        <div class="setting-card fold" data-fold="replysat" data-rtab="score">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">回复满意度</span><span class="fold-sum" id="mateReplySatSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
             <div class="check-row"><label class="check-item"><input type="checkbox" id="replySatOn"><span>你发消息时，TA 给你这条回复打分<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：聊天里落一行「阿言 · 对你这轮回复的满意度 · 7/10 · TA 挺满意」——措辞随机用「这条」或「这轮」，说的是同一件事。分数纯随机，只对你亲手发出的文字消息生效；纯图和语音不触发。单聊＝当前这位 TA；群聊按下面三档。出厂开。</span></span></label></div>
@@ -3452,10 +3468,28 @@
           </div>
         </div>
          
-        <div class="setting-card fold" data-fold="wishback" data-rtab="rhythm">
+        <div class="setting-card fold" data-fold="understand" data-rtab="score">
+          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">话的理解度</span><span class="fold-sum" id="mateUnderstandSum"></span></span><i class="fold-ar">›</i></button>
+          <div class="fold-bd">
+            <div class="check-row"><label class="check-item"><input type="checkbox" id="understandOn"><span>你发消息时，TA 会看你对 TA 的话理解到什么程度<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：聊天里落一行「阿言 · 觉得你对TA的话的理解度 · 7/10 · 大多能懂我」——分数评的是你（你有没有接住 TA 说的话），打分的是 TA。纯随机，只对你亲手发出的文字消息生效；纯图和语音不触发。单聊＝当前这位 TA；群聊按下面三档。出厂开。</span></span></label></div>
+            <label id="understandProbLab" class="mate-stp-row">触发概率（%）<button type="button" class="stp-min" data-stp="understandProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="understandProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="understandProb" data-d="1" aria-label="多一点">+</button></label>
+            <div id="udGroupWrap">
+              <p class="data-note" style="margin:10px 0 6px">群聊里给谁打分</p>
+              <div class="contact-chip-row" id="udGroupRow" role="group" aria-label="群聊里给话的理解度打分">
+                <button type="button" class="contact-chip active" data-ud-group="reply">回你的那位</button>
+                <button type="button" class="contact-chip" data-ud-group="all">全群整体</button>
+                <button type="button" class="contact-chip" data-ud-group="each">每位成员</button>
+              </div>
+              <p class="data-note">「回你的那位」＝谁这一轮真开口，才给谁打分并写上名字；没人开口就不出。「每位成员」＝一次给群里每人各一条（带各自名字）；「全群整体」＝一个分。</p>
+            </div>
+            <p class="data-note">和上面两张卡是一排：意愿度看<b>话题</b>、满意度看你<b>这句话</b>、理解度看你有没有接住 <b>TA 说的话</b>。多项同时命中时只落一行「阿言 · 意愿度 7/10 · 满意度 5/10 · 理解度 6/10」；只中一项时照旧只说那一项。</p>
+          </div>
+        </div>
+         
+        <div class="setting-card fold" data-fold="wishback" data-rtab="card">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">想收到的回复</span><span class="fold-sum" id="mateWishBackSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
-            <div class="check-row"><label class="check-item"><input type="checkbox" id="wishBackOn"><span>TA 偶尔会把你以前说过的话捡回来<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：TA 回完你这一句之后，从你在这本会话里发过的消息中随机挑 1~5 条，落一张卡「阿言 想收到的回复」。卡里存的是当时那几句话，原消息后来删了也照样读得出。只挑文字（纯图、表情包、语音不挑）；同一本会话 5 分钟内最多一张；群里署当轮开口那位。出厂开、20%。</span></span></label></div>
+            <div class="check-row"><label class="check-item"><input type="checkbox" id="wishBackOn"><span>TA 偶尔会把你以前说过的话捡回来<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：TA 回完你这一句之后，从你在这本会话里发过的消息中随机挑 1~5 条，落一张卡。卡头随机是三种之一：「阿言 想收到的回复」「阿言 翻到了你说过的话」「阿言 想要更多字卡」，卡里存的是当时那几句话，原消息后来删了也照样读得出。只挑文字（纯图、表情包、语音不挑）；同一本会话 5 分钟内最多一张；群里署当轮开口那位。出厂开、20%。</span></span></label></div>
             <label id="wishBackProbLab" class="mate-stp-row">触发概率（%）<button type="button" class="stp-min" data-stp="wishBackProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="wishBackProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="wishBackProb" data-d="1" aria-label="多一点">+</button></label>
             <p class="data-note">这是「回完你之后」再补的一拍，不占 TA 这一轮的回复条数；填 0 ＝ 从不。已读不回、话没挤过来、主动发送都不会出这张卡。</p>
           </div>
@@ -3469,14 +3503,6 @@
           </div>
         </div>
          
-        <div class="setting-card fold" id="mateMbPushCard" data-fold="mbpush" data-rtab="rhythm">
-          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">强制拆开未读的信</span><span class="fold-sum" id="mateMbPushSum"></span></span><i class="fold-ar">›</i></button>
-          <div class="fold-bd">
-            <div class="check-row"><label class="check-item"><input type="checkbox" id="mbOpenOn"><span>TA 会把没拆的信直接摊在你面前<span style="display:block;font-size:11px;color:var(--muted)">命中时整张信纸当场摊开（这一封同时记为已读），不用再去点会话里那行「点开看」。按这一位各一份：换一位 TA 就是他自己那份。群聊没有信箱，这张卡在群里收起。出厂开。</span></span></label></div>
-            <label id="mbOpenProbLab" class="mate-stp-row">每次进聊天页的触发概率（%）<button type="button" class="stp-min" data-stp="mbOpenProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="mbOpenProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="mbOpenProb" data-d="1" aria-label="多一点">+</button></label>
-            <p class="data-note">每落到这一位的聊天页掷一次，且只在真有未读来信时才掷（先摊最新那一封）；TA 正开着这一面、新信到站时也掷一次。进得越勤越容易撞上，想彻底不被打断就把这里填 0（或关掉上面那枚）。信箱里其余几位各自一份，互不牵动。</p>
-          </div>
-        </div>
 
          
         <div class="setting-card fold" data-fold="askself" data-rtab="express">
@@ -3544,8 +3570,8 @@
         </div>
 
          
-        <div class="set-sec" data-rtab="draw"><span>抽牌</span></div>
-        <div class="setting-card fold" data-fold="dvta" id="mateDvTaCard" data-rtab="draw">
+         
+        <div class="setting-card fold" data-fold="dvta" id="mateDvTaCard" data-rtab="card">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">TA 发牌面<small style="display:block;font-size:11px;font-weight:400;color:var(--muted);line-height:1.4;margin-top:1px">TA 自己抽一张发给你，补一句说不清的话</small></span><span class="fold-sum" id="sumDvTa"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
             <div class="ap-row"><span>开启<span style="display:block;font-size:11px;color:var(--muted)">开着时 TA 会在和 TA 的单聊里偶尔自己抽一手牌发给你，用来补一句说不清的话；默认关闭。这一格按联系人各一份：改的是这一位（他是同一个人的一份——单聊、以及他在的每个群，都用这一份）。</span></span><input type="checkbox" id="dvTaOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
@@ -3568,7 +3594,7 @@
         </div>
 
          
-        <div class="setting-card fold" data-fold="dlta" id="mateDlTaCard" data-rtab="draw">
+        <div class="setting-card fold" data-fold="dlta" id="mateDlTaCard" data-rtab="card">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">TA 抽字卡</span><span class="fold-sum" id="sumDlTa"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
             <div class="ap-row"><span>开启<span style="display:block;font-size:11px;color:var(--muted)">开着时 TA 会在单聊里偶尔自己抽几张字卡递给你（与长按发送的「抽一张」同一张卡）。默认开启；下面填 0 也等于关。这一格按联系人各一份：改的是这一位（单聊里生效）。</span></span><input type="checkbox" id="dlTaOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
@@ -3587,6 +3613,8 @@
           <div class="mate-group">
          
         <p class="data-note mate-mem-only-note">这两张卡管的是<b>他这个人</b>什么时候开口：群自己没有一条主动的钟，他在群里冒的话也是他到点之后落进来的。这里改的是他本人的那一份，与他的单聊共用同一本账；「他在这个群里怎么回话」在「回话」那一档单独调。</p>
+         
+        <div class="set-sec"><span>他什么时候主动开口</span></div>
          
         <div class="setting-card fold" id="mateDndCard" data-fold="dnd">
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">免打扰</span><span class="fold-sum" id="mateDndSum"></span></span><i class="fold-ar">›</i></button>
@@ -3625,6 +3653,17 @@
             <div class="ap-btnrow"><button type="button" class="ap-btn" id="mateCjCardSend">现在发一张看看</button></div>
             <p class="data-note" id="mateCjCardNote"></p>
             <p class="data-note">填 0＝关掉；留空＝出厂 40%。这一格按 TA 各一份。卡片本体是一枚 .bubble：外观 → 气泡 →「自定义气泡 CSS」里能选它吃不吃那段样式，也能在「每种卡片单独一段 CSS」里给这一族单写一段。</p>
+          </div>
+        </div>
+
+        <div class="set-sec"><span>信箱与收藏</span></div>
+         
+        <div class="setting-card fold" id="mateMbPushCard" data-fold="mbpush">
+          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">强制拆开未读的信</span><span class="fold-sum" id="mateMbPushSum"></span></span><i class="fold-ar">›</i></button>
+          <div class="fold-bd">
+            <div class="check-row"><label class="check-item"><input type="checkbox" id="mbOpenOn"><span>TA 会把没拆的信直接摊在你面前<span style="display:block;font-size:11px;color:var(--muted)">命中时整张信纸当场摊开（这一封同时记为已读），不用再去点会话里那行「点开看」。按这一位各一份：换一位 TA 就是他自己那份。群聊没有信箱，这张卡在群里收起。出厂开。</span></span></label></div>
+            <label id="mbOpenProbLab" class="mate-stp-row">每次进聊天页的触发概率（%）<button type="button" class="stp-min" data-stp="mbOpenProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="mbOpenProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="mbOpenProb" data-d="1" aria-label="多一点">+</button></label>
+            <p class="data-note">每落到这一位的聊天页掷一次，且只在真有未读来信时才掷（先摊最新那一封）；TA 正开着这一面、新信到站时也掷一次。进得越勤越容易撞上，想彻底不被打断就把这里填 0（或关掉上面那枚）。信箱里其余几位各自一份，互不牵动。</p>
           </div>
         </div>
 
