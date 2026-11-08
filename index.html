@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v30.0.2.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v30.0.2.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v30.1.0.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v30.1.0.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v30.0.2.css','dist/app.v30.0.2.js'];
+      var BOOT_FILES = ['dist/app.v30.1.0.css','dist/app.v30.1.0.js'];
 
 
 
@@ -2816,7 +2816,7 @@
           <button type="button" class="mate-jump" id="globalFontPageBtn"><span class="fold-tx"><span class="fold-ti">全站字体</span><small class="fold-sum" id="sumFont"></small></span></button>
         </div>
         <div class="setting-card" data-tab="desk">
-          <button type="button" class="mate-jump" id="globalLookLibBtn"><span class="fold-tx"><span class="fold-ti">美化库</span><small class="fold-sum" id="sumLookLibG">背景图 · 气泡样式 · 字体样式 · 我的方案</small></span></button>
+          <button type="button" class="mate-jump" id="globalLookLibBtn"><span class="fold-tx"><span class="fold-ti">美化库</span><small class="fold-sum" id="sumLookLibG">方案 · 背景图 · 气泡 · 字体 · 引用框 · 贴纸</small></span></button>
         </div>
 
         <div class="set-sec" data-tab="data"><span>备份与容量</span><small>导出导入 · 占了多少地方</small></div>
@@ -3037,7 +3037,7 @@
         </div>
          
         <div class="setting-card looklib-entry">
-          <button type="button" class="mate-jump" id="mateLookLibBtn"><span class="fold-tx"><span class="fold-ti">美化库</span><small class="fold-sum" id="sumLookLib">背景图 · 气泡样式 · 字体样式 · 我的方案</small></span></button>
+          <button type="button" class="mate-jump" id="mateLookLibBtn"><span class="fold-tx"><span class="fold-ti">美化库</span><small class="fold-sum" id="sumLookLib">方案 · 背景图 · 气泡 · 字体 · 引用框 · 贴纸</small></span></button>
           <p class="data-note">三本素材库各存多份，点一下就换上：<b>背景图</b>与<b>气泡样式</b>换到这一位 TA，<b>字体样式</b>是全站一份。手写当前这一位的气泡 CSS 在「气泡」那一节，存整套快照在「方案」那一节。</p>
         </div>
          
@@ -6174,6 +6174,12 @@
     <div class="av-owners ll-who" id="llRandOwners"></div>
 
      
+    <div class="ll-undo" id="llUndoRow" hidden>
+      <span class="ll-undo-tx" id="llUndoText"></span>
+      <button type="button" class="ll-act" id="llUndoBtn">换回刚才</button>
+    </div>
+
+     
     <div class="mate-tags ll-tags" id="llTags" role="tablist">
       <button type="button" class="mate-tag on" data-lltab="plan" role="tab">整套方案</button>
       <button type="button" class="mate-tag" data-lltab="bg" role="tab">背景图</button>
@@ -6191,11 +6197,19 @@
            
           <button type="button" class="ll-act" id="apPvLiveSave">边看边存</button>
           <button type="button" class="ll-act" id="apPvSave">存一套</button>
+           
+          <button type="button" class="ll-act" id="apPvEdit">管理</button>
         </span>
       </div>
       <p class="ll-tip">一套＝<b>聊天设置 → 外观</b> 里此刻的<b>全部</b>改动，点一套整套换回来（存了哪几样，见页底「说明」）。</p>
       <div class="ap-pv-list" id="apPvList"></div>
-      <p class="ll-empty" id="apPvEmpty">还没有方案。先去「聊天设置 → 外观」把样子调成你喜欢的（或者直接用下面三本素材库换几样），回来点「存一套」——以后一点就整套换回来。想边看聊天边存，点「边看边存」。</p>
+      <p class="ll-empty" id="apPvEmpty">还没有方案。先去「聊天设置 → 外观」把样子调成你喜欢的（或者直接用下面几本素材库换几样），回来点「存一套」——以后一点就整套换回来。想边看聊天边存，点「边看边存」。</p>
+       
+      <div class="ll-io">
+        <button type="button" class="ll-addrow" id="llIoExport">导出整套美化</button>
+        <button type="button" class="ll-addrow" id="llIoImport">从文件导入</button>
+      </div>
+      <input type="file" id="llIoInput" accept=".json,application/json" hidden>
     </div>
 
     <div class="ll-sec" data-ll-tab="bg" hidden>
@@ -6222,9 +6236,18 @@
         </span>
       </div>
       <p class="ll-tip">点一行＝换掉这一位 TA 的气泡样式；标「当前」的那一行就是聊天里现在用的。</p>
+       
+      <div class="ll-filter">
+        <input type="search" class="ll-q" id="llBubQ" placeholder="搜气泡样式的名字" aria-label="搜气泡样式">
+        <div class="contact-chip-row ll-qchips" id="llBubF">
+          <button type="button" class="contact-chip active" data-f="all">全部</button>
+          <button type="button" class="contact-chip" data-f="sys">作者自带</button>
+          <button type="button" class="contact-chip" data-f="own">我存的</button>
+        </div>
+      </div>
       <div class="ap-pv-list" id="llBubList"></div>
       <div class="ll-edit" id="llBubEditRow" hidden></div>
-      <p class="ll-empty" id="llBubEmpty">你还没有存自己的样式。点「添加」选 .css 文件，或者点上面一款系统自带的试试。</p>
+      <p class="ll-empty" id="llBubEmpty">你还没有存自己的样式。点「添加」选 .css 文件，或者点上面一款作者自带的试试。</p>
       <input type="file" id="llBubInput" accept=".css,text/css" multiple hidden>
     </div>
 
@@ -6237,6 +6260,9 @@
         </span>
       </div>
       <p class="ll-tip">点一行＝换掉全站的字体样式，所有会话一起变。字体<b>文件</b>不在这里，在「全站字体」页。</p>
+      <div class="ll-filter">
+        <input type="search" class="ll-q" id="llFontQ" placeholder="搜字体样式的名字" aria-label="搜字体样式">
+      </div>
       <div class="ap-pv-list" id="llFontList"></div>
       <div class="ll-edit" id="llFontEditRow" hidden></div>
       <p class="ll-empty" id="llFontEmpty">还没有样式。点「添加」选 .css 文件。</p>
@@ -6253,6 +6279,9 @@
         </span>
       </div>
       <p class="ll-tip">点一套＝把「引用框美化」里那十八格一次写好（形态 · 面 · 字 · 版式一起换）；标「当前」的就是聊天里现在这一套。</p>
+      <div class="ll-filter">
+        <input type="search" class="ll-q" id="llQuoteQ" placeholder="搜引用框样式的名字" aria-label="搜引用框样式">
+      </div>
       <div class="ap-pv-list" id="llQuoteList"></div>
       <div class="ll-edit" id="llQuoteEditRow" hidden></div>
       <p class="ll-empty" id="llQuoteEmpty">还没有存过引用框样式。先去「引用框美化」调成你喜欢的样子，回来点「管理 → 把这一位的引用框样式存进来」。</p>
@@ -6268,6 +6297,14 @@
       </div>
        
       <p class="ll-tip">传的是<b>装修用的贴纸</b>（不是聊天里发的表情包）。三步：① 下面勾几枚 → ② 点一套摆法 → 当场贴在这一位的<b>桌面单人框</b>与<b>聊天页</b>上。这是<b>你亲手贴</b>；想每天让 TA 自己贴一批，去「随机换装」那一档。</p>
+      <div class="ll-filter">
+        <input type="search" class="ll-q" id="llStkQ" placeholder="搜贴纸的名字" aria-label="搜贴纸">
+        <div class="contact-chip-row ll-qchips" id="llStkF">
+          <button type="button" class="contact-chip active" data-f="all">全部</button>
+          <button type="button" class="contact-chip" data-f="sys">自带的</button>
+          <button type="button" class="contact-chip" data-f="own">我传的</button>
+        </div>
+      </div>
       <div class="dz-prev-wrap">
         <div class="dz-prev" id="dzPrev" aria-hidden="true"><span class="dz-prev-row ta"></span><span class="dz-prev-row me r2"></span><span class="dz-prev-row ta r3"></span></div>
         <span class="dz-prev-note" id="dzPrevNote"></span>
@@ -6277,6 +6314,7 @@
       <p class="ll-rand-note" id="dzTplHint"></p>
       <div class="ll-rand-sub">素材 · 点一下勾上（一套最多 5 枚）</div>
       <div class="ll-grid ll-grid-stk" id="llStkGrid"></div>
+      <div class="ll-edit" id="llStkEditRow" hidden></div>
       <p class="ll-empty" id="llStkEmpty">还没传自己的贴纸——上面那 16 枚 emoji 是自带的，不占配额、删不掉，勾几枚就能贴。想用自己的图就点「添加」传几张（PNG 带透明底最好看）。</p>
       <p class="ll-rand-note" id="dzRead"></p>
       <button type="button" class="soft-btn" id="dzClear">撕掉这一位的贴纸</button>
@@ -6322,9 +6360,9 @@
     <div class="setting-card fold" data-fold="looklibHelp">
       <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">说明</span><span class="fold-sum">收藏夹 · 系统自带 · 更细的开关</span></span><i class="fold-ar">›</i></button>
       <div class="fold-bd">
-        <p class="data-note"><b>整套方案</b>与三本素材库不是一回事：方案是<b>快照</b>——「聊天设置 → 外观」与「设置 → 外观」里你此刻的全部改动（配色 · 气泡形状/圆角/留白/透明度 · 气泡毛玻璃 · 气泡里的字 · 时间样式与位置 · 系统消息 · 引用与其它文字 · 栏边 · 背景图与压暗/焦点/放大 · 主动小签 · 气泡版式（按这位）· 全站排版与头像形状 · 按钮与栏位颜色 · 卡片通透（毛玻璃/列表磨砂/三根杆）· 卡片圆角 · 光影 · 宽屏适配 · 全站字号 · 桌面壁纸的调法（压暗/提亮/放大/模糊/铺法/铺哪几页）· 气泡 CSS 与八族卡片 CSS · 全站字体 CSS）各存一份，点一套整套回位；字体<b>文件</b>和桌面壁纸的<b>图</b>不在方案里（都是全站一份、几 MB 起，存进每套会把存档撑爆），各套共用。老方案没有登记的那几格＝换上时按「这一套的原样」回出厂，不往回猜你的值。</p>
-        <p class="data-note">三本库是<b>收藏夹</b>，和方案、和你正在用的是<b>三份</b>东西：点一份＝把这一样换上；<b>删掉库里那一份，聊天里正在用的样式不会跟着变</b>（想换回去就点另一份）。同一张图、同一段 CSS 可以给不同的 TA 用：切到那位再点一下。所有东西都跟着备份走，重启、导出再导入都在。</p>
-        <p class="data-note">气泡那本最上面几行是<b>系统自带</b>（液态玻璃那几款），副行写着「内置」：点一下就换上、不占你的配额、删不掉，也不进备份——它们跟着版本走。想照着改：点完去「气泡 CSS」页，编辑器里就是它那段原文。</p>
+        <p class="data-note"><b>整套方案</b>与五本素材库不是一回事：方案是<b>快照</b>——「聊天设置 → 外观」与「设置 → 外观」里你此刻的全部改动（配色 · 气泡形状/圆角/留白/透明度 · 气泡毛玻璃 · 气泡里的字 · 时间样式与位置 · 系统消息 · 引用与其它文字 · 栏边 · 背景图与压暗/焦点/放大 · 主动小签 · 气泡版式（按这位）· 全站排版与头像形状 · 按钮与栏位颜色 · 卡片通透（毛玻璃/列表磨砂/三根杆）· 卡片圆角 · 光影 · 宽屏适配 · 全站字号 · 桌面壁纸的调法（压暗/提亮/放大/模糊/铺法/铺哪几页）· 气泡 CSS 与八族卡片 CSS · 全站字体 CSS）各存一份，点一套整套回位；字体<b>文件</b>和桌面壁纸的<b>图</b>不在方案里（都是全站一份、几 MB 起，存进每套会把存档撑爆），各套共用。老方案没有登记的那几格＝换上时按「这一套的原样」回出厂，不往回猜你的值。</p>
+        <p class="data-note">五本库是<b>收藏夹</b>，和方案、和你正在用的是<b>三份</b>东西：点一份＝把这一样换上；<b>删掉库里那一份，聊天里正在用的样式不会跟着变</b>（想换回去就点另一份）。同一张图、同一段 CSS 可以给不同的 TA 用：切到那位再点一下。所有东西都跟着备份走，重启、导出再导入都在。</p>
+        <p class="data-note">气泡那本最上面几行是<b>作者自带</b>（液态玻璃那几款），副行写着「内置」：点一下就换上、不占你的配额、删不掉，也不进备份——它们跟着版本走。想照着改：点完去「气泡 CSS」页，编辑器里就是它那段原文。</p>
         <p class="data-note">更细的开关都在原处：气泡 CSS 页写／改这一位的样式与那几枚卡片开关；「全站字体」页传字体文件、写字体 CSS；背景的压暗、焦点、放大与铺法在 TA 的设置 → 外观 →「聊天背景」那张卡里。库越大开机越慢一点，背景图是里面最贵的一样——建议十几张以内。</p>
       </div>
     </div>
@@ -6972,7 +7010,7 @@
     </div>
     <div class="hm-inner">
       <div class="hm-dz" id="hmDz" aria-hidden="true"></div>
-      <div id="hmBody"></div>
+      <div id="hmBody"> <div class="hm-skel" aria-hidden="true"><span class="hm-skel-win"><i></i><i></i></span><span class="hm-skel-line"></span><span class="hm-skel-line short"></span></div></div>
     </div>
   </div>
 </section>
@@ -6994,6 +7032,22 @@
       <button type="button" class="fs-sheet-close" id="hmPickClose" aria-label="关闭">×</button>
     </div>
     <div class="fs-sheet-body"><div id="hmPickBody"></div></div>
+  </div>
+</div>
+<div class="fs-sheet-mask" id="hmShotMask" data-no-swipe hidden>
+  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="屋子的照片">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti">屋子的照片</span><span class="fs-sheet-en">SHOT</span></div>
+      <button type="button" class="fs-sheet-close" id="hmShotClose" aria-label="关闭">×</button>
+    </div>
+    <div class="fs-sheet-body hm-shot-body">
+      <div class="hm-shot-prev"><img id="hmShotPrev" alt="屋子的照片"></div>
+      <div class="hm-shot-acts">
+        <button type="button" class="primary-btn" id="hmShotSave">保存</button>
+        <button type="button" class="soft-btn" id="hmShotShare">分享</button>
+        <button type="button" class="soft-btn" id="hmShotCancel">取消</button>
+      </div>
+    </div>
   </div>
 </div>
      
