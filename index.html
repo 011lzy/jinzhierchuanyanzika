@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v30.2.2.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v30.2.2.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v30.2.6.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v30.2.6.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v30.2.2.css','dist/app.v30.2.2.js'];
+      var BOOT_FILES = ['dist/app.v30.2.6.css','dist/app.v30.2.6.js'];
 
 
 
@@ -3400,6 +3400,18 @@
           <button type="button" class="mate-subtab" data-rtab-btn="card" role="tab" aria-selected="false">卡片</button>
         </div>
          
+         
+        <div class="setting-card fold" id="matePlanCard" data-fold="plan" data-rtab="rhythm">
+          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">方案</span><span class="fold-sum" id="matePlanSum"></span></span><i class="fold-ar">›</i></button>
+          <div class="fold-bd">
+            <p class="data-note">四十来枚概率一次换好：点一套就整组套到这一位身上（回话的四档 + 主动找你 + 拆信 + 闪回）。下面那排 chips 就是全部方案，点谁用谁。</p>
+            <div class="contact-chip-row" id="planChips" role="group" aria-label="聊天方案"></div>
+            <div class="ap-btnrow"><button type="button" class="ap-btn" id="planSaveBtn">把此刻存成新方案</button></div>
+            <div class="plan-save-row" id="planSaveRow" hidden><input type="text" id="planSaveName" maxlength="12" placeholder="方案名字"><button type="button" class="ap-btn" id="planSaveOk">存</button><button type="button" class="ap-btn" id="planSaveCancel">取消</button></div>
+            <p class="data-note" id="planNow"></p>
+            <p class="data-note">方案管的是这一位 TA 的「回话」与「主动」两档：节奏（快慢·条数·已读不回·话没挤过来）、表达（拼句·夹带·问签·撤回）、主动找你、强制拆信、回忆闪回。不管的：全站一份的「话题意愿度／回复满意度／话的理解度／想收到的回复」四张卡（它们对所有联系人一起生效，跟方案换会把别人也改了），以及输入框、拼接符号这些个人偏好。想删自存的方案：长按那一枚 chips。</p>
+          </div>
+        </div>
         <div class="setting-card fold" id="mateMemPanel" data-fold="mempanel" data-rtab="rhythm" hidden>
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti" id="mateMemPanelTi">他在本群</span><span class="fold-sum" id="mateMemPanelSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd"><div id="mateMemPanelBody"></div></div>
@@ -3669,6 +3681,15 @@
             <div class="ap-btnrow"><button type="button" class="ap-btn" id="mateCjCardSend">现在发一张看看</button></div>
             <p class="data-note" id="mateCjCardNote"></p>
             <p class="data-note">填 0＝关掉；留空＝出厂 40%。这一格按 TA 各一份。卡片本体是一枚 .bubble：外观 → 气泡 →「自定义气泡 CSS」里能选它吃不吃那段样式，也能在「每种卡片单独一段 CSS」里给这一族单写一段。</p>
+          </div>
+        </div>
+
+         
+        <div class="setting-card fold" data-fold="flash">
+          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">回忆闪回</span><span class="fold-sum" id="mateFlashSum"></span></span><i class="fold-ar">›</i></button>
+          <div class="fold-bd">
+            <label class="mate-stp-row">每次 TA 自己开口时提旧话的机会（%）<button type="button" class="stp-min" data-stp="flashProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="flashProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="flashProb" data-d="1" aria-label="多一点">+</button></label>
+            <p class="data-note">TA 每 3~8 小时有一次自己开口的机会（说一句天气、心情、在做的事之类）；到了那一格，就有这么个机会不挑别的、改成翻出你们以前的旧话：一半是 TA 自己三天前说过的那句，一半是 TA 收藏过的你说过的那句——先落一句引子，两三秒后把旧话本身发过来。填 0 ＝ 从不。这是「按人」的一格：换一位 TA 各是各的。填多少都还要「使用大全 → 互动 → 回忆闪回」那枚总开关开着才掷（那边关着，这里等于没填）。</p>
           </div>
         </div>
 
@@ -6963,103 +6984,6 @@
         <div class="taq-panel-acts"><button type="button" class="taq-del" id="taqEditDel" hidden>删掉这条</button><button type="button" class="taq-save" id="taqEditOk">存好</button></div>
       </div>
     </div>
- 
-<section class="view" id="coupleView">
-  <div class="lo-bg" id="loBg" aria-hidden="true"></div>
-  <div class="lo-page" id="loPage">
-    <div class="lo-inner">
-      <div class="lo-dz" id="loDz" aria-hidden="true"></div>
-      <div id="loBody"></div>
-    </div>
-  </div>
-  <button type="button" class="cal-ico-btn lo-setbtn" id="loSetBtn" aria-label="我们·装扮" title="装扮"><svg viewBox="0 0 24 24" width="17" height="17" style="fill:currentColor;stroke:none" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg></button>
-</section>
-<div class="fs-sheet-mask fs-sheet-full" id="loSetMask" hidden>
-  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="我们·装扮">
-    <div class="fs-sheet-bar">
-      <div class="fs-sheet-t"><span class="fs-sheet-ti">装扮</span><span class="fs-sheet-en">COUPLE</span></div>
-      <button type="button" class="fs-sheet-close" id="loSetClose" aria-label="关闭装扮">×</button>
-    </div>
-    <div class="fs-sheet-body">
-      <div id="loSetBody"></div>
-    </div>
-  </div>
-</div>
- 
-<div class="fs-sheet-mask" id="loAnnMask" hidden>
-  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="在一起的日子">
-    <div class="fs-sheet-bar">
-      <div class="fs-sheet-t"><span class="fs-sheet-ti">在一起的日子</span><span class="fs-sheet-en">SINCE</span></div>
-      <button type="button" class="fs-sheet-close" id="loAnnClose" aria-label="关闭这一扇">×</button>
-    </div>
-    <div class="fs-sheet-body">
-      <div id="loAnnBody"></div>
-    </div>
-  </div>
-</div>
- 
-<section class="view" id="hmView">
-  <div class="hm-bg" id="hmBg" aria-hidden="true"><div class="hm-wx"></div></div>
-  <div class="hm-page" id="hmPage">
-    <div class="hm-top">
-      <span class="cl-en mono hm-kicker">HOME · 我们的家</span>
-      <span class="hm-top-r">
-        <span class="hm-ann" id="hmAnnTop" hidden></span>
-        <button type="button" class="cal-ico-btn hm-setbtn" id="hmSetBtn" aria-label="家园·装扮" title="装扮"><svg viewBox="0 0 24 24" width="17" height="17" style="fill:currentColor;stroke:none" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg></button>
-      </span>
-    </div>
-    <div class="hm-inner">
-       
-      <div id="hmBodyTop"></div>
-      <div class="hm-stage" id="hmStage">
-        <div class="hm-stage-art hm-scene-art" id="hmStageArt"></div>
-        <div class="hm-stage-light" aria-hidden="true"></div>
-        <div class="hm-furn" id="hmFurn"></div>
-        <div class="hm-plant-slot" id="hmPlantSlot"></div>
-        <div class="hm-table" id="hmTable"></div>
-        <div class="hm-photos" id="hmPhotos" hidden></div>
-        <div class="hm-dz" id="hmDz" aria-hidden="true"></div>
-      </div>
-      <div id="hmBody"> <div class="hm-skel" aria-hidden="true"><span class="hm-skel-win"><i></i><i></i></span><span class="hm-skel-line"></span><span class="hm-skel-line short"></span></div></div>
-    </div>
-  </div>
-</section>
-<div class="fs-sheet-mask fs-sheet-full" id="hmSetMask" data-no-swipe hidden>
-  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="家园·装扮">
-    <div class="fs-sheet-bar">
-      <div class="fs-sheet-t"><span class="fs-sheet-ti">装扮</span><span class="fs-sheet-en">HOME</span></div>
-      <button type="button" class="fs-sheet-close" id="hmSetClose" aria-label="关闭装扮">×</button>
-    </div>
-    <div class="fs-sheet-body">
-      <div id="hmSetBody"></div>
-    </div>
-  </div>
-</div>
-<div class="fs-sheet-mask" id="hmPickMask" data-no-swipe hidden>
-  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="放一张字卡">
-    <div class="fs-sheet-bar">
-      <div class="fs-sheet-t"><span class="fs-sheet-ti" id="hmPickTitle">放一张字卡</span><span class="fs-sheet-en">CARD</span></div>
-      <button type="button" class="fs-sheet-close" id="hmPickClose" aria-label="关闭">×</button>
-    </div>
-    <div class="fs-sheet-body"><div id="hmPickBody"></div></div>
-  </div>
-</div>
-<div class="fs-sheet-mask" id="hmShotMask" data-no-swipe hidden>
-  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="屋子的照片">
-    <div class="fs-sheet-bar">
-      <div class="fs-sheet-t"><span class="fs-sheet-ti">屋子的照片</span><span class="fs-sheet-en">SHOT</span></div>
-      <button type="button" class="fs-sheet-close" id="hmShotClose" aria-label="关闭">×</button>
-    </div>
-    <div class="fs-sheet-body hm-shot-body">
-      <div class="hm-shot-prev"><img id="hmShotPrev" alt="屋子的照片"></div>
-      <div class="hm-shot-acts">
-        <button type="button" class="primary-btn" id="hmShotSave">保存</button>
-        <button type="button" class="soft-btn" id="hmShotShare">分享</button>
-        <button type="button" class="soft-btn" id="hmShotCancel">取消</button>
-      </div>
-    </div>
-  </div>
-</div>
      
      
     <div class="wide-empty" id="wideEmpty" aria-hidden="true">
