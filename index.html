@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v30.4.0.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v30.4.0.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v30.4.3.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v30.4.3.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v30.4.0.css','dist/app.v30.4.0.js'];
+      var BOOT_FILES = ['dist/app.v30.4.3.css','dist/app.v30.4.3.js'];
 
 
 
@@ -2870,7 +2870,18 @@
      
     <section class="view" id="screenView">
       <div class="diag-page">
-        <p class="diag-tip">这一页只放「屏幕与键盘」的读数。遇到「输入栏和键盘之间有一条带子／页面能拖着跑／正在打的字被挡住」这类问题：先点开底部输入栏让键盘弹起来、再收起，然后回到这一页点「刷新」，把整段复制发我。</p>
+        <p class="diag-tip">这一页有两块：上面是<b>真机卡顿取证</b>（iPhone 也能用），下面是屏幕与键盘的读数。</p>
+        <p class="diag-tip">卡的时候点「开始记录」，然后照平时那样用一两分钟（切页、翻消息、开字卡库都算），回来点「结束并看结果」。这段只读<b>帧间隔</b>——不需要任何新 API，Safari 也认，所以 iOS 上量得到（这一页以前在 iPhone 上永远是空的，原因就是 Safari 不支持 longtask 那个 entryType）。</p>
+        <div class="diag-out" id="jankOut"></div>
+        <div class="diag-btns">
+          <button type="button" class="soft-btn" id="jankStart">开始记录 60 秒</button>
+          <button type="button" class="soft-btn" id="jankStop">结束并看结果</button>
+        </div>
+        <div class="diag-btns">
+          <button type="button" class="soft-btn" id="jankCopy">复制这段</button>
+          <button type="button" class="soft-btn" id="jankClear">清掉这次记录</button>
+        </div>
+        <p class="diag-tip">下面这块只放「屏幕与键盘」的读数。遇到「输入栏和键盘之间有一条带子／页面能拖着跑／正在打的字被挡住」这类问题：先点开底部输入栏让键盘弹起来、再收起，然后回到这一页点「刷新」，把整段复制发我。</p>
         <div class="diag-out" id="screenOut"></div>
         <div class="diag-btns">
           <button type="button" class="soft-btn" id="screenCopy">复制</button>
