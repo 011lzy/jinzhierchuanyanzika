@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v30.2.6.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v30.2.6.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v30.4.0.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v30.4.0.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v30.2.6.css','dist/app.v30.2.6.js'];
+      var BOOT_FILES = ['dist/app.v30.4.0.css','dist/app.v30.4.0.js'];
 
 
 
@@ -6698,9 +6698,10 @@
         </button>
       </header>
        
-      <div class="pl-cover" aria-hidden="true">
+       
+      <button type="button" class="pl-cover" id="plfCover" aria-label="看歌词">
         <div class="pl-cover-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></div>
-      </div>
+      </button>
        
       <div class="pl-f-lrc" id="plfLrc" hidden></div>
       <div class="pl-f-tx"><b id="plfName"></b><small id="plfArtist"></small><small id="plfMood" class="pl-f-mood" hidden></small></div>
@@ -6708,6 +6709,8 @@
       <div class="pl-f-who" id="plfWith"></div>
        
       <button type="button" class="pl-f-next" id="plfNext" hidden></button>
+       
+      <div class="pl-f-upnext" id="plfUpList" hidden></div>
        
       <div class="pl-f-ctl">
          
@@ -6923,6 +6926,103 @@
 <div class="sr-float" id="srFloat" hidden></div>
  
 <div class="sr-float-menu" id="srFloatMenu" hidden></div>
+ 
+<section class="view" id="coupleView">
+  <div class="lo-bg" id="loBg" aria-hidden="true"></div>
+  <div class="lo-page" id="loPage">
+    <div class="lo-inner">
+      <div class="lo-dz" id="loDz" aria-hidden="true"></div>
+      <div id="loBody"></div>
+    </div>
+  </div>
+  <button type="button" class="cal-ico-btn lo-setbtn" id="loSetBtn" aria-label="我们·装扮" title="装扮"><svg viewBox="0 0 24 24" width="17" height="17" style="fill:currentColor;stroke:none" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg></button>
+</section>
+<div class="fs-sheet-mask fs-sheet-full" id="loSetMask" hidden>
+  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="我们·装扮">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti">装扮</span><span class="fs-sheet-en">COUPLE</span></div>
+      <button type="button" class="fs-sheet-close" id="loSetClose" aria-label="关闭装扮">×</button>
+    </div>
+    <div class="fs-sheet-body">
+      <div id="loSetBody"></div>
+    </div>
+  </div>
+</div>
+ 
+<div class="fs-sheet-mask" id="loAnnMask" hidden>
+  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="在一起的日子">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti">在一起的日子</span><span class="fs-sheet-en">SINCE</span></div>
+      <button type="button" class="fs-sheet-close" id="loAnnClose" aria-label="关闭这一扇">×</button>
+    </div>
+    <div class="fs-sheet-body">
+      <div id="loAnnBody"></div>
+    </div>
+  </div>
+</div>
+ 
+<section class="view" id="hmView">
+  <div class="hm-bg" id="hmBg" aria-hidden="true"><div class="hm-wx"></div></div>
+  <div class="hm-page" id="hmPage">
+    <div class="hm-top">
+      <span class="cl-en mono hm-kicker">HOME · 我们的家</span>
+      <span class="hm-top-r">
+        <span class="hm-ann" id="hmAnnTop" hidden></span>
+        <button type="button" class="cal-ico-btn hm-setbtn" id="hmSetBtn" aria-label="家园·装扮" title="装扮"><svg viewBox="0 0 24 24" width="17" height="17" style="fill:currentColor;stroke:none" aria-hidden="true"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg></button>
+      </span>
+    </div>
+    <div class="hm-inner">
+       
+      <div id="hmBodyTop"></div>
+      <div class="hm-stage" id="hmStage">
+        <div class="hm-stage-art hm-scene-art" id="hmStageArt"></div>
+        <div class="hm-stage-light" aria-hidden="true"></div>
+        <div class="hm-furn" id="hmFurn"></div>
+        <div class="hm-plant-slot" id="hmPlantSlot"></div>
+        <div class="hm-table" id="hmTable"></div>
+        <div class="hm-photos" id="hmPhotos" hidden></div>
+        <div class="hm-dz" id="hmDz" aria-hidden="true"></div>
+      </div>
+      <div id="hmBody"> <div class="hm-skel" aria-hidden="true"><span class="hm-skel-win"><i></i><i></i></span><span class="hm-skel-line"></span><span class="hm-skel-line short"></span></div></div>
+    </div>
+  </div>
+</section>
+<div class="fs-sheet-mask fs-sheet-full" id="hmSetMask" data-no-swipe hidden>
+  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="家园·装扮">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti">装扮</span><span class="fs-sheet-en">HOME</span></div>
+      <button type="button" class="fs-sheet-close" id="hmSetClose" aria-label="关闭装扮">×</button>
+    </div>
+    <div class="fs-sheet-body">
+      <div id="hmSetBody"></div>
+    </div>
+  </div>
+</div>
+<div class="fs-sheet-mask" id="hmPickMask" data-no-swipe hidden>
+  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="放一张字卡">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti" id="hmPickTitle">放一张字卡</span><span class="fs-sheet-en">CARD</span></div>
+      <button type="button" class="fs-sheet-close" id="hmPickClose" aria-label="关闭">×</button>
+    </div>
+    <div class="fs-sheet-body"><div id="hmPickBody"></div></div>
+  </div>
+</div>
+<div class="fs-sheet-mask" id="hmShotMask" data-no-swipe hidden>
+  <div class="fs-sheet" role="dialog" aria-modal="true" aria-label="屋子的照片">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti">屋子的照片</span><span class="fs-sheet-en">SHOT</span></div>
+      <button type="button" class="fs-sheet-close" id="hmShotClose" aria-label="关闭">×</button>
+    </div>
+    <div class="fs-sheet-body hm-shot-body">
+      <div class="hm-shot-prev"><img id="hmShotPrev" alt="屋子的照片"></div>
+      <div class="hm-shot-acts">
+        <button type="button" class="primary-btn" id="hmShotSave">保存</button>
+        <button type="button" class="soft-btn" id="hmShotShare">分享</button>
+        <button type="button" class="soft-btn" id="hmShotCancel">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
      
     <section class="view" id="hubView">
       <div class="hub-page">
