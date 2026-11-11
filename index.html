@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v30.4.3.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v30.4.3.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v30.7.1.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v30.7.1.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v30.4.3.css','dist/app.v30.4.3.js'];
+      var BOOT_FILES = ['dist/app.v30.7.1.css','dist/app.v30.7.1.js'];
 
 
 
@@ -1451,6 +1451,8 @@
          
          
         <button type="button" class="vc-hang-btn" id="vcHangBtn" hidden aria-label="挂断" title="挂断"><svg viewBox="-4 -4 32 32" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(12 12) rotate(135) scale(.72) translate(-12 -12)" stroke-width="2.78"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></g></svg></button>
+         
+        <button type="button" class="vc-pip-btn" id="vcPipBtn" hidden aria-label="缩成桌面小窗" title="缩成桌面小窗（画中画）"><svg viewBox="-4 -4 32 32" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><rect x="11.5" y="11.5" width="8" height="6" rx="1.2" fill="currentColor" stroke="none"/></svg></button>
         <button type="button" class="cf-min-btn" id="cfMinBtn" aria-label="最小化通话窗口" title="最小化">—</button>
       </div>
       <div class="cf-body">
@@ -2520,12 +2522,14 @@
     </section>
     <section class="view" id="statsView">
       <div class="stats-list">
-        <div id="statsOutput"></div>
+         
+        <div id="statsOutput"><div class="stats-empty">这一页还没画出来</div></div>
       </div>
     </section>
     <section class="view" id="letterStatsView">
       <div class="stats-list">
-        <div id="lsOutput"></div>
+         
+        <div id="lsOutput"><div class="stats-empty">这一页还没画出来</div></div>
       </div>
     </section>
     <section class="view" id="settingsView">
@@ -3012,6 +3016,15 @@
               </div>
             </div>
             <button type="button" class="mate-jump" id="mateAvlibBtn"><span class="fold-tx"><span class="fold-ti">头像昵称库</span><small class="fold-sum">互相换形象，TA 会记下印象</small></span></button>
+             
+            <div class="setting-card fold" data-fold="impr">
+              <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">TA 的印象</span><span class="fold-sum" id="mateImprSum"></span></span><i class="fold-ar">›</i></button>
+              <div class="fold-bd">
+                <label class="mate-stp-row">换一次形象留下印象的概率（%）<button type="button" class="stp-min" data-stp="imprProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="imprProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="imprProb" data-d="1" aria-label="多一点">+</button></label>
+                <p class="data-note">你换一次头像／昵称（或 TA 自己换）就掷一次：命中＝记一条 TA 的看法，并当场在聊天里说一句（带「印象」小签）；没命中＝这一换什么都没留下，簿子里也不会多一条。出厂 50%，按人一份。填 0＝从不记也从不提。</p>
+                <p class="data-note">看过的那些话在「头像昵称库 → 印象簿」里；这一格只改频率，不删已有的账。群聊没有唯一的 TA，这张卡只在单聊里摆。</p>
+              </div>
+            </div>
           </div>
         </div>
         </div>
@@ -3529,7 +3542,20 @@
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">想收到的回复</span><span class="fold-sum" id="mateWishBackSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd">
             <div class="check-row"><label class="check-item"><input type="checkbox" id="wishBackOn"><span>TA 偶尔会把你以前说过的话捡回来<span style="display:block;font-size:11px;color:var(--muted)">小概率触发：TA 回完你这一句之后，从你在这本会话里发过的消息中随机挑 1~5 条，落一张卡。卡头随机是三种之一：「阿言 想收到的回复」「阿言 翻到了你说过的话」「阿言 想要更多字卡」，卡里存的是当时那几句话，原消息后来删了也照样读得出。只挑文字（纯图、表情包、语音不挑）；同一本会话 5 分钟内最多一张；群里署当轮开口那位。出厂开、20%。</span></span></label></div>
-            <label id="wishBackProbLab" class="mate-stp-row">触发概率（%）<button type="button" class="stp-min" data-stp="wishBackProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="wishBackProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="wishBackProb" data-d="1" aria-label="多一点">+</button></label>
+            <label id="wishBackProbLab" class="mate-stp-row">触发概率（全站默认，%）<button type="button" class="stp-min" data-stp="wishBackProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="wishBackProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="wishBackProb" data-d="1" aria-label="多一点">+</button></label>
+             
+            <div class="setting-subhead">卡头三种的占比</div>
+            <label>想收到的回复（%）<input type="text" id="wishBackKReply" min="0" max="100" inputmode="numeric"></label>
+            <label>翻到了你说过的话（%）<input type="text" id="wishBackKFound" min="0" max="100" inputmode="numeric"></label>
+            <label>想要更多字卡（%）<input type="text" id="wishBackKMore" min="0" max="100" inputmode="numeric"></label>
+            <p class="data-note">三个数按比例抽，不必凑成 100（34∶33∶33 就是各三分之一）；某一档填 0＝不再出那一种，三格都填 0＝三种均分。卡头在落卡那一刻定死并随消息存下来，事后改这三格不会翻旧卡的脸。</p>
+             
+            <div class="setting-subhead">这一位 TA：<b id="wishBackWho">这一位</b></div>
+            <label class="mate-stp-row">这一位的触发概率（%）<button type="button" class="stp-min" data-stp="wishBackByProb" data-d="-1" aria-label="少一点">−</button><input type="text" id="wishBackByProb" min="0" max="100" inputmode="numeric"><button type="button" class="stp-max" data-stp="wishBackByProb" data-d="1" aria-label="多一点">+</button></label>
+            <label>这位的「想收到的回复」（%）<input type="text" id="wishBackKReplyBy" min="0" max="100" inputmode="numeric"></label>
+            <label>这位的「翻到了你说过的话」（%）<input type="text" id="wishBackKFoundBy" min="0" max="100" inputmode="numeric"></label>
+            <label>这位的「想要更多字卡」（%）<input type="text" id="wishBackKMoreBy" min="0" max="100" inputmode="numeric"></label>
+            <p class="data-note">这四格留空＝跟随上面那几格全站默认（框里的灰字就是正在跟随的数）；填了只改这一位。概率填 0 ＝这一位从不；上面那枚总闸关掉＝谁都不出。群里停在「本群」改的是这一群那一本，选中某位成员改的是他本人。</p>
             <p class="data-note">这是「回完你之后」再补的一拍，不占 TA 这一轮的回复条数；填 0 ＝ 从不。已读不回、话没挤过来、主动发送都不会出这张卡。</p>
           </div>
         </div>
@@ -6832,6 +6858,8 @@
      
     <div class="fs-sheet-mask" id="plSleepMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">定时停止</span><button type="button" class="fs-sheet-close" id="plSleepClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plSleepBody"></div></div></div>
      
+    <div class="fs-sheet-mask" id="plModeMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">播放模式</span><button type="button" class="fs-sheet-close" id="plModeClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plModeBody"></div></div></div>
+     
     <div class="fs-sheet-mask" id="plNcmMask" hidden><div class="fs-sheet"><div class="fs-sheet-bar"><span class="fs-sheet-ti">网易云账号</span><button type="button" class="fs-sheet-close" id="plNcmClose" aria-label="关闭">×</button></div><div class="fs-sheet-body" id="plNcmBody"></div></div></div>
  
 <section class="view" id="sleeproomView">
@@ -6988,12 +7016,15 @@
       <div class="hm-stage" id="hmStage">
         <div class="hm-stage-art hm-scene-art" id="hmStageArt"></div>
         <div class="hm-stage-light" aria-hidden="true"></div>
+        <div class="hm-stage-lamp" aria-hidden="true"></div>
         <div class="hm-furn" id="hmFurn"></div>
         <div class="hm-plant-slot" id="hmPlantSlot"></div>
         <div class="hm-table" id="hmTable"></div>
         <div class="hm-photos" id="hmPhotos" hidden></div>
         <div class="hm-dz" id="hmDz" aria-hidden="true"></div>
       </div>
+       
+      <div class="hm-deck" id="hmDeck" hidden></div>
       <div id="hmBody"> <div class="hm-skel" aria-hidden="true"><span class="hm-skel-win"><i></i><i></i></span><span class="hm-skel-line"></span><span class="hm-skel-line short"></span></div></div>
     </div>
   </div>
