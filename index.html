@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v31.1.4.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v31.1.4.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v31.2.8.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v31.2.8.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v31.1.4.css','dist/app.v31.1.4.js'];
+      var BOOT_FILES = ['dist/app.v31.2.8.css','dist/app.v31.2.8.js'];
 
 
 
@@ -2082,7 +2082,9 @@
         </div>
       </div>
     </div>
-    <section class="view" id="mailboxView">
+         
+    <template id="tpl-mailboxView">
+<section class="view" id="mailboxView">
        
       <div class="mb-head">
         <div>
@@ -2144,6 +2146,7 @@
         </div>
       </div>
     </div>
+    </template>
     <template id="tpl-momentsView">
     <section class="view" id="momentsView">
        
@@ -2524,12 +2527,15 @@
       <button type="button" class="fab" id="annAddBtn" aria-label="添加纪念日"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
       <div class="ann-undo" id="annUndo" hidden><span>已删除「<b id="annUndoName"></b>」</span><button type="button" id="annUndoBtn">撤销</button></div>
     </section>
-    <section class="view" id="statsView">
+         
+    <template id="tpl-statsView">
+<section class="view" id="statsView">
       <div class="stats-list">
          
         <div id="statsOutput"><div class="stats-empty">这一页还没画出来</div></div>
       </div>
     </section>
+    </template>
     <section class="view" id="letterStatsView">
       <div class="stats-list">
          
@@ -5151,7 +5157,9 @@
       </div>
     </div>
      
-    <section class="view" id="divineDexView" data-dx-mode="grid">
+         
+    <template id="tpl-divineDexView">
+<section class="view" id="divineDexView" data-dx-mode="grid">
       <div class="dx-head">
         <div class="dx-brand">
           <span class="dx-en">CARD INDEX · 全部牌面与释义</span><h2>牌面图鉴</h2>
@@ -5169,6 +5177,7 @@
       <div class="dx-none" id="dxNone" hidden>没有对上这一句的牌，换个词试试。</div>
       <div class="dx-detail" id="dxDetail" hidden></div>
     </section>
+    </template>
  
 <section class="view" id="dealView" data-deal-screen="table">
    
@@ -6385,6 +6394,8 @@
       <p class="ll-rand-note" id="dzRead"></p>
       <button type="button" class="soft-btn" id="dzClear">撕掉这一位的贴纸</button>
        
+       
+      <p class="ll-rand-note" id="dzAutoNote">那两枚开关（「允许 TA 自己装修」与「允许 TA 自己贴贴纸」）和贴纸池都住在「随机换装」那一档——想每天让 TA 自己贴一批，点下面这枚过去。</p>
       <button type="button" class="ll-act" id="dzToDaily" style="margin-top:8px">让 TA 每天自己贴一批 → 去随机换装</button>
       <input type="file" id="llStkInput" accept="image/*" multiple hidden>
     </div>
@@ -6403,7 +6414,14 @@
         <div class="ll-rand-sub">背景图 · 点一下勾上</div>
         <div class="ll-grid" id="llRandBgPool"></div>
         <p class="ll-empty" id="llRandEmpty" hidden></p>
+         
+        <div class="ll-rand-sub">整套方案 · 点一下勾上（勾了 TA 也可能整套换）</div>
+        <div class="contact-chip-row ll-rand-chips" id="llRandPlanPool" hidden></div>
+        <div class="ll-rand-sub">两栏 · 点一下勾上（顶栏与输入栏那一族）</div>
+        <div class="contact-chip-row ll-rand-chips" id="llRandBarPool"></div>
         <p class="ll-rand-note" id="llRandNote"></p>
+         
+        <div id="llSwapHist" hidden></div>
       </div>
        
       <div class="dz-daily" id="dzDailySec">
@@ -6416,6 +6434,8 @@
           <div class="ll-grid ll-grid-stk" id="llRandStkPool"></div>
         </div>
         <div class="ap-row ll-rand-row"><span>每天贴一批</span><button type="button" class="hub-tg" id="dzEnTg" role="switch" aria-pressed="true" aria-label="每天随机装修开关"></button></div>
+         
+        <div class="ap-row ll-rand-row"><span>允许 TA 自己贴贴纸</span><button type="button" class="hub-tg" id="dzStkTg" role="switch" aria-pressed="true" aria-label="允许 TA 自己贴贴纸"></button></div>
         <label class="ap-knob"><span>几率</span><input type="range" id="dzProb" min="0" max="100" step="5" value="55" aria-label="每天随机装修几率"><output id="dzProbOut">55%</output></label>
         <div class="ap-row ll-rand-row"><span>贴纸浮在字上面</span><button type="button" class="hub-tg" id="dzFloatTg" role="switch" aria-pressed="false" aria-label="贴纸浮在字上面"></button></div>
         <div class="ap-row ll-rand-row" id="dzFollowRow" hidden><span>这一位单独调过</span><button type="button" class="soft-btn" id="dzFollow">恢复跟全站</button></div>
@@ -7079,7 +7099,9 @@
   </div>
 </div>
  
-    <section class="view" id="hubView">
+         
+    <template id="tpl-hubView">
+<section class="view" id="hubView">
       <div class="hub-page">
         <div class="hub-head">
           <div><span class="hub-en mono">FEATURES · 问一句答一句</span><h2>使用大全</h2></div>
@@ -7139,6 +7161,7 @@
         </div>
       </div>
     </section>
+    </template>
  
     <section class="view" id="cardFitView">
        
