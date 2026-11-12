@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v30.7.1.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v30.7.1.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v31.1.4.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v31.1.4.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v30.7.1.css','dist/app.v30.7.1.js'];
+      var BOOT_FILES = ['dist/app.v31.1.4.css','dist/app.v31.1.4.js'];
 
 
 
@@ -1432,7 +1432,7 @@
       </div>
 
 
-<div class="call-window" id="callWindow" hidden title="长按挂断">
+<div class="call-window" id="callWindow" hidden title="长按换样式大小">
       <span class="cw-av-disc">
         <span class="call-rings" aria-hidden="true"></span>
         <span class="call-avatar" id="callAvatar"></span>
@@ -1443,6 +1443,8 @@
         <span class="cw-say-tx" id="cwSayTx"></span>
       </div>
     </div>
+     
+    <div class="call-float-menu" id="callFmMenu" hidden></div>
     <div class="call-full" id="callFull" hidden>
       <div class="cf-bar">
         <div class="cf-topl" id="cfTopl">语音通话</div>
@@ -1867,6 +1869,8 @@
             <label class="bx-field"><span>Base URL</span><input type="url" id="bxBase" autocomplete="off" spellcheck="false" placeholder="https://api.openai.com/v1"></label>
             <label class="bx-field key-row"><span>API Key</span><span class="key-wrap"><input type="password" id="bxKey" autocomplete="off" spellcheck="false" placeholder="sk-..."><button type="button" class="key-x" data-bx-key-x aria-label="清空 Key">×</button></span></label>
             <label class="bx-field"><span>模型</span><input type="text" id="bxModel" autocomplete="off" spellcheck="false" placeholder="gpt-4o-mini / deepseek-chat"></label>
+             
+            <p class="bx-hint">别填「先想再说」的那一类（名字带 M2／reasoner／thinking）：它会先静几十秒才动笔，正文还可能一个字都不给（占卜解读会报「只回了推理过程」）。换成普通对话模型就顺畅了——MiniMax 填 MiniMax-Text-01。</p>
             <div class="bx-actrow">
               <button type="button" class="ap-btn" id="bxCheckBtn">检测</button>
               <button type="button" class="ap-btn" id="bxModelPull">拉模型</button>
@@ -2595,7 +2599,7 @@
               <div class="field-row"><label>响铃最快（秒）<input type="text" id="callIncomingRingMin" min="1" max="120" inputmode="numeric"></label><label>响铃最慢（秒）<input type="text" id="callIncomingRingMax" min="1" max="120" inputmode="numeric"></label></div>
               <div class="field-row"><label>来电间隔最快（分钟）<input type="text" id="callIncomingMin" min="1" max="1440" inputmode="numeric"></label><label>来电间隔最慢（分钟）<input type="text" id="callIncomingMax" min="1" max="1440" inputmode="numeric"></label></div>
               <div class="field-row"><label>来电是视频通话的几率（%）<input type="text" id="callIncomingVideoProb" min="0" max="100" inputmode="numeric"></label><div></div></div>
-              <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">四种概率之和无需等于 100%，会自动按比例分配。</p><p class="data-note">这份是<b>全局默认</b>：想给某位 TA 单独一份（概率、时长、来电各算各的），去聊天页右上角 → TA 的设置 → 声音 → 通话，打开「单独设置通话」；没单设的 TA 都照这份走。</p></details>
+              <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">四种概率之和无需等于 100%，会自动按比例分配。</p><p class="data-note">这份是<b>全局默认</b>：想给某位 TA 单独一份（概率、时长、来电各算各的），去聊天页右上角 → TA 的设置 → 通话 →「共用」那一档，直接改任意一格就会自动变成只对这一位生效（也可以先打开那枚「单独设置通话」开关）；没单设的 TA 都照这份走。</p></details>
             </div>
             <div class="call-pane" data-call-pane="voice" hidden>
               <p class="data-note">只作用在语音通话那一面：接通后他先念几句自己的专属语音。视频里 TA 用字卡消息说话，不吃这一份。</p>
@@ -2767,10 +2771,12 @@
 
          
         <div class="setting-card fold flat" data-tab="desk" data-fold="skinflat">
-          <div class="fold-hd"><span class="fold-ti">界面小调</span><span class="fold-sum">五样小调全摊开 · 点一下就换</span></div>
+          <div class="fold-hd"><span class="fold-ti">界面小调</span><span class="fold-sum">六样小调全摊开 · 点一下就换</span></div>
           <div class="fold-bd">
             <div class="flat-row"><b>界面配色</b><span class="flat-sum" id="sumSkin"></span></div>
-            <div class="contact-chip-row" style="margin:0" data-ap-set="skin" data-sum="sumSkin"><button type="button" class="contact-chip" data-v="">纯白</button><button type="button" class="contact-chip" data-v="gray">素灰</button><button type="button" class="contact-chip" data-v="paper">暖纸</button><button type="button" class="contact-chip" data-v="blue">雾蓝</button><button type="button" class="contact-chip" data-v="almond">米杏</button></div>
+            <div class="contact-chip-row" style="margin:0" data-ap-set="skin" data-sum="sumSkin"><button type="button" class="contact-chip" data-v="">纯白</button><button type="button" class="contact-chip" data-v="gray">素灰</button><button type="button" class="contact-chip" data-v="paper">暖纸</button><button type="button" class="contact-chip" data-v="blue">雾蓝</button><button type="button" class="contact-chip" data-v="almond">米杏</button><button type="button" class="contact-chip" data-v="winter">雪屋</button></div>
+            <div class="flat-row"><b>下雪</b><span class="flat-sum" id="sumSnowfall"></span></div>
+            <div class="contact-chip-row" style="margin:0" data-ap-set="snowfall" data-sum="sumSnowfall"><button type="button" class="contact-chip" data-v="off">关</button><button type="button" class="contact-chip" data-v="on">开</button></div>
             <div class="flat-row"><b>字卡卡面</b><span class="flat-sum" id="sumCardface"></span></div>
             <div class="contact-chip-row" style="margin:0" data-ap-set="cardface" data-sum="sumCardface"><button type="button" class="contact-chip" data-v="">出厂</button><button type="button" class="contact-chip" data-v="inkbar">墨条</button><button type="button" class="contact-chip" data-v="paper">纸牌</button><button type="button" class="contact-chip" data-v="tape">胶带</button><button type="button" class="contact-chip" data-v="polaroid">拍立得</button><button type="button" class="contact-chip" data-v="plain">线框</button></div>
             <div class="flat-row"><b>卡片圆角</b><span class="flat-sum" id="sumCorner"></span></div>
@@ -2781,7 +2787,8 @@
             <div class="flat-row"><b>字号</b><span class="flat-sum" id="sumUiFontScale"></span></div>
             <div class="ap-row"><input type="range" id="uiFontScaleRange" min="80" max="140" step="1" value="100" style="flex:1;min-width:0"><span id="uiFontScaleOut" style="flex:none;min-width:44px;text-align:right;font-variant-numeric:tabular-nums">100%</span></div>
             <details class="set-adv"><summary>各项说明（点开看）</summary>
-            <p class="data-note"><b>界面配色</b>：换的是全站<b>画布、凹槽与影</b>那几层底色——卡片仍是白卡，换的是「白卡背后那间屋子」：素灰最静、暖纸带一点旧纸的温度、雾蓝是早先那档冷调、米杏最暖。影的颜色跟着底一起换（冷底冷影、暖底暖影），不会出现「灰影压暖底」的脏感。点一下当场生效、重启仍记得；「纯白」是默认。</p>
+            <p class="data-note"><b>界面配色</b>：换的是全站<b>画布、凹槽与影</b>那几层底色——卡片仍是白卡，换的是「白卡背后那间屋子」：素灰最静、暖纸带一点旧纸的温度、雾蓝是早先那档冷调、米杏最暖、<b>雪屋</b>是冷雪白底配冷蓝影（只换底色不压暗，卡还是白卡）。影的颜色跟着底一起换（冷底冷影、暖底暖影），不会出现「灰影压暖底」的脏感。点一下当场生效、重启仍记得；「纯白」是默认。</p>
+            <p class="data-note"><b>下雪</b>：开＝全站飘一层很淡的雪粒，跟界面配色<b>各管各的</b>——不配雪屋也能开，关掉雪雪屋配色也照样在。它是一枚单独的画布，限 30 帧、不糊背景、不吃点击；手机发烫、系统开了「减弱动态效果」、切到后台或正在滚动时会自动停成静态雪点。默认关，想开再开。</p>
             <p class="data-note"><b>字卡卡面</b>：换的是<b>字卡库与系统预设字卡</b>那面墙的卡面样式：「墨条」卡顶一条墨色压条、「纸牌」换成米白纸面、「胶带」卡顶贴一段胶带、「拍立得」厚白框、「线框」撤影只勾一圈边。聊天里 TA 发的卡片不跟这一档（它们归气泡样式管）。点一下当场生效、重启仍记得；「出厂」是默认。</p>
             <p class="data-note"><b>卡片圆角</b>：管的是卡片、列表行、磁贴、底部弹层这些<b>面</b>的弧度，三档都是整屏一起换。「利落」接近直角、屏面最硬；<b>标准</b>是默认；「柔和」最圆。聊天气泡与头像不跟这一档（它们各有自己的形状档）。</p>
             <p class="data-note"><b>宽屏适配</b>：在 <b>iPad 或电脑浏览器</b>（窗口够宽时），本站默认<b>单栏</b>（约 820px 加宽一栏用好大屏）。想要左右两栏（左侧常驻会话列表、右侧显示内容，交界处可拖宽、双击恢复），把「布局」切到「<b>双栏</b>」；「手机窄栏」则是收回 480px 居中卡片。手机本身不受影响。点一下当场生效、重启仍记得。</p>
@@ -3417,6 +3424,21 @@
         <div class="mate-grp" data-mate-grp="reply" hidden id="behaviorCard">
           <div class="mate-group">
          
+         
+        <div class="setting-card fold" id="matePlanCard" data-fold="plan">
+          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">方案</span><span class="fold-sum" id="matePlanSum"></span></span><i class="fold-ar">›</i></button>
+          <div class="fold-bd">
+            <p class="data-note">四十来枚概率一次换好：点一套就整组套到这一位身上——回话的节奏与表达、主动找你与免打扰、强制拆信、回忆闪回。它不归任何一档：切到表达／打分／卡片，这张卡照样住在这儿。</p>
+            <div class="contact-chip-row" id="planChips" role="group" aria-label="聊天方案"></div>
+            <div class="plan-auto-row" id="planAutoRow" hidden><button type="button" class="contact-chip" id="planAutoTg" aria-pressed="false">也让 TA 自己挑时用这套</button><span class="plan-hint" id="planAutoWhy"></span></div>
+            <div class="ap-btnrow"><button type="button" class="ap-btn" id="planSaveBtn">把此刻存成新方案</button></div>
+            <div class="plan-save-row" id="planSaveRow" hidden><input type="text" id="planSaveName" maxlength="12" placeholder="方案名字"><button type="button" class="ap-btn" id="planSaveOk">存</button><button type="button" class="ap-btn" id="planSaveCancel">取消</button></div>
+            <label class="plan-swap-row">TA 自己想换 <input type="text" id="planSwapProb" inputmode="numeric" maxlength="3" aria-label="TA 自己想换方案的概率">%<span class="plan-hint">每 12 小时掷一次，掷中就按此刻该有的那套换；填 0 ＝ 你选的那套钉死</span></label>
+            <p class="data-note" id="planNow"></p>
+            <div class="ap-btnrow"><button type="button" class="ap-btn" id="planResetBtn">取消方案 · 恢复出厂</button></div>
+            <p class="data-note">方案管的是这一位 TA 的「回话」与「主动」两档：节奏（快慢·条数·已读不回·话没挤过来）、表达（拼句·夹带·问签·撤回）、主动找你、强制拆信、回忆闪回。不管的：全站一份的「话题意愿度／回复满意度／话的理解度／想收到的回复」四张卡（它们对所有联系人一起生效，跟方案换会把别人也改了），以及输入框、拼接符号这些个人偏好。自存方案点一下套用、长按删；存它时只记与出厂不同的格（以后出厂默认调了，它跟着走）。</p>
+          </div>
+        </div>
         <div class="mate-subtabs" id="mateReplyTabs" role="tablist">
           <button type="button" class="mate-subtab on" data-rtab-btn="rhythm" role="tab" aria-selected="true">节奏</button>
           <button type="button" class="mate-subtab" data-rtab-btn="express" role="tab" aria-selected="false">表达</button>
@@ -3424,18 +3446,6 @@
           <button type="button" class="mate-subtab" data-rtab-btn="card" role="tab" aria-selected="false">卡片</button>
         </div>
          
-         
-        <div class="setting-card fold" id="matePlanCard" data-fold="plan" data-rtab="rhythm">
-          <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti">方案</span><span class="fold-sum" id="matePlanSum"></span></span><i class="fold-ar">›</i></button>
-          <div class="fold-bd">
-            <p class="data-note">四十来枚概率一次换好：点一套就整组套到这一位身上（回话的四档 + 主动找你 + 拆信 + 闪回）。下面那排 chips 就是全部方案，点谁用谁。</p>
-            <div class="contact-chip-row" id="planChips" role="group" aria-label="聊天方案"></div>
-            <div class="ap-btnrow"><button type="button" class="ap-btn" id="planSaveBtn">把此刻存成新方案</button></div>
-            <div class="plan-save-row" id="planSaveRow" hidden><input type="text" id="planSaveName" maxlength="12" placeholder="方案名字"><button type="button" class="ap-btn" id="planSaveOk">存</button><button type="button" class="ap-btn" id="planSaveCancel">取消</button></div>
-            <p class="data-note" id="planNow"></p>
-            <p class="data-note">方案管的是这一位 TA 的「回话」与「主动」两档：节奏（快慢·条数·已读不回·话没挤过来）、表达（拼句·夹带·问签·撤回）、主动找你、强制拆信、回忆闪回。不管的：全站一份的「话题意愿度／回复满意度／话的理解度／想收到的回复」四张卡（它们对所有联系人一起生效，跟方案换会把别人也改了），以及输入框、拼接符号这些个人偏好。想删自存的方案：长按那一枚 chips。</p>
-          </div>
-        </div>
         <div class="setting-card fold" id="mateMemPanel" data-fold="mempanel" data-rtab="rhythm" hidden>
           <button type="button" class="fold-hd"><span class="fold-tx"><span class="fold-ti" id="mateMemPanelTi">他在本群</span><span class="fold-sum" id="mateMemPanelSum"></span></span><i class="fold-ar">›</i></button>
           <div class="fold-bd"><div id="mateMemPanelBody"></div></div>
@@ -3465,7 +3475,7 @@
           <div class="fold-bd">
             <div class="check-row"><label class="check-item"><input type="checkbox" id="rnOn"><span>允许「已读不回」<span style="display:block;font-size:11px;color:var(--muted)">关掉＝这一枚不抽了。它和「话没挤过来」（下面一张卡）各管各的：只关一枚，仍可能被另一枚拦下。</span></span></label></div>
             <label id="rnProbLab">已读不回概率（%）<input type="text" id="rnProb" min="0" max="100" inputmode="numeric"></label>
-            <p class="data-note">每一轮回复前抽一次；填 0＝从此不出现「对方已读不回」。</p>
+            <p class="data-note">每一轮回复前抽一次；填 0＝从此不出现「对方已读不回」。<b>连着没回你一轮时，下一条一定回</b>——这条保底压过概率（「话没挤过来」也算没回），只有你把这一格或「话没挤过来」亲手填成 100 才不生效。</p>
              
             <div class="check-row"><label class="check-item"><input type="checkbox" id="rnByState"><span>按 TA 此刻在做什么浮动「已读不回」<span style="display:block;font-size:11px;color:var(--muted)">空闲 ×0.5 · 忙碌 ×1.8 · 忙着 ×2.2 · 休息 ×1.4 · 睡着 ×3 · 读不到 ×1，再乘「在做什么」那一族（×0.4–1.5）。「忙碌」「忙着」说的是手占着，不是不想理你——忙着回你、忙着贴贴的那几族会把概率往下压，摊开见「功能说明」。填 0 乘多少还是 0。</span></span></label></div>
              
@@ -3819,7 +3829,7 @@
           <div id="mateCallCard">
             <div class="call-pane" data-call-pane="base">
               <p class="data-note">这一份语音通话和视频通话都吃：一通电话怎么响、接不接得通、多久结束、他会不会主动打来。</p>
-              <div class="ap-row sound-row" style="margin-top:2px"><span>单独设置通话<span style="display:block;font-size:11px;color:var(--muted)">开启后这位 TA 的通话按下面这几档走（以全局当前值为起点，之后互不影响），关闭即恢复跟随全局。群聊没有通话，这一档在本群与成员档整档收起。</span></span><input type="checkbox" class="mate-call-ind" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
+              <div class="ap-row sound-row" style="margin-top:2px"><span>单独设置通话<span style="display:block;font-size:11px;color:var(--muted)">开启后这位 TA 的通话按下面这几档走（以全局当前值为起点，之后互不影响），关闭即恢复跟随全局。没开也可以直接改下面任意一格——一改就自动变成只对这一位生效（上面那枚勾选框会跟着勾上）。群聊没有通话，这一档在本群与成员档整档收起。</span></span><input type="checkbox" class="mate-call-ind" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="mate-call-fields">
              
             <div class="setting-subhead">接通与时长</div>
@@ -3853,9 +3863,9 @@
                 <div class="ap-row"><span>小框里 TA 会自己出声<span style="display:block;font-size:11px;color:var(--muted)">视频通话收成小框后，这位 TA 按下面的几率偶尔说一句（取他自己的主字卡），自动用 MiniMax 念出来，字贴在小框下方；没绑音色就不出声。语音通话收成小框没有这一层</span></span><input type="checkbox" id="mcMiniVoice" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
                 <div class="field-row"><label>出声的几率（%）<input type="text" id="mcMiniVoiceProb" min="0" max="100" inputmode="numeric"></label><div></div></div>
               </div>
-              <p class="data-note">通话背景图不在这分层：本来就按联系人各一张，在「通话美化」那一档里传。没打开「单独设置通话」时，这里显示的就是全局当前值（整格灰着＝跟全局走，在这里改了也不会保存）。</p>
+              <p class="data-note">通话背景图不在这分层：本来就按联系人各一张，在「通话美化」那一档里传。没打开「单独设置通话」时，这里显示的是全局当前值（字淡一档＝跟全局走）；直接改任意一格就自动变成只对这一位生效，不用先去开那枚开关。</p>
             <div class="setting-subhead">视频里怎么念与收发 · 不分 TA</div>
-            <div class="ap-row"><span>自动播放语音<span style="display:block;font-size:11px;color:var(--muted)">TA 在视频通话里发来的消息自动念出来（MiniMax 语音，TA 绑了音色才念；TA 发来的录音放原声）。关掉后想听哪句，点气泡上那枚小喇叭</span></span><input type="checkbox" id="vcAutoVoice" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
+            <div class="ap-row"><span>自动播放语音<span style="display:block;font-size:11px;color:var(--muted)">TA 在视频通话里发来的文字字卡自动念出来（MiniMax 语音，TA 绑了音色才念）。关掉后想听哪句，点气泡上那枚小喇叭</span></span><input type="checkbox" id="vcAutoVoice" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
              
             <div class="ap-row"><span>我的语音自动转成文字<span style="display:block;font-size:11px;color:var(--muted)">你在视频通话里发完语音，手机会把它听写成一行字压在语音条下；听错了长按那行字就能改。用浏览器自带听写，不用填 Key、不花钱——能不能用看浏览器（iPhone 的 Safari 没有，安卓 Chrome 走谷歌那边、国内常连不上）；转不出来会提示一次并自动关掉这一格。免提那条不转。关掉＝不听写也不显示</span></span><input type="checkbox" id="vcAutoTrans" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="ap-row"><span>免提（麦克风常开）<span style="display:block;font-size:11px;color:var(--muted)">开着＝不用再点录音：你说话，停下来约一秒就把这一句当语音发出去（只记在通话记录里），TA 照常回你。TA 说话时它会自动让开，不会把他自己的声音录进去。走的是同一条「发语音」的路，回不回、怎么回和手动发完全一样。同一通里的免提语音超过 8 分钟会自动关掉一次</span></span><input type="checkbox" id="vcHandsFree" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
@@ -3889,17 +3899,12 @@
             </div>
             <p class="data-note vc-expr-hint" id="vcExprHint"></p>
              
-            <div class="setting-subhead">视频通话里的附加项（各自独立，出厂全关）</div>
-            <p class="data-note">视频通话里默认只走<b>公用字卡 · 专属字卡</b>里的 <b>主字卡 · 颜文字 · emoji</b> 三类；下面这些都是附加的，想用哪一样自己开——开一样管一样，互不连带，改完当场生效，正在进行的那一通也认。<b>占卜牌面那一族卡不在这里</b>：视频通话里 TA 不递卡（2026-11-06 用户定档），要收牌去聊天页。</p>
+            <div class="setting-subhead">文字字卡与注脚</div>
+            <p class="data-note">视频通话里 TA 只发<b>公用字卡 · 专属字卡</b>里的 <b>主字卡 · 颜文字 · emoji</b>，不发表情包、图片、语音条或拍一拍，也不递占卜等功能卡片。<b>自动播放语音</b>仍可把文字字卡念出来；聊天页的收发不受影响。</p>
             <div class="ap-row"><span>气泡下方的签与注脚<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。那行就是「这句说谁 · 这句本意」那枚签加上情绪字卡那几个词（聊天页里它是骑在气泡上沿的，通话流里落到了气泡下面）。关着＝TA 在这一通里不挂这行，气泡下面只剩时间；开着＝跟聊天页一样画出来。聊天页不受影响</span></span><input type="checkbox" id="vcFootOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <div class="ap-row"><span>表情包<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不发表情包（聊天页不受影响）</span></span><input type="checkbox" id="vcStickerSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <div class="ap-row"><span>图片<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不发图片（「图片」分类与相册那类大图；聊天页不受影响）</span></span><input type="checkbox" id="vcImageSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <div class="ap-row"><span>语音<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不发语音条（「语音」字卡里那些录音；TA 念出来的声音走上面那枚「自动播放语音」，两件事互不影响）</span></span><input type="checkbox" id="vcVoiceSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <div class="ap-row"><span>拍一拍<span style="display:block;font-size:11px;color:var(--muted)">默认关闭。关着＝TA 在视频通话里不拍你（聊天页不受影响）</span></span><input type="checkbox" id="vcPokeSend" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
-            <p class="data-note">关着上面这几枚＝TA 在视频通话里只发<b>主字卡 · 颜文字 · emoji</b>三类（公用字卡与专属字卡里那三类），气泡下面也不挂注脚。各枚各管一类、互不连带；改完当场生效，正在进行的那一通也认。</p>
 
             <details class="set-adv"><summary>说明（点开看）</summary>
-            <p class="data-note">这一档是<b>视频通话本身</b>的开关（怎么念、怎么收话、发什么）：不分 TA，改完当场生效，正在进行的那一通也认。视频那一面没有自己的设置面板。</p>
+            <p class="data-note">这一档是<b>视频通话本身</b>的开关（怎么念、怎么收话、怎么显示）：不分 TA，改完当场生效，正在进行的那一通也认。视频那一面没有自己的设置面板。</p>
             </details>
             </div>
              
@@ -4072,6 +4077,9 @@
                
               <div class="setting-subhead">悬浮小框</div>
               <div class="ap-row"><span>通话小框与音乐小框显示在</span><div class="contact-chip-row" style="margin:0" id="floatScopeRow"><button type="button" class="contact-chip" data-v="chat">只在聊天页</button><button type="button" class="contact-chip" data-v="all">全部页面</button></div></div>
+               
+              <div class="ap-row"><span>通话小框样式</span><div class="contact-chip-row" style="margin:0" id="callSzRow"><button type="button" class="contact-chip" data-st="0">条状</button><button type="button" class="contact-chip" data-st="1">圆点</button></div></div>
+              <div class="ap-row"><span>通话小框大小</span><div class="contact-chip-row" style="margin:0" id="callSzSizeRow"><button type="button" class="contact-chip" data-sz="0">小</button><button type="button" class="contact-chip" data-sz="1">中</button><button type="button" class="contact-chip" data-sz="2">大</button></div></div>
               <div class="setting-subhead">打字与发送</div>
               <div class="check-row"><label class="check-item"><input type="checkbox" id="enterSend"><span>回车键发送消息</span></label></div>
               <div class="check-row"><label class="check-item"><input type="checkbox" id="batchSend"><span>批量发送<span style="display:block;font-size:11px;color:var(--muted)">聊天输入栏显示「批量发送」按钮：面板里逐项添加文字 / 表情包 / 图片，每一项就是一条消息，可删可清空；点「发送全部」按顺序一次发出，TA 等这批说完才回。</span></span></label></div>
@@ -6878,6 +6886,8 @@
       <button type="button" class="srp-mode" data-sr-mode-tab="custom" role="tab" aria-selected="false">我的编排</button>
     </div>
     <div class="srp-body">
+       
+      <div class="srp-hero" id="srHero" hidden></div>
       <div class="srp-list" id="srList" aria-live="polite"></div>
     </div>
      
@@ -7015,16 +7025,19 @@
       <div id="hmBodyTop"></div>
       <div class="hm-stage" id="hmStage">
         <div class="hm-stage-art hm-scene-art" id="hmStageArt"></div>
+        <div class="hm-stage-tint" aria-hidden="true"></div>
         <div class="hm-stage-light" aria-hidden="true"></div>
         <div class="hm-stage-lamp" aria-hidden="true"></div>
+        <div class="hm-bigs" id="hmBigs" aria-hidden="true"></div>
         <div class="hm-furn" id="hmFurn"></div>
+        <div class="hm-deco-bar" id="hmDecoBar" aria-label="装修·加家具"></div>
+        <div class="hm-plaque" id="hmPlaque" aria-hidden="true"><span></span></div>
+        <div class="hm-room-tag" id="hmRoomTag" hidden aria-hidden="true"></div>
         <div class="hm-plant-slot" id="hmPlantSlot"></div>
         <div class="hm-table" id="hmTable"></div>
         <div class="hm-photos" id="hmPhotos" hidden></div>
-        <div class="hm-dz" id="hmDz" aria-hidden="true"></div>
       </div>
        
-      <div class="hm-deck" id="hmDeck" hidden></div>
       <div id="hmBody"> <div class="hm-skel" aria-hidden="true"><span class="hm-skel-win"><i></i><i></i></span><span class="hm-skel-line"></span><span class="hm-skel-line short"></span></div></div>
     </div>
   </div>
@@ -7065,21 +7078,65 @@
     </div>
   </div>
 </div>
-     
+ 
     <section class="view" id="hubView">
       <div class="hub-page">
         <div class="hub-head">
-          <div><span class="hub-en mono">FEATURES · 都在这里</span><h2>使用大全</h2></div>
+          <div><span class="hub-en mono">FEATURES · 问一句答一句</span><h2>使用大全</h2></div>
           <div class="hub-stat" id="hubStat"></div>
         </div>
-        <div class="hub-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-          <input id="hubSearch" type="search" placeholder="搜功能 · 名字或说明" autocomplete="off" aria-label="搜索功能">
-          <button type="button" id="hubSearchClear" aria-label="清空搜索" hidden>×</button>
+        <div class="fchips ha-tabs">
+          <button type="button" class="fchip" data-ha-tab="ask" aria-pressed="true">问答</button>
+          <button type="button" class="fchip" data-ha-tab="dir" aria-pressed="false">功能目录</button>
+          <button type="button" class="fchip" data-ha-tab="check" aria-pressed="false">检测</button>
         </div>
-        <div class="fchips hub-tags" id="hubTags"></div>
-        <div id="hubBody"></div>
-        <div class="hub-foot mono">言字卡 · FEATURES</div>
+         
+        <div class="ha-pane" data-ha-pane="ask">
+          <div class="ha-hero">
+            <span class="ha-hero-face" id="haHeroFace"></span>
+            <div class="ha-hero-tx"><b>小言</b><small>问一句，答一句 · 也能当场帮你查</small></div>
+            <div class="ha-hero-ctl"><span>悬浮</span><span class="hub-tg" id="haFloatTg" role="switch" tabindex="0" aria-label="悬浮小言总闸"></span></div>
+          </div>
+          <div class="ha-scope" id="haAiRow">
+            <span>AI 答疑</span>
+            <span class="hub-tg" id="haAiTg" role="switch" tabindex="0" aria-label="AI 答疑总闸"></span>
+            <small>走你自己的接口（设置 → AI）· 本地答不上的才问它 · 一条一结</small>
+          </div>
+          <div class="ha-scope" id="haScopeRow">
+            <span>悬浮范围</span>
+            <button type="button" class="contact-chip" data-ha-scope="chat">聊天页</button>
+            <button type="button" class="contact-chip" data-ha-scope="all">全部页面</button>
+          </div>
+          <div class="ha-log" id="haLog" aria-live="polite"></div>
+          <div class="ha-chips" id="haChips"></div>
+          <div class="ha-ask">
+            <input id="haInput" type="text" placeholder="问一句：怎么加字卡？TA 为什么不理我？" autocomplete="off" aria-label="问小言">
+            <button type="button" class="primary-btn" id="haSend">问</button>
+          </div>
+        </div>
+         
+        <div class="ha-pane hub-dir" data-ha-pane="dir" hidden>
+          <div class="hub-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input id="hubSearch" type="search" placeholder="搜功能 · 名字或说明" autocomplete="off" aria-label="搜索功能">
+            <button type="button" id="hubSearchClear" aria-label="清空搜索" hidden>×</button>
+          </div>
+          <div class="fchips hub-tags" id="hubTags"></div>
+          <div id="hubBody"></div>
+          <div class="hub-foot mono">言字卡 · FEATURES</div>
+        </div>
+         
+        <div class="ha-pane ckx-page" data-ha-pane="check" hidden>
+          <p class="ckx-lead">按「试一下」它才真去做那件事；没试过的行不算过了。</p>
+          <div class="ckx-acts">
+            <button type="button" class="primary-btn" id="ckRun">把不要代价的都跑一遍</button>
+            <button type="button" class="soft-btn" id="ckCopy">复制这段</button>
+          </div>
+          <div class="ckx-sum" id="ckSum"></div>
+          <div class="ckx-body" id="ckBody"></div>
+          <input type="file" id="ckFile" accept="application/json,.json" hidden>
+          <p class="ckx-foot">要问接口的两族不在这一页：声音去 设置 → AI 按「检测为什么没声音」（八道门），歌词去播放器那一屏的设置里按「查」。</p>
+        </div>
       </div>
     </section>
  
@@ -7089,19 +7146,25 @@
       <div class="fit-list" id="cfList"></div>
     </section>
  
-    <section class="view" id="checkView">
-      <div class="ckx-page">
-        <p class="ckx-lead">按「试一下」它才真去做那件事；没试过的行不算过了。</p>
-        <div class="ckx-acts">
-          <button type="button" class="primary-btn" id="ckRun">把不要代价的都跑一遍</button>
-          <button type="button" class="soft-btn" id="ckCopy">复制这段</button>
-        </div>
-        <div class="ckx-sum" id="ckSum"></div>
-        <div class="ckx-body" id="ckBody"></div>
-        <input type="file" id="ckFile" accept="application/json,.json" hidden>
-        <p class="ckx-foot">要问接口的两族不在这一页：声音去 设置 → AI 按「检测为什么没声音」（八道门），歌词去播放器那一屏的设置里按「查」。</p>
+<div class="ha-float" id="haFloat" hidden></div>
+<div class="ha-float-menu" id="haFloatMenu" hidden></div>
+<div class="fs-sheet-mask" id="haSheetMask" hidden>
+  <div class="fs-sheet ha-sheet">
+    <div class="fs-sheet-bar">
+      <div class="fs-sheet-t"><span class="fs-sheet-ti">小言 · 问一句</span></div>
+      <button type="button" class="fs-sheet-close" id="haSheetClose" aria-label="关闭快问面板">×</button>
+    </div>
+    <div class="fs-sheet-body ha-sheet-body">
+      <div class="ha-log" id="haSheetLog" aria-live="polite"></div>
+      <div class="ha-chips" id="haSheetChips"></div>
+      <div class="ha-ask">
+        <input id="haSheetInput" type="text" placeholder="问一句…" autocomplete="off" aria-label="问小言">
+        <button type="button" class="primary-btn" id="haSheetSend">问</button>
       </div>
-    </section>
+      <button type="button" class="ha-sheet-full" id="haSheetFull">打开完整答疑助手 ›</button>
+    </div>
+  </div>
+</div>
      
     <section class="view" id="taaskView">
       <div class="taq-page" id="taqList"></div>
