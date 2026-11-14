@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v31.2.8.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v31.2.8.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v31.7.4.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v31.7.4.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v31.2.8.css','dist/app.v31.2.8.js'];
+      var BOOT_FILES = ['dist/app.v31.7.4.css','dist/app.v31.7.4.js'];
 
 
 
@@ -1303,6 +1303,7 @@
     <div class="fav-selbar" id="favSelBar" hidden>
       <button type="button" class="fav-sel-all" id="favSelAll">全选</button>
       <span class="fav-sel-n" id="favSelN">已选 0 条</span>
+      <button type="button" class="fav-sel-del" id="favSelDel" hidden>删除</button>
       <button type="button" class="fav-sel-send" id="favSelSend">发送</button>
       <button type="button" class="fav-sel-done" id="favSelDone">完成</button>
     </div>
@@ -1383,7 +1384,7 @@
         <p>还没有可以聊的联系人</p>
         <button type="button" id="chatEmptyGo">回首页添加一位</button>
       </div>
-      <div class="composer" id="composer"><div class="at-pick" id="atPick" hidden aria-label="选择要点名的人"><div class="member-pick-list" id="atPickList"></div></div><div class="reply-target" id="replyTarget" hidden><img class="reply-target-thumb" id="replyTargetThumb" hidden alt="引用的图片"><span id="replyTargetText"></span><button type="button" id="replyCancel" aria-label="取消回复">×</button></div><div class="composer-attach" id="composerAttach" hidden><div class="attach-list" id="attachList"></div><span class="attach-info" id="attachInfo">已插入图片/表情包，可继续输入文字一起发送</span><button type="button" class="attach-remove" id="attachRemove" aria-label="移除全部">×</button></div><div class="bx-run-hint" id="bxRunHint" hidden role="status" aria-live="polite"><span class="bx-run-dot" aria-hidden="true"></span><span id="bxRunHintText">TA 正在写一张卡…</span><button type="button" id="bxRunHintX" aria-label="停掉这一发">×</button></div><div class="composer-row"><button type="button" class="compose-icon" id="askBtn" title="问问TA" aria-label="问问TA"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/><path d="M9.5 9.5a2.6 2.6 0 015 1c0 1.7-2.5 2-2.5 3.5"/><path d="M12 16.6h.01"/></svg></button><button type="button" class="compose-icon" id="openStickers" title="表情包" aria-label="打开表情包"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9.5l.01.01M15 9.5l.01.01"/></svg></button><input id="messageInput" autocomplete="off" enterkeyhint="send" maxlength="500" placeholder=" "><button type="button" class="compose-icon" id="batchBtn" title="批量发送" aria-label="批量发送" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></button><button type="button" class="compose-icon" id="chatImageBtn" title="插入图片" aria-label="插入图片"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5-9 9"/></svg></button><button type="button" class="compose-icon" id="chatVideoBtn" title="发送视频" aria-label="发送视频" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="m16 10.5 6-3.5v10l-6-3.5"/></svg></button><input type="file" id="chatVideoInput" accept="video/*" hidden><button type="button" class="compose-icon" id="voiceBtn" title="按住说话（松手发送，上滑取消）" aria-label="按住说话：松手发送，上滑取消" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0"/><path d="M12 18v3"/></svg></button><button class="send-btn" type="button" aria-label="发送消息"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div><div class="voice-rec" id="voiceRec" hidden><button type="button" class="voice-rec-x" id="voiceRecCancel" aria-label="取消录音">×</button><button type="button" class="voice-rec-wave" id="voiceRecWave" aria-label="试听这段录音"></button><span class="voice-rec-t" id="voiceRecTime">0'00"</span><button type="button" class="voice-rec-go ghost" id="voiceRecRe" hidden>重录</button><button type="button" class="voice-rec-go" id="voiceRecGo">停止</button></div></div>
+      <div class="composer" id="composer"><div class="at-pick" id="atPick" hidden aria-label="选择要点名的人"><div class="member-pick-list" id="atPickList"></div></div><div class="reply-target" id="replyTarget" hidden><img class="reply-target-thumb" id="replyTargetThumb" hidden alt="引用的图片"><span id="replyTargetText"></span><button type="button" id="replyCancel" aria-label="取消回复">×</button></div><div class="composer-attach" id="composerAttach" hidden><div class="attach-list" id="attachList"></div><span class="attach-info" id="attachInfo">已插入图片/表情包，可继续输入文字一起发送</span><button type="button" class="attach-remove" id="attachRemove" aria-label="移除全部">×</button></div><div class="bx-run-hint" id="bxRunHint" hidden role="status" aria-live="polite"><span class="bx-run-dot" aria-hidden="true"></span><span id="bxRunHintText">TA 正在写一张卡…</span><button type="button" id="bxRunHintX" aria-label="停掉这一发">×</button></div><div class="composer-row"><button type="button" class="compose-icon" id="askBtn" title="问问TA" aria-label="问问TA"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/><path d="M9.5 9.5a2.6 2.6 0 015 1c0 1.7-2.5 2-2.5 3.5"/><path d="M12 16.6h.01"/></svg></button><button type="button" class="compose-icon" id="openStickers" title="表情包" aria-label="打开表情包"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9.5l.01.01M15 9.5l.01.01"/></svg></button><input id="messageInput" autocomplete="off" enterkeyhint="send" maxlength="500" placeholder=" "><button type="button" class="compose-icon" id="batchBtn" title="批量发送" aria-label="批量发送" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></button><button type="button" class="compose-icon" id="chatImageBtn" title="插入图片" aria-label="插入图片"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5-9 9"/></svg></button><button type="button" class="compose-icon" id="chatVideoBtn" title="发送视频" aria-label="发送视频" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="m16 10.5 6-3.5v10l-6-3.5"/></svg></button><input type="file" id="chatVideoInput" accept="video/*" hidden><button type="button" class="compose-icon" id="voiceBtn" title="按住说话（松手发送，上滑取消）" aria-label="按住说话：松手发送，上滑取消" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0"/><path d="M12 18v3"/></svg></button><button type="button" class="compose-icon" id="miniWinBtn" title="开小窗聊天（桌面：拖到一旁，边干活边聊）" aria-label="开小窗聊天" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><rect x="12" y="11" width="7" height="5" rx="1" fill="currentColor" stroke="none"/></svg></button><button class="send-btn" type="button" aria-label="发送消息"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div><div class="voice-rec" id="voiceRec" hidden><button type="button" class="voice-rec-x" id="voiceRecCancel" aria-label="取消录音">×</button><button type="button" class="voice-rec-wave" id="voiceRecWave" aria-label="试听这段录音"></button><span class="voice-rec-t" id="voiceRecTime">0'00"</span><button type="button" class="voice-rec-go ghost" id="voiceRecRe" hidden>重录</button><button type="button" class="voice-rec-go" id="voiceRecGo">停止</button></div></div>
        
       <div class="fs-sheet-mask" id="batchMsgMask" hidden>
         <div class="fs-sheet">
@@ -1922,6 +1923,16 @@
              
             <div class="bx-actrow"><button type="button" class="ap-btn" id="bxPersonaPull">从最近聊天总结一份</button><button type="button" class="ap-btn" id="bxPersonaUndo" hidden>撤回刚才的</button><span class="bx-hint">会花一次额度：只读这一位的最近聊天与他用过的卡，归纳成上面两格；不会自己编经历。</span></div>
             <div class="bx-check" id="bxPersonaPullOut"></div>
+             
+            <div class="bx-cap">基本要求 · 每次帮写都必须遵守</div>
+            <label class="bx-field"><span>全站默认</span><textarea id="bxRules" class="bx-ta" rows="2" placeholder="例：不要出现句号；句子结尾留白；不要用「亲爱的」开头。"></textarea></label>
+            <div class="bx-chips" id="bxBanMarks"></div>
+            <label class="ap-row"><span>这一位单独一套基本要求</span><input type="checkbox" id="bxRulesOwn"></label>
+            <div id="bxRulesOwnWrap" hidden>
+              <label class="bx-field"><span>这一位的基本要求</span><textarea id="bxRulesTa" class="bx-ta" rows="2" placeholder="只对上面选中的这一位生效。"></textarea></label>
+              <div class="bx-chips" id="bxBanMarksTa"></div>
+            </div>
+            <p class="bx-hint">没单独设的 TA 跟全站默认走。快选勾上的标点（句号 ∶ 逗号 ∶ 感叹号 ∶ 问号 ∶ 省略号）在写完的那一刻直接删掉，保证卡里不出现；你在帮写面板里亲手改的字不受影响。</p>
             <label class="ap-row"><span>这一位不参与帮写</span><input type="checkbox" id="bxMateOff"></label>
           </div>
         </div>
@@ -2532,14 +2543,14 @@
 <section class="view" id="statsView">
       <div class="stats-list">
          
-        <div id="statsOutput"><div class="stats-empty">这一页还没画出来</div></div>
+        <div id="statsOutput"><div class="stats-load"><i></i><i></i><i></i></div></div>
       </div>
     </section>
     </template>
     <section class="view" id="letterStatsView">
       <div class="stats-list">
          
-        <div id="lsOutput"><div class="stats-empty">这一页还没画出来</div></div>
+        <div id="lsOutput"><div class="stats-load"><i></i><i></i><i></i></div></div>
       </div>
     </section>
     <section class="view" id="settingsView">
@@ -2596,7 +2607,7 @@
               <div class="field-row"><label>未接<input type="text" id="callMissProb" min="0" max="100" inputmode="numeric"></label><label>忙线<input type="text" id="callBusyProb" min="0" max="100" inputmode="numeric"></label></div>
               <div class="setting-subhead">响铃与通话时长</div>
               <div class="field-row"><label>响铃最快（秒）<input type="text" id="callRingMin" min="1" max="60" inputmode="numeric"></label><label>响铃最慢（秒）<input type="text" id="callRingMax" min="1" max="60" inputmode="numeric"></label></div>
-              <div class="field-row"><label>通话最短（分钟）<input type="text" id="callMinLen" min="1" max="60" inputmode="numeric"></label><label>通话最长（分钟）<input type="text" id="callMaxLen" min="1" max="60" inputmode="numeric"></label></div>
+              <div class="field-row"><label>通话最短（分钟）<input type="text" id="callMinLen" min="1" max="60" inputmode="numeric"></label><label>通话最长（分钟）<input type="text" id="callMaxLen" min="1" max="1440" inputmode="numeric"></label></div>
               <div class="setting-subhead">通话结束方式</div>
               <div class="ap-row"><span>禁止联系人主动挂断电话<span style="display:block;font-size:11px;color:var(--muted)">开启后通话接通不会自动结束，联系人不会主动挂断，需你手动挂断</span></span><input type="checkbox" id="callNoAutoHangup" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
               <div class="ap-row"><span>刷新页面不打断通话<span style="display:block;font-size:11px;color:var(--muted)">开着＝这一通正在打的时候刷新页面（含误按刷新、浏览器崩了把这一页恢复回来），回来仍停在通话那一面、计时接着走；半小时内回来才算，更久就按「异常结束」记进通话记录。关掉＝刷新即挂断，那一通也照样记进通话记录（结果写「异常结束」）。这一枚对所有 TA 生效</span></span><input type="checkbox" id="callResumeOnReload" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
@@ -2700,6 +2711,20 @@
         <div class="setting-card fold flat" data-tab="sound" data-fold="gamesfx">
           <div class="fold-hd"><span class="fold-ti">游戏音效</span><span class="fold-sum" id="sumGameSfx"></span></div>
           <div class="fold-bd"><div class="ap-row"><span>游戏中出声<span style="display:block;font-size:11px;color:var(--muted)">只在有结果的一刻响：合上了、消掉了、推倒了、这一局结束了。滑动、点选、落子这些「每一下」不出声</span></span><input type="checkbox" id="gameSfxOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div><div class="ap-row"><span style="flex:1;min-width:0">音量<span style="display:block;font-size:11px;color:var(--muted)">拖到 0 就彻底无声。这一格只记在这台设备上，不随备份导出带到别的手机里</span></span><input type="range" id="gameSfxVol" min="0" max="100" step="5" style="flex:none;width:130px"></div><button class="soft-btn" id="gameSfxTest" style="flex:none;width:auto;padding:5px 10px">试听三声</button><details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">这一格只管小游戏里的声音，是<b>这台设备</b>的一份开关（不分联系人，也不随备份带到别的手机）。TA 发来消息 ∶ 我发出消息 ∶ 来电振铃那三种提示音是<b>按人各一份</b>，在聊天页右上角 → TA 的设置 → 声音 → 提示音 里改——两件事的归属不同，所以没并在一起。</p></details></div>
+        </div>
+
+         
+        <div class="setting-card fold flat" id="tapSfxCard" data-tab="sound" data-fold="tapfx">
+          <div class="fold-hd"><span class="fold-ti">触点音效</span><span class="fold-sum" id="sumTapSfx"></span></div>
+          <div class="fold-bd">
+            <div class="ap-row"><span>点按时出声<span style="display:block;font-size:11px;color:var(--muted)">按钮、开关、标签、会话行、字卡…手指按下再抬起时响一声；滑动与拖拽（滑屏、拖滑杆、拖卡片）不响。只记在这台设备上，不随备份带到别的手机</span></span><input type="checkbox" id="tapSfxOn" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
+            <div class="ap-row" style="display:block;margin-bottom:6px"><span>音色<span style="display:block;font-size:11px;color:var(--muted)">点一枚就当场试听；正在用上传的那段时，点一枚＝切回内置（上传的那段留着，可随时换回）</span></span></div>
+            <div class="contact-chip-row" id="tapSfxPresets" style="margin:0 0 12px"></div>
+            <div class="ap-row"><span>已加载<span style="display:block;font-size:11px;color:var(--muted)" id="tapSfxState">内置「轻点」</span></span><div class="ap-ctl"><button type="button" class="soft-btn" id="tapSfxUp" data-tap-silent style="flex:none;width:auto;padding:5px 10px">上传音频</button><button type="button" class="soft-btn" id="tapSfxUse" data-tap-silent hidden style="flex:none;width:auto;padding:5px 10px">用上传的</button><button type="button" class="soft-btn" id="tapSfxClr" data-tap-silent style="flex:none;width:auto;padding:5px 10px">清除</button></div></div>
+            <div class="ap-row"><span style="flex:1;min-width:0">音量<span style="display:block;font-size:11px;color:var(--muted)">拖到 0 就彻底无声</span></span><input type="range" id="tapSfxVol" min="0" max="100" step="5" style="flex:none;width:130px"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><button type="button" class="soft-btn" id="tapSfxTest" data-tap-silent style="flex:none;width:auto;padding:5px 10px">试听这一声</button><button type="button" class="soft-btn" id="tapSfxRst" data-tap-silent style="flex:none;width:auto;padding:5px 10px">恢复出厂</button><span class="data-note" id="tapSfxRstNote" style="flex:1 1 8em;min-width:0;margin:0">关 · 轻点 · 55%（上传的那段留着）</span></div>
+            <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">这一格管的是<b>点按钮时那一声</b>，与「TA 发来消息」「来电振铃」那两套提示音不是一件事：那两套<b>按人各一份</b>（聊天页右上角 → TA 的设置 → 声音），这一格是<b>整站一份、只在这台设备上</b>，不分联系人，也不跟着备份导出跑到别人手机里。</p><p class="data-note">内置五款是实时合成的，不占存储；上传的那段音频存在本机（<b>512KB 以内</b>，建议三秒以内、开头就出声的短音——点按音太长会拖泥带水）。上传过以后可以在音色与上传的那段之间来回切，不用重传；「清除」才会真的把文件删掉。<b>出厂是关的</b>——要用就在上面勾一下。</p><p class="data-note">长按（按住超过半秒）与滑屏一律不出声：那两种动作有自己的反馈，再补一声就成了「滑一下就响一串」。通话进行中也不出声——那一面有自己的铃声与提示音。</p></details>
+          </div>
         </div>
 
          
@@ -3842,7 +3867,7 @@
               <div class="field-row"><label>接通<input type="text" id="mcAnswerProb" min="0" max="100" inputmode="numeric"></label><label>拒绝<input type="text" id="mcRejectProb" min="0" max="100" inputmode="numeric"></label></div>
               <div class="field-row"><label>未接<input type="text" id="mcMissProb" min="0" max="100" inputmode="numeric"></label><label>忙线<input type="text" id="mcBusyProb" min="0" max="100" inputmode="numeric"></label></div>
               <div class="field-row"><label>响铃最快（秒）<input type="text" id="mcRingMin" min="1" max="60" inputmode="numeric"></label><label>响铃最慢（秒）<input type="text" id="mcRingMax" min="1" max="60" inputmode="numeric"></label></div>
-              <div class="field-row"><label>通话最短（分钟）<input type="text" id="mcMinLen" min="1" max="60" inputmode="numeric"></label><label>通话最长（分钟）<input type="text" id="mcMaxLen" min="1" max="60" inputmode="numeric"></label></div>
+              <div class="field-row"><label>通话最短（分钟）<input type="text" id="mcMinLen" min="1" max="60" inputmode="numeric"></label><label>通话最长（分钟）<input type="text" id="mcMaxLen" min="1" max="1440" inputmode="numeric"></label></div>
             <div class="setting-subhead">结束方式</div>
               <div class="ap-row"><span>禁止这位联系人主动挂断电话<span style="display:block;font-size:11px;color:var(--muted)">开启后他接通不会自己结束，需你手动挂断</span></span><input type="checkbox" id="mcNoAutoHangup" style="width:18px;height:18px;flex:none;margin:0;accent-color:var(--ink)"></div>
             <div class="setting-subhead">对方主动来电</div>
@@ -5174,7 +5199,8 @@
       </div>
 
       <div class="dx-grid" id="dxGrid"></div>
-      <div class="dx-none" id="dxNone" hidden>没有对上这一句的牌，换个词试试。</div>
+       
+      <div class="dx-none" id="dxNone" hidden><div class="empty-state"><span class="empty-state-icon" data-art="dice"></span><p class="empty-state-title">没有对上这一句的牌</p><p class="empty-state-hint">换个词试试，或清掉筛选看全册</p></div></div>
       <div class="dx-detail" id="dxDetail" hidden></div>
     </section>
     </template>
@@ -7050,10 +7076,13 @@
         <div class="hm-stage-lamp" aria-hidden="true"></div>
         <div class="hm-bigs" id="hmBigs" aria-hidden="true"></div>
         <div class="hm-furn" id="hmFurn"></div>
-        <div class="hm-deco-bar" id="hmDecoBar" aria-label="装修·加家具"></div>
         <div class="hm-plaque" id="hmPlaque" aria-hidden="true"><span></span></div>
         <div class="hm-room-tag" id="hmRoomTag" hidden aria-hidden="true"></div>
         <div class="hm-plant-slot" id="hmPlantSlot"></div>
+         
+        <div class="hm-plant-slot-b" id="hmBalconyPot"></div>
+         
+        <div class="hm-pot-floor" id="hmPotFloor"></div>
         <div class="hm-table" id="hmTable"></div>
         <div class="hm-photos" id="hmPhotos" hidden></div>
       </div>
@@ -7114,13 +7143,16 @@
         </div>
          
         <div class="ha-pane" data-ha-pane="ask">
+          <div class="ha-scroll" id="haScroll">
           <div class="ha-hero">
-            <span class="ha-hero-face" id="haHeroFace"></span>
+            <span class="ha-hero-face" id="haHeroFace" aria-label="小言 · 长按清空这段对话"></span>
             <div class="ha-hero-tx"><b>小言</b><small>问一句，答一句 · 也能当场帮你查</small></div>
-            <div class="ha-hero-ctl"><span>悬浮</span><span class="hub-tg" id="haFloatTg" role="switch" tabindex="0" aria-label="悬浮小言总闸"></span></div>
+            <div class="ha-hero-ctl"><span>悬浮</span><span class="hub-tg" id="haFloatTg" role="switch" tabindex="0" aria-label="悬浮小言总闸"></span><button type="button" class="ha-hero-set" id="haSetBtn" aria-expanded="false" aria-label="小言的设置（AI 答疑与悬浮范围）">设置</button></div>
           </div>
-          <div class="ha-scope" id="haAiRow">
-            <span>AI 答疑</span>
+           
+          <div class="ha-more" id="haMore" hidden>
+          <div class="ha-scope ha-scope-ai" id="haAiRow">
+            <span class="ha-scope-lb">AI 答疑</span>
             <span class="hub-tg" id="haAiTg" role="switch" tabindex="0" aria-label="AI 答疑总闸"></span>
             <small>走你自己的接口（设置 → AI）· 本地答不上的才问它 · 一条一结</small>
           </div>
@@ -7129,7 +7161,9 @@
             <button type="button" class="contact-chip" data-ha-scope="chat">聊天页</button>
             <button type="button" class="contact-chip" data-ha-scope="all">全部页面</button>
           </div>
+          </div>
           <div class="ha-log" id="haLog" aria-live="polite"></div>
+          </div>
           <div class="ha-chips" id="haChips"></div>
           <div class="ha-ask">
             <input id="haInput" type="text" placeholder="问一句：怎么加字卡？TA 为什么不理我？" autocomplete="off" aria-label="问小言">
@@ -7149,9 +7183,9 @@
         </div>
          
         <div class="ha-pane ckx-page" data-ha-pane="check" hidden>
-          <p class="ckx-lead">按「试一下」它才真去做那件事；没试过的行不算过了。</p>
+          <p class="ckx-lead">这一页替你把容易出问题的地方挨个试一遍：每一行按「试一下」它就真去做那件事，做完告诉你现在是什么样；查出不通，行边那枚钮直接带你去修。没试过的行不算过了。</p>
           <div class="ckx-acts">
-            <button type="button" class="primary-btn" id="ckRun">把不要代价的都跑一遍</button>
+            <button type="button" class="primary-btn" id="ckRun">一键体检</button>
             <button type="button" class="soft-btn" id="ckCopy">复制这段</button>
           </div>
           <div class="ckx-sum" id="ckSum"></div>

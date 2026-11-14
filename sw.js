@@ -46,14 +46,63 @@ async function saveSweep(keepUrl) {
   } catch (e) {}
 }
 
-async function saveServe(url) {
+// ===== 把暂存的那一份交给下载器（2026-11-14 备份批重写）=====
+// 旧写法「取走即删」——本意是别让暂存涨盘，代价是**一次都重试不得**：壳的下载器常常先探一下
+// （HEAD，或者一条带 Range 的头一遍），第二条拿到的就是 404，屏上写「下载失败」。iQOO 13 · Via
+// 那一报（「点备份会显示错误，然后应用会闪退」）里，「显示错误」这一半正落在这里。现在：
+//   ① 命中就**返回但不删**，暂存交给 SAVE_TTL 那把扫帚（30 分钟）与下一次新搬时的 saveSweep 清；
+//   ② HEAD 只回头（有的下载器拿它探大小与文件名）；
+//   ③ 带 Range 的按 Request 切一段回 206（单段；越界回 416），并照旧带上 Content-Disposition
+//      ＝文件名不会因为走了 Range 就变成 token；
+//   ④ 回一句 SAVE_FETCHED 给页面：页面据此知道「这台壳的下载器真把地址取走了」，反过来就知道
+//      「它没取」——那件事不再靠猜机型。
+function saveFetchedNote(event, token) {
+  const msg = { type: 'SAVE_FETCHED', token: token };
+  // 只走 matchAll：#4664 之前在 clientId 那一路也发一遍＝同一条消息发两次（页面那边只是多一次无害回调，
+  // 但排障时读数会翻倍）。includeUncontrolled 已经包含发请求的那一页（页面刚 reload 过也收得到）。
+  try {
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then(cs => { (cs || []).forEach(c => { try { c.postMessage(msg); } catch (e) {} }); })
+      .catch(() => {});
+  } catch (e) {}
+}
+async function saveServe(event) {
+  const url = new URL(event.request.url);
   const key = url.origin + url.pathname;   // 去查询串（页在地址上带了 ?t= 时间戳与文件名）
+  let res = null;
   try {
     const cache = await caches.open(SAVE_CACHE);
-    const res = await cache.match(key);
-    if (res) { try { await cache.delete(key); } catch (e) {} return res; }
-  } catch (e) {}
-  return new Response('gone', { status: 404 });
+    res = await cache.match(key);
+  } catch (e) { res = null; }
+  if (!res) return new Response('gone', { status: 404, headers: { 'Cache-Control': 'no-store' } });
+  const token = url.pathname.split(SAVE_MARK).pop() || '';
+  saveFetchedNote(event, token);
+  const head = new Headers(res.headers);
+  const total = Number(head.get('Content-Length') || 0);
+  head.set('Accept-Ranges', 'bytes');
+  head.set('Cache-Control', 'no-store');
+  if (event.request.method === 'HEAD') {
+    return new Response(null, { status: 200, headers: head });
+  }
+  const range = event.request.headers.get('Range') || '';
+  const m = /^bytes=(\d*)-(\d*)$/i.exec(range.trim());
+  if (m && (m[1] || m[2])) {
+    let blob = null;
+    try { blob = await res.blob(); } catch (e) { blob = null; }
+    const size = blob ? blob.size : total;
+    let start = m[1] ? parseInt(m[1], 10) : 0;
+    let end = m[2] ? parseInt(m[2], 10) : size - 1;
+    if (!m[1] && m[2]) { start = Math.max(0, size - parseInt(m[2], 10)); end = size - 1; }   // bytes=-N＝最后 N 字节
+    if (!isFinite(start) || !isFinite(end) || start < 0 || start >= size || end < start) {
+      return new Response('range', { status: 416, headers: { 'Content-Range': 'bytes */' + size } });
+    }
+    if (end > size - 1) end = size - 1;
+    const part = blob ? blob.slice(start, end + 1) : null;
+    head.set('Content-Range', 'bytes ' + start + '-' + end + '/' + size);
+    head.set('Content-Length', String(end - start + 1));
+    return new Response(part, { status: 206, headers: head });
+  }
+  return new Response(res.body, { status: 200, headers: head });
 }
 
 const STATIC_ASSETS = [
@@ -167,12 +216,18 @@ self.addEventListener('fetch', (event) => {
   // 换新无从谈起，SW 本来就不该碰 POST/PUT/DELETE。
   // ⚠ 当年是反馈表那条 POST 把它逼出来的（FEATURES #2127）；2026-10-27 反馈改成纯说明页、站内不再
   //   发任何请求，这一行**照旧留着**——它守的是「SW 不吞写请求」这件事本身，不是那张表。
-  if (event.request.method !== 'GET') return;
+  // 2026-11-14（BUGS #4664）：唯一的例外是 **HEAD 打到备份暂存那条地址**——下载器常用它先探大小与
+  // 文件名，而它落在这一句之前就被放走了＝第二条（真正的 GET）才可能命中，探针那一条永远 404。
+  // 只放这一条窄路（同一 origin ＋ SAVE_MARK），其余方法照旧一个不放。
+  if (event.request.method !== 'GET') {
+    if (event.request.method === 'HEAD' && url.pathname.indexOf(SAVE_MARK) >= 0) event.respondWith(saveServe(event));
+    return;
+  }
 
   // BUGS #3072 备份落盘通道：先于「页面导航」那条判据——<a download> 那一发请求的 mode 就是
   // 'navigate'，落进 navWithBundle 会被当成导航页、整条通道作废。只认自己名下的地址，其余照旧。
   if (url.pathname.indexOf(SAVE_MARK) >= 0) {
-    event.respondWith(saveServe(url));
+    event.respondWith(saveServe(event));
     return;
   }
 
@@ -520,11 +575,29 @@ self.addEventListener('message', (e) => {
   if (d.type !== 'SAVE_BLOB' || !d.blob || !d.token) return;
   const base = new URL('./', self.registration.scope).href;
   const url = base.replace(/\/$/, '') + SAVE_MARK.slice(0, -1) + '/' + d.token + '?t=' + Date.now();
-  const reply = (ok) => { try { if (e.source && e.source.postMessage) e.source.postMessage({ type: 'SAVE_READY', token: d.token, url: ok ? url : '' }); } catch (x) {} };
+  // 2026-11-14（BUGS #4664）：回执必须走**页面递进来的那只 MessagePort**（`e.ports[0]`）。
+  // 旧写法只走 `e.source.postMessage`——实测在 Chromium 里这条路回不到页面那只端口上：
+  // 页面等 15 秒拿不到地址 → 判「搬不上」→ 落回 blob: → Via 那一抱把壳崩掉（用户那句「点备份就闪退」）。
+  // 于是这条通道从 #3072 落地起就没真正通过一次（当年标着「真机:待验证」）。
+  // 现在先走 ports[0]，没有端口才退回 source（两路都留着＝老浏览器与将来的调用形状都不落空）。
+  const reply = (ok) => {
+    const msg = { type: 'SAVE_READY', token: d.token, url: ok ? url : '' };
+    let sent = false;
+    try { const p = e.ports && e.ports[0]; if (p) { p.postMessage(msg); sent = true; } } catch (x) {}
+    if (!sent) { try { if (e.source && e.source.postMessage) e.source.postMessage(msg); } catch (x) {} }
+  };
   e.waitUntil((async () => {
     const cache = await caches.open(SAVE_CACHE);
     await cache.put(url.split('?')[0], new Response(d.blob, {
-      headers: { 'Content-Type': d.mime || 'application/octet-stream', 'Content-Disposition': saveDisposition(d.name), 'Cache-Control': 'no-store' }
+      headers: {
+        'Content-Type': d.mime || 'application/octet-stream',
+        'Content-Disposition': saveDisposition(d.name),
+        'Cache-Control': 'no-store',
+        // 2026-11-14：下载器要拿这两个头才肯老实写盘（探大小 ∶ 要不要分段）。缺了 Content-Length
+        // 时安卓那几家下载器会先把整份拉进内存再问「存哪儿」＝大文件又回到崩的那条老路。
+        'Content-Length': String((d.blob && d.blob.size) || 0),
+        'Accept-Ranges': 'bytes'
+      }
     }));
     saveSweep(url.split('?')[0]);   // 顺手清掉别人家没取走的（不 await，别拖慢回执）
     reply(true);
