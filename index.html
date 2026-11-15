@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v31.7.4.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v31.7.4.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v31.9.4.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v31.9.4.js" fetchpriority="high"></script>
 
    
   <script>
@@ -364,7 +364,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v31.7.4.css','dist/app.v31.7.4.js'];
+      var BOOT_FILES = ['dist/app.v31.9.4.css','dist/app.v31.9.4.js'];
 
 
 
@@ -1302,8 +1302,8 @@
      
     <div class="fav-selbar" id="favSelBar" hidden>
       <button type="button" class="fav-sel-all" id="favSelAll">全选</button>
-      <span class="fav-sel-n" id="favSelN">已选 0 条</span>
       <button type="button" class="fav-sel-del" id="favSelDel" hidden>删除</button>
+      <span class="fav-sel-n" id="favSelN">已选 0 条</span>
       <button type="button" class="fav-sel-send" id="favSelSend">发送</button>
       <button type="button" class="fav-sel-done" id="favSelDone">完成</button>
     </div>
@@ -2723,6 +2723,8 @@
             <div class="ap-row"><span>已加载<span style="display:block;font-size:11px;color:var(--muted)" id="tapSfxState">内置「轻点」</span></span><div class="ap-ctl"><button type="button" class="soft-btn" id="tapSfxUp" data-tap-silent style="flex:none;width:auto;padding:5px 10px">上传音频</button><button type="button" class="soft-btn" id="tapSfxUse" data-tap-silent hidden style="flex:none;width:auto;padding:5px 10px">用上传的</button><button type="button" class="soft-btn" id="tapSfxClr" data-tap-silent style="flex:none;width:auto;padding:5px 10px">清除</button></div></div>
             <div class="ap-row"><span style="flex:1;min-width:0">音量<span style="display:block;font-size:11px;color:var(--muted)">拖到 0 就彻底无声</span></span><input type="range" id="tapSfxVol" min="0" max="100" step="5" style="flex:none;width:130px"></div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><button type="button" class="soft-btn" id="tapSfxTest" data-tap-silent style="flex:none;width:auto;padding:5px 10px">试听这一声</button><button type="button" class="soft-btn" id="tapSfxRst" data-tap-silent style="flex:none;width:auto;padding:5px 10px">恢复出厂</button><span class="data-note" id="tapSfxRstNote" style="flex:1 1 8em;min-width:0;margin:0">关 · 轻点 · 55%（上传的那段留着）</span></div>
+             
+            <div class="ap-row" style="display:block;margin:12px 0 0"><span>听不见？<span style="display:block;font-size:11px;color:var(--muted)">点一下自检，它会说清楚卡在哪一环（开关／音量／浏览器有没有放开音频／这一次到底响到没有）</span></span><div class="ap-ctl" style="margin-top:6px"><button type="button" class="soft-btn" id="tapSfxDiag" data-tap-silent style="flex:none;width:auto;padding:5px 10px">自检</button></div><span class="data-note" id="tapSfxDiagOut" style="display:block;margin:8px 0 0"></span></div>
             <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">这一格管的是<b>点按钮时那一声</b>，与「TA 发来消息」「来电振铃」那两套提示音不是一件事：那两套<b>按人各一份</b>（聊天页右上角 → TA 的设置 → 声音），这一格是<b>整站一份、只在这台设备上</b>，不分联系人，也不跟着备份导出跑到别人手机里。</p><p class="data-note">内置五款是实时合成的，不占存储；上传的那段音频存在本机（<b>512KB 以内</b>，建议三秒以内、开头就出声的短音——点按音太长会拖泥带水）。上传过以后可以在音色与上传的那段之间来回切，不用重传；「清除」才会真的把文件删掉。<b>出厂是关的</b>——要用就在上面勾一下。</p><p class="data-note">长按（按住超过半秒）与滑屏一律不出声：那两种动作有自己的反馈，再补一声就成了「滑一下就响一串」。通话进行中也不出声——那一面有自己的铃声与提示音。</p></details>
           </div>
         </div>
@@ -4301,6 +4303,7 @@
         <li><b>弱网要多等一会儿</b>：新版是一整包（页面加代码，约 3MB）。网络慢时下载大概要一两分钟，最差可能几分钟——这期间别退出、别连着点，它下完会自动重开。</li>
         <li><b>刷完还是旧版</b>：多半是这一趟没下完。再点一次；仍不行就彻底关掉浏览器再重开一次，或换更快的网络（比如手机流量）再试。</li>
         <li><b>想确认是不是最新</b>：到「更多」页点一下版号下面那一行，它若说「线上也是这一版」，就已经是最新版了。</li>
+        <li><b>从主屏图标进来的</b>：这种方式打开的不会自己刷新，旧版会一直留着。从最近任务里把应用划掉，再从主屏点开；开屏那一行若说有新版，点它一下，等下完自动重开。划一次不行就再划一次。</li>
       </ol>
     </div>
     <div class="upd-list" id="updList"></div>
@@ -7074,6 +7077,8 @@
         <div class="hm-stage-tint" aria-hidden="true"></div>
         <div class="hm-stage-light" aria-hidden="true"></div>
         <div class="hm-stage-lamp" aria-hidden="true"></div>
+         
+        <div class="hm-shadows" id="hmShadows" aria-hidden="true"></div>
         <div class="hm-bigs" id="hmBigs" aria-hidden="true"></div>
         <div class="hm-furn" id="hmFurn"></div>
         <div class="hm-plaque" id="hmPlaque" aria-hidden="true"><span></span></div>
@@ -7146,7 +7151,7 @@
           <div class="ha-scroll" id="haScroll">
           <div class="ha-hero">
             <span class="ha-hero-face" id="haHeroFace" aria-label="小言 · 长按清空这段对话"></span>
-            <div class="ha-hero-tx"><b>小言</b><small>问一句，答一句 · 也能当场帮你查</small></div>
+            <div class="ha-hero-tx"><b>小言</b><small>问一句，答一句 · 也能帮你查</small></div>
             <div class="ha-hero-ctl"><span>悬浮</span><span class="hub-tg" id="haFloatTg" role="switch" tabindex="0" aria-label="悬浮小言总闸"></span><button type="button" class="ha-hero-set" id="haSetBtn" aria-expanded="false" aria-label="小言的设置（AI 答疑与悬浮范围）">设置</button></div>
           </div>
            
@@ -7163,6 +7168,8 @@
           </div>
           </div>
           <div class="ha-log" id="haLog" aria-live="polite"></div>
+           
+          <button type="button" class="ha-new" id="haNew" data-ha-new="1" hidden>有新答案 ↘</button>
           </div>
           <div class="ha-chips" id="haChips"></div>
           <div class="ha-ask">
@@ -7212,7 +7219,11 @@
       <button type="button" class="fs-sheet-close" id="haSheetClose" aria-label="关闭快问面板">×</button>
     </div>
     <div class="fs-sheet-body ha-sheet-body">
+       
+      <div class="ha-scroll" id="haSheetScroll">
       <div class="ha-log" id="haSheetLog" aria-live="polite"></div>
+      <button type="button" class="ha-new" id="haSheetNew" data-ha-new="1" hidden>有新答案 ↘</button>
+      </div>
       <div class="ha-chips" id="haSheetChips"></div>
       <div class="ha-ask">
         <input id="haSheetInput" type="text" placeholder="问一句…" autocomplete="off" aria-label="问小言">
