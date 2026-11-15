@@ -114,8 +114,8 @@
 
   </style>
 
-  <link rel="stylesheet" href="dist/app.v31.9.4.css" media="print" onload="this.media='all'">
-  <script defer src="dist/app.v31.9.4.js" fetchpriority="high"></script>
+  <link rel="stylesheet" href="dist/app.v32.0.8.css" media="print" onload="this.media='all'">
+  <script defer src="dist/app.v32.0.8.js" fetchpriority="high"></script>
 
    
   <script>
@@ -128,6 +128,17 @@
         }
       } catch (e) {}
     })();
+     
+     
+     
+     
+     
+    window.__bootMark = function (tag) {
+      try {
+        (window.__bootMarks = window.__bootMarks || []).push({ t: performance.now(), tag: String(tag || '') });
+      } catch (e) {}
+    };
+    window.__bootMark('脚本起跑');
   </script>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -364,7 +375,7 @@
 
 
 
-      var BOOT_FILES = ['dist/app.v31.9.4.css','dist/app.v31.9.4.js'];
+      var BOOT_FILES = ['dist/app.v32.0.8.css','dist/app.v32.0.8.js'];
 
 
 
@@ -2725,7 +2736,8 @@
             <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><button type="button" class="soft-btn" id="tapSfxTest" data-tap-silent style="flex:none;width:auto;padding:5px 10px">试听这一声</button><button type="button" class="soft-btn" id="tapSfxRst" data-tap-silent style="flex:none;width:auto;padding:5px 10px">恢复出厂</button><span class="data-note" id="tapSfxRstNote" style="flex:1 1 8em;min-width:0;margin:0">关 · 轻点 · 55%（上传的那段留着）</span></div>
              
             <div class="ap-row" style="display:block;margin:12px 0 0"><span>听不见？<span style="display:block;font-size:11px;color:var(--muted)">点一下自检，它会说清楚卡在哪一环（开关／音量／浏览器有没有放开音频／这一次到底响到没有）</span></span><div class="ap-ctl" style="margin-top:6px"><button type="button" class="soft-btn" id="tapSfxDiag" data-tap-silent style="flex:none;width:auto;padding:5px 10px">自检</button></div><span class="data-note" id="tapSfxDiagOut" style="display:block;margin:8px 0 0"></span></div>
-            <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">这一格管的是<b>点按钮时那一声</b>，与「TA 发来消息」「来电振铃」那两套提示音不是一件事：那两套<b>按人各一份</b>（聊天页右上角 → TA 的设置 → 声音），这一格是<b>整站一份、只在这台设备上</b>，不分联系人，也不跟着备份导出跑到别人手机里。</p><p class="data-note">内置五款是实时合成的，不占存储；上传的那段音频存在本机（<b>512KB 以内</b>，建议三秒以内、开头就出声的短音——点按音太长会拖泥带水）。上传过以后可以在音色与上传的那段之间来回切，不用重传；「清除」才会真的把文件删掉。<b>出厂是关的</b>——要用就在上面勾一下。</p><p class="data-note">长按（按住超过半秒）与滑屏一律不出声：那两种动作有自己的反馈，再补一声就成了「滑一下就响一串」。通话进行中也不出声——那一面有自己的铃声与提示音。</p></details>
+            <details class="set-adv"><summary>说明（点开看）</summary><p class="data-note">这一格管的是<b>点按钮时那一声</b>，与「TA 发来消息」「来电振铃」那两套提示音不是一件事：那两套<b>按人各一份</b>（聊天页右上角 → TA 的设置 → 声音），这一格是<b>整站一份、只在这台设备上</b>，不分联系人，也不跟着备份导出跑到别人手机里。</p><p class="data-note">内置五款是实时合成的，不占存储；上传的那段音频存在本机（<b>512KB 以内</b>，建议三秒以内、开头就出声的短音——点按音太长会拖泥带水）。上传过以后可以在音色与上传的那段之间来回切，不用重传；「清除」才会真的把文件删掉。<b>出厂是关的</b>——要用就在上面勾一下。</p><p class="data-note">长按（按住超过半秒）与滑屏一律不出声：那两种动作有自己的反馈，再补一声就成了「滑一下就响一串」。通话进行中也不出声——那一面有自己的铃声与提示音。</p>
+            <p class="data-note">听不见先点上面的<b>自检</b>。它说「产出了声音」而你还是听不见＝设备/站点那头静音：媒体音量为 0、浏览器对这个站点点了「静音」，或（iPhone）静音拨片——合成音色在 iOS 上默认跟随静音拨片，传一段自定义音频就能绕开（它走媒体通道）。这一声与消息提示音、来电铃声是三套各自独立的开关。</p></details>
           </div>
         </div>
 
